@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
+  <title>Stackly | Market</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    /* Your existing Auth Styles */
+    html { height: 100%; overflow-x: hidden; }
+    body { font-family: Arial, Helvetica, sans-serif; margin: 0; min-height: 100%; overflow-x: hidden; }
+    .font-welcome-heading { font-family: "Times New Roman", Georgia, serif; letter-spacing: 0.35em; font-weight: 600; text-align: center; }
+    .error-text { font-size: 12px; color: #ff6b6b; margin-top: 4px; font-weight: 500; }
+    .password-toggle-hidden .password-toggle-btn { visibility: hidden; pointer-events: none; }
+    
+    /* New Landing Page Styles */
+    .hero-bg { background-color: #FDE2E4; }
+    .category-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+    
+    @media (max-width: 1023px) {
+      .auth-form-card { min-height: 100svh; width: 100%; }
+      .auth-image-col { display: none !important; }
+    }
+  </style>
+</head>
+
+<body class="bg-white antialiased">
+
+  <script>
+    const BACKEND_BASE_URL = "http://localhost:5000";
+
+    function showPage(page) {
+      // Added 'home' to your existing page list
+      var pages = ["home", "signup", "login", "error", "forgot", "verifyEmail", "verifyMobile", "verified", "createNewPassword"];
+      pages.forEach(function (key) {
+        var el = document.getElementById(key + "Page");
+        if (el) el.classList.add("hidden");
+      });
+
+      var active = document.getElementById(page + "Page");
+      if (active) active.classList.remove("hidden");
+
+      // Handle body scroll for auth pages vs landing page
+      var isAuth = (page === "login" || page === "signup");
+      document.body.style.overflow = (isAuth && window.innerWidth >= 1024) ? "hidden" : "auto";
+    }
+
+    // Routing Logic
+    function router() {
+      const hash = window.location.hash.replace("#", "");
+      if (hash === "signup") showPage("signup");
+      else if (hash === "login") showPage("login");
+      else if (hash === "forgot") showPage("forgot");
+      else if (hash === "home") showPage("home");
+      else if (hash === "verifyEmail") showPage("verifyEmail");
+      else if (hash === "verifyMobile") showPage("verifyMobile");
+      else if (hash === "verified") showPage("verified");
+      else if (hash === "createNewPassword") showPage("createNewPassword");
+      else if (hash === "error") showPage("error");
+      else showPage("home"); // Set Landing Page as Default
+    }
+
+    window.addEventListener("hashchange", router);
+    document.addEventListener("DOMContentLoaded", router);
+
+    // Existing Auth Handlers... (Keeping your functions intact)
+    function validateEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+    function isMobile(value) { return /^[0-9]{10}$/.test(value.trim()); }
+    // ... handleLogin, handleSignup, toggle visibility functions go here ...
+  </script>
+
+  <div id="homePage" class="hidden min-h-screen flex flex-col">
+    <nav class="sticky top-0 z-50 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between shadow-sm">
+        <div class="flex items-center gap-8">
+            <div class="text-2xl font-bold text-blue-900">Stackly</div>
+            <div class="hidden lg:flex space-x-6 text-sm font-medium text-gray-600">
+                <a href="#home" class="hover:text-blue-600">Home</a>
+                <a href="#" class="hover:text-blue-600">Categories</a>
+                <a href="#" class="hover:text-blue-600">Careers</a>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <button onclick="location.hash='login'" class="text-sm font-semibold text-blue-600">Login</button>
+            <button onclick="location.hash='signup'" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Sign Up</button>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 w-full">
+        <section class="hero-bg mt-6 rounded-3xl overflow-hidden relative min-h-[350px] flex items-center px-10">
+            <div class="max-w-lg z-10">
+                <h1 class="text-3xl md:text-5xl font-extrabold text-blue-950 leading-tight">Build Your Dream Website Today</h1>
+                <button class="mt-6 bg-blue-700 text-white px-6 py-3 rounded-lg font-bold shadow-lg hover:bg-blue-800 transition">Get Started</button>
+            </div>
+            <img src="public/illustration.webp" class="absolute right-0 bottom-0 h-full hidden md:block opacity-80" alt="Hero">
+        </section>
+
+        <div class="mt-16">
+            <h2 class="text-2xl font-bold text-blue-950 mb-8">Categories</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden category-card">
+                    <div class="h-40 bg-yellow-100 flex items-center justify-center"><i class="fa-brands fa-wordpress text-5xl text-yellow-600/40"></i></div>
+                    <div class="p-6 text-center">
+                        <h3 class="font-bold">WordPress Themes</h3>
+                        <div class="mt-4 flex justify-center gap-4 text-blue-500 text-xs font-bold underline">
+                            <a href="#">Preview</a><a href="#">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden category-card">
+                    <div class="h-40 bg-blue-900 flex items-center justify-center"><i class="fa-solid fa-cart-shopping text-5xl text-white/20"></i></div>
+                    <div class="p-6 text-center text-gray-800">
+                        <h3 class="font-bold">eCommerce Templates</h3>
+                        <div class="mt-4 flex justify-center gap-4 text-blue-500 text-xs font-bold underline">
+                            <a href="#">Preview</a><a href="#">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden category-card">
+                    <div class="h-40 bg-purple-100 flex items-center justify-center"><i class="fa-solid fa-bullhorn text-5xl text-purple-600/40"></i></div>
+                    <div class="p-6 text-center">
+                        <h3 class="font-bold">Digital Marketing</h3>
+                        <div class="mt-4 flex justify-center gap-4 text-blue-500 text-xs font-bold underline">
+                            <a href="#">Preview</a><a href="#">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-16 mb-20">
+            <h2 class="text-2xl font-bold text-blue-950 mb-8">Top Selling This Week</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                    <div class="bg-slate-100 h-32 rounded-lg mb-4"></div>
+                    <h4 class="font-bold">Shopify - eCommerce</h4>
+                    <div class="flex justify-between mt-4">
+                        <span class="text-blue-700 font-bold">$59</span>
+                        <span class="text-yellow-400 text-xs"><i class="fa-solid fa-star"></i> 5.0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-[#021a46] py-10 text-white text-center text-xs opacity-60">© 2026 Stackly</footer>
+  </div>
+
+  <div id="signupPage" class="hidden auth-page ..."> 
+      </div>
+
+  <div id="loginPage" class="hidden auth-page ...">
+      </div>
+
+  </body>
+</html>
