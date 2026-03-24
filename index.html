@@ -30,9 +30,9 @@
       position: absolute;
       right: 0;
       bottom: 0;
-      height: 90%;
-      width: auto;
-      object-fit: contain;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
       pointer-events: none;
     }
     
@@ -41,12 +41,11 @@
     @media (max-width: 1023px) {
       .auth-form-card { min-height: 100svh; width: 100%; }
       .auth-image-col { display: none !important; }
-      .hero-illustration { height: 60%; opacity: 0.3; } /* Adjust for mobile visibility */
     }
   </style>
 </head>
 
-<body class="bg-Deep Sapphire antialiased">
+<body class="bg-white antialiased">
 
   <script>
     const BACKEND_BASE_URL = "http://localhost:5000";
@@ -80,40 +79,68 @@
 
   <div id="homePage" class="hidden min-h-screen flex flex-col">
     
-    <nav class="sticky top-0 z-50 bg-[#06224C] border-b border-gray-100 px-4 md:px-12 py-4 flex items-center justify-between shadow-sm">
-      <div class="flex items-center gap-10">
-        <div class="text-2xl font-black text-white tracking-tighter">Stackly</div>
-        <div class="hidden lg:flex space-x-8 text-[11px] font-bold text-white uppercase tracking-widest">
-              <a href="#home" class="text-white hover:text-blue-300 transition">Home</a>
-              <a href="#" class="text-white hover:text-blue-300 transition">About Us</a>
-              <a href="#" class="text-white hover:text-blue-300 transition">Our Business</a>
-              <a href="#" class="text-white hover:text-blue-300 transition">Categories</a>
-              <a href="#" class="text-white hover:text-blue-300 transition">Careers</a>
-        </div>
-        </div>
-      <div class="flex items-center gap-5">
-        <i class="fa-solid fa-magnifying-glass text-gray-400 cursor-pointer hover:text-blue-600"></i>
-        <button onclick="location.hash='login'" class="bg-[#2D60FF] text-white px-6 py-2 rounded-full text-xs font-bold shadow-md hover:bg-blue-700 transition">
-          Login / Join
-        </button>
+    <nav class="sticky top-0 z-50 bg-[#06224C] border-b border-white/10 px-4 md:px-12 py-3 flex items-center justify-between shadow-sm">
+  
+  <div class="flex items-center flex-shrink-0">
+    <a href="#home">
+      <img src="public/stackly-logo.webp" alt="Stackly" class="h-8 md:h-10 w-auto object-contain">
+    </a>
+  </div>
+
+  <div class="hidden lg:flex flex-grow justify-center">
+    <div class="flex space-x-10 text-[13px] font-bold text-white uppercase tracking-wide items-center">
+      <a href="#home" class="text-white hover:text-blue-300 transition">Home</a>
+      <a href="#" class="text-white hover:text-blue-300 transition">About Us</a>
+      
+      <a href="#" class="flex items-center gap-1.5 text-white hover:text-blue-300 transition">
+        Our Products <i class="fa-solid fa-chevron-down text-[10px]"></i>
+      </a>
+      
+      <a href="#" class="flex items-center gap-1.5 text-white hover:text-blue-300 transition">
+        Categories <i class="fa-solid fa-chevron-down text-[10px]"></i>
+      </a>
+      
+      <a href="#" class="text-white hover:text-blue-300 transition">Contact</a>
+    </div>
+  </div>
+
+  <div class="flex items-center gap-4 md:gap-6 flex-shrink-0">
+    
+    <button class="hidden sm:flex items-center gap-2 border border-white/30 rounded-full px-4 py-1.5 text-white text-xs font-semibold hover:bg-white/10 transition">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>Cart</span>
+    </button>
+
+    <button class="w-8 h-8 flex items-center justify-center bg-white rounded-full text-[#06224C] hover:bg-gray-200 transition">
+      <i class="fa-solid fa-magnifying-glass text-sm"></i>
+    </button>
+
+    <div class="cursor-pointer group relative">
+      <div class="w-10 h-10 rounded-full border-2 border-white/50 overflow-hidden group-hover:border-white transition">
+        <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User Profile" class="w-full h-full object-cover">
       </div>
-    </nav>
+    </div>
+
+  </div>
+
+</nav>
 
     <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex-grow">
       
-      <section class="hero-container mt-6 rounded-[2.5rem] md:rounded-[3.5rem] min-h-[400px] md:min-h-[500px] flex items-center">
+      <section class="hero-container mt-6 rounded-[2.5rem] md:rounded-[3.5rem] min-h-[400px] md:min-h-[500px] flex items-center relative">
+        <img src="public/landing2.webp" class="hero-illustration" alt="Hero Illustration">
+        
         <div class="relative z-20 w-full md:w-1/2 px-8 md:pl-20 py-12 text-center md:text-left">
           <h1 class="text-4xl md:text-6xl font-black text-[#0A2357] leading-tight">
             Build Your Dream <br class="hidden md:block"/> Website Today
           </h1>
-          <button class="mt-8 mx-auto md:mx-0 bg-[#0A2357] text-white px-8 py-3 rounded-xl font-bold flex items-center gap-3 hover:bg-blue-900 transition active:scale-95 shadow-lg">
+          <button onclick="location.hash='signup'" class="mt-8 mx-auto md:mx-0 bg-[#0A2357] text-white px-8 py-3 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-blue-900 transition active:scale-95 shadow-lg">
             Get Started 
             <span class="bg-white text-[#0A2357] rounded-full w-5 h-5 flex items-center justify-center text-[10px]">
               <i class="fa-solid fa-play"></i>
             </span>
           </button>
         </div>
-        <img src="public/landing2.webp" class="hero-illustration hidden lg:block" alt="Hero Illustration">
       </section>
 
       <div class="mt-12 text-center">
@@ -196,7 +223,7 @@
       </div>
     </div>
 
-    <footer class="bg-[#051129] py-16 w-full">
+    <footer class="bg-[#051129] py-16 w-full mt-auto">
       <div class="text-center text-white/20 text-[9px] font-black uppercase tracking-[0.5em] px-4">
         © 2026 Stackly Market • Digital Asset Marketplace
       </div>
@@ -204,6 +231,10 @@
   </div>
 
   <div id="signupPage" class="hidden auth-page"> </div>
+  <div id="loginPage" class="hidden auth-page"> </div>
+
+</body>
+</html>id="signupPage" class="hidden auth-page"> </div>
   <div id="loginPage" class="hidden auth-page"> </div>
 
 </body>
