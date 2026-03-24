@@ -6,7 +6,6 @@
   <title>Stackly | Market</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <style>
@@ -17,24 +16,42 @@
     .error-text { font-size: 12px; color: #ff6b6b; margin-top: 4px; font-weight: 500; }
     .password-toggle-hidden .password-toggle-btn { visibility: hidden; pointer-events: none; }
     
-    /* New Landing Page Styles */
-    .hero-bg { background-color: #FDE2E4; }
+    /* ADDED: Landing Page Specific CSS */
+    #homePage { 
+      background-color: #FFF1F2; /* Global Pink Background */
+    }
+    .hero-container {
+      background-color: #FDE2E4;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Forces the illustration to fill and anchor to the bottom-right */
+    .hero-illustration {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      height: 90%;
+      width: auto;
+      object-fit: contain;
+      pointer-events: none;
+    }
+    
     .category-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
     
     @media (max-width: 1023px) {
       .auth-form-card { min-height: 100svh; width: 100%; }
       .auth-image-col { display: none !important; }
+      .hero-illustration { height: 60%; opacity: 0.3; } /* Adjust for mobile visibility */
     }
   </style>
 </head>
 
-<body class="bg-white antialiased">
+<body class="bg-Deep Sapphire antialiased">
 
   <script>
     const BACKEND_BASE_URL = "http://localhost:5000";
 
     function showPage(page) {
-      // Added 'home' to your existing page list
       var pages = ["home", "signup", "login", "error", "forgot", "verifyEmail", "verifyMobile", "verified", "createNewPassword"];
       pages.forEach(function (key) {
         var el = document.getElementById(key + "Page");
@@ -44,193 +61,150 @@
       var active = document.getElementById(page + "Page");
       if (active) active.classList.remove("hidden");
 
-      // Handle body scroll for auth pages vs landing page
       var isAuth = (page === "login" || page === "signup");
       document.body.style.overflow = (isAuth && window.innerWidth >= 1024) ? "hidden" : "auto";
     }
 
-    // Routing Logic
     function router() {
       const hash = window.location.hash.replace("#", "");
       if (hash === "signup") showPage("signup");
       else if (hash === "login") showPage("login");
       else if (hash === "forgot") showPage("forgot");
       else if (hash === "home") showPage("home");
-      else if (hash === "verifyEmail") showPage("verifyEmail");
-      else if (hash === "verifyMobile") showPage("verifyMobile");
-      else if (hash === "verified") showPage("verified");
-      else if (hash === "createNewPassword") showPage("createNewPassword");
-      else if (hash === "error") showPage("error");
-      else showPage("home"); // Set Landing Page as Default
+      else showPage("home"); 
     }
 
     window.addEventListener("hashchange", router);
     document.addEventListener("DOMContentLoaded", router);
-
-    // Existing Auth Handlers... (Keeping your functions intact)
-    function validateEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
-    function isMobile(value) { return /^[0-9]{10}$/.test(value.trim()); }
-    // ... handleLogin, handleSignup, toggle visibility functions go here ...
   </script>
 
-  <div id="homePage" class="hidden min-h-screen flex flex-col bg-white">
-  
-  <nav class="sticky top-0 z-50 bg-white border-b border-gray-100 px-6 py-3 flex items-center justify-between shadow-sm">
-    <div class="flex items-center gap-10">
-      <div class="text-2xl font-bold text-blue-900 tracking-tighter">Stackly</div>
-      <div class="hidden lg:flex space-x-8 text-sm font-semibold text-gray-500 uppercase tracking-wide">
-        <a href="#home" class="hover:text-blue-700">Home</a>
-        <a href="#" class="hover:text-blue-700">About Us</a>
-        <a href="#" class="hover:text-blue-700">Our Business</a>
-        <a href="#" class="hover:text-blue-700">Categories</a>
-        <a href="#" class="hover:text-blue-700">Careers</a>
-      </div>
-    </div>
-    <div class="flex items-center gap-5">
-      <i class="fa-solid fa-magnifying-glass text-gray-400 cursor-pointer hover:text-blue-600"></i>
-      <button onclick="location.hash='login'" class="bg-blue-600 text-white px-5 py-2 rounded-full text-xs font-bold shadow-md hover:bg-blue-700">Login / Join</button>
-    </div>
-  </nav>
-
-  <div class="max-w-7xl mx-auto px-4 w-full">
+  <div id="homePage" class="hidden min-h-screen flex flex-col">
     
-    <section class="mt-6 rounded-[2rem] overflow-hidden relative min-h-[420px] flex items-center px-12" style="background-color: #FEE4E6;">
-      <div class="max-w-md z-10">
-        <h1 class="text-4xl md:text-5xl font-black text-blue-950 leading-tight">
-          <!-- Find the Perfect Theme for Your Project -->
-        </h1>
-        <button class="mt-8 bg-blue-800 text-white px-8 py-3 rounded-lg font-bold flex items-center gap-3 hover:bg-blue-900 transition">
-          Get Started <i class="fa-solid fa-circle-play"></i>
+    <nav class="sticky top-0 z-50 bg-[#06224C] border-b border-gray-100 px-4 md:px-12 py-4 flex items-center justify-between shadow-sm">
+      <div class="flex items-center gap-10">
+        <div class="text-2xl font-black text-white tracking-tighter">Stackly</div>
+        <div class="hidden lg:flex space-x-8 text-[11px] font-bold text-white uppercase tracking-widest">
+              <a href="#home" class="text-white hover:text-blue-300 transition">Home</a>
+              <a href="#" class="text-white hover:text-blue-300 transition">About Us</a>
+              <a href="#" class="text-white hover:text-blue-300 transition">Our Business</a>
+              <a href="#" class="text-white hover:text-blue-300 transition">Categories</a>
+              <a href="#" class="text-white hover:text-blue-300 transition">Careers</a>
+        </div>
+        </div>
+      <div class="flex items-center gap-5">
+        <i class="fa-solid fa-magnifying-glass text-gray-400 cursor-pointer hover:text-blue-600"></i>
+        <button onclick="location.hash='login'" class="bg-[#2D60FF] text-white px-6 py-2 rounded-full text-xs font-bold shadow-md hover:bg-blue-700 transition">
+          Login / Join
         </button>
       </div>
-      <img src="public/landing1.webp" class="absolute full bottom-0 h-[100%] w-[180%] object-contain hidden lg:block" alt="Hero Illustration">
-    </section>
+    </nav>
 
-    <div id="homePage" class="hidden min-h-screen flex flex-col bg-white font-sans overflow-y-auto">
-  
-  <nav class="sticky top-0 z-50 bg-white border-b border-gray-100 px-4 md:px-12 py-4 flex items-center justify-between shadow-sm">
-    <div class="flex items-center gap-10">
-      <div class="text-2xl font-black text-[#0A2357] tracking-tighter">Stackly</div>
-      <div class="hidden lg:flex space-x-8 text-[11px] font-bold text-gray-500 uppercase tracking-widest">
-        <a href="#home" class="hover:text-blue-700">Home</a>
-        <a href="#" class="hover:text-blue-700">About Us</a>
-        <a href="#" class="hover:text-blue-700">Our Business</a>
-        <a href="#" class="hover:text-blue-700">Categories</a>
-        <a href="#" class="hover:text-blue-700">Careers</a>
-      </div>
-    </div>
-    <div class="flex items-center gap-5">
-      <i class="fa-solid fa-magnifying-glass text-gray-400 cursor-pointer"></i>
-      <button onclick="location.hash='login'" class="bg-[#2D60FF] text-white px-6 py-2 rounded-full text-xs font-bold shadow-md hover:bg-blue-700 transition">
-        Login / Join
-      </button>
-    </div>
-  </nav>
+    <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex-grow">
+      
+      <section class="hero-container mt-6 rounded-[2.5rem] md:rounded-[3.5rem] min-h-[400px] md:min-h-[500px] flex items-center">
+        <div class="relative z-20 w-full md:w-1/2 px-8 md:pl-20 py-12 text-center md:text-left">
+          <h1 class="text-4xl md:text-6xl font-black text-[#0A2357] leading-tight">
+            Build Your Dream <br class="hidden md:block"/> Website Today
+          </h1>
+          <button class="mt-8 mx-auto md:mx-0 bg-[#0A2357] text-white px-8 py-3 rounded-xl font-bold flex items-center gap-3 hover:bg-blue-900 transition active:scale-95 shadow-lg">
+            Get Started 
+            <span class="bg-white text-[#0A2357] rounded-full w-5 h-5 flex items-center justify-center text-[10px]">
+              <i class="fa-solid fa-play"></i>
+            </span>
+          </button>
+        </div>
+        <img src="public/landing2.webp" class="hero-illustration hidden lg:block" alt="Hero Illustration">
+      </section>
 
-  <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex-grow">
-    
-    <section class="mt-6 rounded-[2.5rem] overflow-hidden relative flex flex-col md:flex-row items-center px-8 md:px-16 py-12 md:py-0 min-h-[400px] bg-[#FDE2E4]">
-      <div class="w-full md:w-1/2 z-10 text-center md:text-left">
-        <h1 class="text-3xl md:text-5xl font-black text-[#0A2357] leading-tight">
-          Build Your Dream Website Today
-        </h1>
-        <button class="mt-8 mx-auto md:mx-0 bg-[#0A2357] text-white px-8 py-3 rounded-lg font-bold flex items-center gap-3 hover:bg-blue-900 transition">
-          Get Started <i class="fa-solid fa-circle-play"></i>
-        </button>
+      <div class="mt-12 text-center">
+        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Popular Searches</p>
+        <div class="flex flex-wrap justify-center gap-3 pb-4">
+          <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Food</span>
+          <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Travel</span>
+          <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">E-commerce</span>
+          <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Real Estate</span>
+          <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Portfolio</span>
+          <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Landing Page</span>
+          <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Hotel</span>
+          <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Blog</span>
+          <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Education</span>
+          <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Newspaper</span>
+          <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Photography</span>
+          <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">News</span>
+          <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Dashboard</span>
+        </div>
       </div>
-      <div class="w-full md:w-1/2 mt-10 md:mt-0 flex justify-center md:absolute md:right-0 md:bottom-0">
-        <img src="public/illustration.webp" class="w-4/5 md:w-[90%] h-auto max-h-[380px] object-contain" alt="Hero Illustration">
-      </div>
-    </section>
 
-    <div class="mt-12 text-center">
-      <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Popular Searches</p>
-      <div class="flex flex-wrap justify-center gap-3 pb-4">
-        <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">SaaS</span>
-        <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">E-commerce</span>
-        <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Real Estate</span>
-        <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Portfolio</span>
-      </div>
-    </div>
-
-    <div class="mt-20">
-      <h2 class="text-xs font-black text-[#0A2357] mb-8 uppercase tracking-[0.3em] border-l-4 border-blue-600 pl-3">Categories</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
-          <div class="h-48 bg-yellow-400/10 flex items-center justify-center p-4">
-             <i class="fa-brands fa-wordpress text-7xl text-yellow-500/20 group-hover:scale-110 transition duration-500"></i>
+      <div class="mt-20">
+        <h2 class="text-xs font-black text-[#0A2357] mb-8 uppercase tracking-[0.3em] border-l-4 border-blue-600 pl-3">Categories</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
+            <div class="h-48 bg-yellow-400/10 flex items-center justify-center p-4">
+               <i class="fa-brands fa-wordpress text-7xl text-yellow-500/20 group-hover:scale-110 transition duration-500"></i>
+            </div>
+            <div class="p-6 text-center">
+              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">WordPress Themes</h3>
+              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
+                <a href="#">Preview</a> <a href="#">Details</a>
+              </div>
+            </div>
           </div>
-          <div class="p-6 text-center">
-            <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight">WordPress Themes</h3>
-            <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
-              <a href="#">Preview</a> <a href="#">Details</a>
+
+          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
+            <div class="h-48 bg-[#0A2357] flex items-center justify-center">
+               <i class="fa-solid fa-cart-shopping text-7xl text-white/10 group-hover:scale-110 transition duration-500"></i>
+            </div>
+            <div class="p-6 text-center">
+              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">eCommerce Templates</h3>
+              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
+                <a href="#">Preview</a> <a href="#">Details</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
+            <div class="h-48 bg-purple-100 flex items-center justify-center">
+               <i class="fa-solid fa-bullhorn text-7xl text-purple-600/20 group-hover:scale-110 transition duration-500"></i>
+            </div>
+            <div class="p-6 text-center">
+              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">Digital Marketing</h3>
+              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
+                <a href="#">Preview</a> <a href="#">Details</a>
+              </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
-          <div class="h-48 bg-[#0A2357] flex items-center justify-center">
-             <i class="fa-solid fa-cart-shopping text-7xl text-white/10 group-hover:scale-110 transition duration-500"></i>
-          </div>
-          <div class="p-6 text-center">
-            <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight">eCommerce Templates</h3>
-            <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
-              <a href="#">Preview</a> <a href="#">Details</a>
+      <div class="mt-24 mb-24">
+        <h2 class="text-xs font-black text-[#0A2357] mb-10 uppercase tracking-[0.3em]">Top Selling This Week</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
+            <div class="h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+              <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
+            </div>
+            <div class="flex justify-between items-center mb-1 text-sm">
+              <h4 class="font-black text-gray-800 uppercase">Shopify - Store</h4>
+              <span class="text-blue-700 font-black">$59</span>
+            </div>
+            <div class="flex items-center gap-1 text-[10px] text-yellow-400">
+               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+               <span class="text-gray-400 ml-1 font-bold">5.0</span>
             </div>
           </div>
         </div>
-
-        <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
-          <div class="h-48 bg-purple-100 flex items-center justify-center">
-             <i class="fa-solid fa-bullhorn text-7xl text-purple-600/20 group-hover:scale-110 transition duration-500"></i>
-          </div>
-          <div class="p-6 text-center">
-            <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight">Digital Marketing</h3>
-            <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
-              <a href="#">Preview</a> <a href="#">Details</a>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
-    <div class="mt-24 mb-24">
-      <h2 class="text-xs font-black text-[#0A2357] mb-10 uppercase tracking-[0.3em]">Top Selling This Week</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
-          <div class="h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
-            <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
-          </div>
-          <div class="flex justify-between items-center mb-1">
-            <h4 class="font-black text-gray-800 text-sm uppercase">Shopify - Store</h4>
-            <span class="text-blue-700 font-black text-lg">$59</span>
-          </div>
-          <div class="flex items-center gap-1 text-[10px] text-yellow-400">
-             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-             <span class="text-gray-400 ml-1 font-bold">5.0</span>
-          </div>
-        </div>
-
+    <footer class="bg-[#051129] py-16 w-full">
+      <div class="text-center text-white/20 text-[9px] font-black uppercase tracking-[0.5em] px-4">
+        © 2026 Stackly Market • Digital Asset Marketplace
       </div>
-    </div>
-
+    </footer>
   </div>
 
-  <footer class="bg-[#051129] py-16 w-full mt-auto">
-    <div class="text-center text-white/20 text-[9px] font-black uppercase tracking-[0.5em] px-4">
-      © 2026 Stackly Market • Digital Asset Marketplace
-    </div>
-  </footer>
-</div>
+  <div id="signupPage" class="hidden auth-page"> </div>
+  <div id="loginPage" class="hidden auth-page"> </div>
 
-  <div id="signupPage" class="hidden auth-page ..."> 
-      </div>
-
-  <div id="loginPage" class="hidden auth-page ...">
-      </div>
-
-  </body>
+</body>
 </html>
