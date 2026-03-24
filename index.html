@@ -106,88 +106,89 @@
       <img src="public/landing1.webp" class="absolute full bottom-0 h-[100%] w-[180%] object-contain hidden lg:block" alt="Hero Illustration">
     </section>
 
-    <div id="homePage" class="hidden min-h-screen flex flex-col bg-white overflow-x-hidden">
+    <div id="homePage" class="hidden min-h-screen flex flex-col bg-white font-sans overflow-y-auto">
   
-  <nav class="sticky top-0 z-50 bg-white border-b border-gray-100 px-4 md:px-10 py-3 flex items-center justify-between shadow-sm">
-    <div class="flex items-center gap-4 md:gap-10">
-      <div class="text-xl md:text-2xl font-black text-blue-900 tracking-tighter">Stackly</div>
-      <div class="hidden lg:flex space-x-6 text-[11px] font-bold text-gray-500 uppercase tracking-widest">
+  <nav class="sticky top-0 z-50 bg-white border-b border-gray-100 px-4 md:px-12 py-4 flex items-center justify-between shadow-sm">
+    <div class="flex items-center gap-10">
+      <div class="text-2xl font-black text-[#0A2357] tracking-tighter">Stackly</div>
+      <div class="hidden lg:flex space-x-8 text-[11px] font-bold text-gray-500 uppercase tracking-widest">
         <a href="#home" class="hover:text-blue-700">Home</a>
+        <a href="#" class="hover:text-blue-700">About Us</a>
+        <a href="#" class="hover:text-blue-700">Our Business</a>
         <a href="#" class="hover:text-blue-700">Categories</a>
         <a href="#" class="hover:text-blue-700">Careers</a>
       </div>
     </div>
-    <div class="flex items-center gap-3 md:gap-5">
-      <i class="fa-solid fa-magnifying-glass text-gray-400 cursor-pointer hover:text-blue-600 text-sm"></i>
-      <button onclick="location.hash='login'" class="bg-blue-600 text-white px-4 md:px-6 py-2 rounded-full text-[10px] md:text-xs font-bold shadow-md hover:bg-blue-700 transition">
-        Login
+    <div class="flex items-center gap-5">
+      <i class="fa-solid fa-magnifying-glass text-gray-400 cursor-pointer"></i>
+      <button onclick="location.hash='login'" class="bg-[#2D60FF] text-white px-6 py-2 rounded-full text-xs font-bold shadow-md hover:bg-blue-700 transition">
+        Login / Join
       </button>
     </div>
   </nav>
 
-  <div class="w-full max-w-7xl mx-auto px-4 md:px-6">
+  <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex-grow">
     
-    <section class="mt-4 md:mt-8 rounded-2xl md:rounded-[3rem] overflow-hidden relative flex flex-col md:flex-row items-center px-6 md:px-16 py-12 md:py-0 min-h-[300px] md:min-h-[450px]" style="background-color: #FEE4E6;">
+    <section class="mt-6 rounded-[2.5rem] overflow-hidden relative flex flex-col md:flex-row items-center px-8 md:px-16 py-12 md:py-0 min-h-[400px] bg-[#FDE2E4]">
       <div class="w-full md:w-1/2 z-10 text-center md:text-left">
-        <h1 class="text-3xl md:text-6xl font-black text-blue-950 leading-tight">
-          Build Your <br class="hidden md:block"/> Dream Website
+        <h1 class="text-3xl md:text-5xl font-black text-[#0A2357] leading-tight">
+          Build Your Dream Website Today
         </h1>
-        <p class="mt-4 text-gray-600 text-sm md:text-lg font-medium">Explore premium templates for any business.</p>
-        <button class="mt-8 mx-auto md:mx-0 bg-blue-800 text-white px-8 py-3 rounded-xl font-bold flex items-center gap-3 hover:bg-blue-900 transition-all active:scale-95">
-          Get Started <i class="fa-solid fa-arrow-right text-xs"></i>
+        <button class="mt-8 mx-auto md:mx-0 bg-[#0A2357] text-white px-8 py-3 rounded-lg font-bold flex items-center gap-3 hover:bg-blue-900 transition">
+          Get Started <i class="fa-solid fa-circle-play"></i>
         </button>
       </div>
-      <div class="w-full md:w-1/2 mt-8 md:mt-0 flex justify-center md:absolute md:right-0 md:bottom-0">
-        <img src="public/landing1.webp" class="w-4/5 md:w-full h-auto max-h-[400px] object-contain" alt="Hero">
+      <div class="w-full md:w-1/2 mt-10 md:mt-0 flex justify-center md:absolute md:right-0 md:bottom-0">
+        <img src="public/illustration.webp" class="w-4/5 md:w-[90%] h-auto max-h-[380px] object-contain" alt="Hero Illustration">
       </div>
     </section>
 
-    <div class="mt-12 overflow-x-auto no-scrollbar">
-      <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4 text-center">Popular Searches</p>
-      <div class="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 pb-4">
-        <span class="whitespace-nowrap px-5 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold shadow-sm cursor-pointer hover:border-blue-400">SaaS</span>
-        <span class="whitespace-nowrap px-5 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold shadow-sm cursor-pointer hover:border-blue-400">E-commerce</span>
-        <span class="whitespace-nowrap px-5 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold shadow-sm cursor-pointer hover:border-blue-400">Real Estate</span>
-        <span class="whitespace-nowrap px-5 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold shadow-sm cursor-pointer hover:border-blue-400">Portfolio</span>
+    <div class="mt-12 text-center">
+      <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Popular Searches</p>
+      <div class="flex flex-wrap justify-center gap-3 pb-4">
+        <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">SaaS</span>
+        <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">E-commerce</span>
+        <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Real Estate</span>
+        <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Portfolio</span>
       </div>
     </div>
 
-    <div class="mt-12 md:mt-24">
-      <h2 class="text-xs font-black text-blue-900 mb-8 uppercase tracking-[0.3em] text-center md:text-left">Categories</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+    <div class="mt-20">
+      <h2 class="text-xs font-black text-[#0A2357] mb-8 uppercase tracking-[0.3em] border-l-4 border-blue-600 pl-3">Categories</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         
-        <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group">
-          <div class="h-44 bg-yellow-400/10 flex items-center justify-center">
-             <i class="fa-brands fa-wordpress text-6xl text-yellow-500/20 group-hover:scale-110 transition duration-500"></i>
+        <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
+          <div class="h-48 bg-yellow-400/10 flex items-center justify-center p-4">
+             <i class="fa-brands fa-wordpress text-7xl text-yellow-500/20 group-hover:scale-110 transition duration-500"></i>
           </div>
           <div class="p-6 text-center">
-            <h3 class="font-bold text-lg text-gray-800">WordPress Themes</h3>
-            <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase">
-              <a href="#" class="hover:underline">Preview</a> <a href="#" class="hover:underline">Details</a>
+            <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight">WordPress Themes</h3>
+            <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
+              <a href="#">Preview</a> <a href="#">Details</a>
             </div>
           </div>
         </div>
 
-        <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group">
-          <div class="h-44 bg-blue-950 flex items-center justify-center">
-             <i class="fa-solid fa-cart-shopping text-6xl text-white/10 group-hover:scale-110 transition duration-500"></i>
+        <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
+          <div class="h-48 bg-[#0A2357] flex items-center justify-center">
+             <i class="fa-solid fa-cart-shopping text-7xl text-white/10 group-hover:scale-110 transition duration-500"></i>
           </div>
           <div class="p-6 text-center">
-            <h3 class="font-bold text-lg text-gray-800">Shopify Templates</h3>
-            <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase">
-              <a href="#" class="hover:underline">Preview</a> <a href="#" class="hover:underline">Details</a>
+            <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight">eCommerce Templates</h3>
+            <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
+              <a href="#">Preview</a> <a href="#">Details</a>
             </div>
           </div>
         </div>
 
-        <div class="bg-[#0f172a] rounded-3xl shadow-sm overflow-hidden hover:shadow-xl transition-all group">
-          <div class="h-44 bg-slate-800 flex items-center justify-center">
-             <i class="fa-solid fa-pen-nib text-6xl text-white/10 group-hover:scale-110 transition duration-500"></i>
+        <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
+          <div class="h-48 bg-purple-100 flex items-center justify-center">
+             <i class="fa-solid fa-bullhorn text-7xl text-purple-600/20 group-hover:scale-110 transition duration-500"></i>
           </div>
           <div class="p-6 text-center">
-            <h3 class="font-bold text-lg text-white">Blogging Themes</h3>
-            <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-400 uppercase">
-              <a href="#" class="hover:underline">Preview</a> <a href="#" class="hover:underline">Details</a>
+            <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight">Digital Marketing</h3>
+            <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
+              <a href="#">Preview</a> <a href="#">Details</a>
             </div>
           </div>
         </div>
@@ -195,34 +196,32 @@
       </div>
     </div>
 
-    <div class="mt-20 mb-20">
-      <h2 class="text-xs font-black text-blue-900 mb-8 uppercase tracking-[0.3em] text-center md:text-left">Top Selling This Week</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="mt-24 mb-24">
+      <h2 class="text-xs font-black text-[#0A2357] mb-10 uppercase tracking-[0.3em]">Top Selling This Week</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         
-        <div class="bg-white p-3 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
-          <div class="h-44 bg-gray-50 rounded-xl mb-4 overflow-hidden relative group">
-            <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Product">
-            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-               <button class="bg-white text-black px-4 py-2 rounded-lg text-[10px] font-bold">Quick View</button>
-            </div>
+        <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
+          <div class="h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+            <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
           </div>
-          <div class="flex justify-between items-center">
-            <h4 class="font-bold text-gray-800 text-sm">Shopify - Ultra</h4>
-            <span class="text-blue-700 font-black text-md">$49</span>
+          <div class="flex justify-between items-center mb-1">
+            <h4 class="font-black text-gray-800 text-sm uppercase">Shopify - Store</h4>
+            <span class="text-blue-700 font-black text-lg">$59</span>
           </div>
-          <div class="mt-3 flex items-center gap-1 text-[10px] text-yellow-400">
-            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-            <span class="text-gray-300 ml-1 font-bold">5.0</span>
+          <div class="flex items-center gap-1 text-[10px] text-yellow-400">
+             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+             <span class="text-gray-400 ml-1 font-bold">5.0</span>
           </div>
         </div>
 
       </div>
     </div>
+
   </div>
 
-  <footer class="bg-[#021a46] py-16 w-full mt-auto">
-    <div class="text-center text-white/20 text-[9px] font-black uppercase tracking-[0.5em]">
-      © 2026 Stackly Market • Global Digital Solutions
+  <footer class="bg-[#051129] py-16 w-full mt-auto">
+    <div class="text-center text-white/20 text-[9px] font-black uppercase tracking-[0.5em] px-4">
+      © 2026 Stackly Market • Digital Asset Marketplace
     </div>
   </footer>
 </div>
