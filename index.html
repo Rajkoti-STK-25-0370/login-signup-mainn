@@ -73,8 +73,24 @@
       else showPage("home"); 
     }
 
+    // TOGGLE SEARCH BAR FUNCTION
+    function toggleSearchBar() {
+      const searchBar = document.getElementById('searchBarContainer');
+      if (searchBar.classList.contains('max-h-0')) {
+        searchBar.classList.replace('max-h-0', 'max-h-40');
+        searchBar.classList.replace('opacity-0', 'opacity-100');
+        searchBar.querySelector('input').focus();
+      } else {
+        searchBar.classList.replace('max-h-40', 'max-h-0');
+        searchBar.classList.replace('opacity-100', 'opacity-0');
+      }
+    }
+
     window.addEventListener("hashchange", router);
     document.addEventListener("DOMContentLoaded", router);
+
+    function validateEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+    function isMobile(value) { return /^[0-9]{10}$/.test(value.trim()); }
   </script>
 
   <div id="homePage" class="hidden min-h-screen flex flex-col">
@@ -82,59 +98,64 @@
     <nav class="sticky top-0 z-50 bg-[#06224C] border-b border-white/10 px-4 md:px-12 py-3 flex items-center justify-between shadow-sm">
   
   <div class="flex items-center flex-shrink-0">
-    <a href="#home">
-      <img src="public/stackly-logo.webp" alt="Stackly" class="h-8 md:h-10 w-auto object-contain">
-    </a>
-  </div>
+  <a href="#home" class="bg-white px-4 py-3 rounded-[60%] flex items-center justify-center shadow-md transition hover:scale-105 duration-300 min-w-[90px] aspect-[2/1]">
+    <img src="public/stackly-logo.webp" alt="Stackly" class="h-5 md:h-6 w-auto object-contain">
+  </a>
+</div>
 
   <div class="hidden lg:flex flex-grow justify-center">
     <div class="flex space-x-10 text-[13px] font-bold text-white uppercase tracking-wide items-center">
-      <a href="#home" class="text-white hover:text-blue-300 transition">Home</a>
-      <a href="#" class="text-white hover:text-blue-300 transition">About Us</a>
+      <a href="#home" class="hover:text-blue-300 transition">Home</a>
+      <a href="#" class="hover:text-blue-300 transition">About Us</a>
       
-      <a href="#" class="flex items-center gap-1.5 text-white hover:text-blue-300 transition">
+      <a href="#" class="flex items-center gap-1.5 hover:text-blue-300 transition">
         Our Products <i class="fa-solid fa-chevron-down text-[10px]"></i>
       </a>
       
-      <a href="#" class="flex items-center gap-1.5 text-white hover:text-blue-300 transition">
+      <a href="#" class="flex items-center gap-1.5 hover:text-blue-300 transition">
         Categories <i class="fa-solid fa-chevron-down text-[10px]"></i>
       </a>
       
-      <a href="#" class="text-white hover:text-blue-300 transition">Contact</a>
+      <a href="#" class="hover:text-blue-300 transition">Contact</a>
     </div>
   </div>
 
   <div class="flex items-center gap-4 md:gap-6 flex-shrink-0">
-    
     <button class="hidden sm:flex items-center gap-2 border border-white/30 rounded-full px-4 py-1.5 text-white text-xs font-semibold hover:bg-white/10 transition">
       <i class="fa-solid fa-cart-shopping"></i>
       <span>Cart</span>
     </button>
 
-    <button class="w-8 h-8 flex items-center justify-center bg-white rounded-full text-[#06224C] hover:bg-gray-200 transition">
+    <button onclick="toggleSearchBar()" class="w-9 h-9 flex items-center justify-center bg-white rounded-full text-[#06224C] hover:bg-gray-200 transition shadow-sm">
       <i class="fa-solid fa-magnifying-glass text-sm"></i>
     </button>
 
-    <div class="cursor-pointer group relative">
-      <div class="w-10 h-10 rounded-full border-2 border-white/50 overflow-hidden group-hover:border-white transition">
-        <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User Profile" class="w-full h-full object-cover">
-      </div>
+    <div class="w-10 h-10 rounded-full border-2 border-white/40 overflow-hidden cursor-pointer hover:border-white transition">
+      <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User" class="w-full h-full object-cover">
     </div>
-
   </div>
 
 </nav>
+    <div id="searchBarContainer" class="overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out bg-white border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 md:px-8 py-6">
+        <div class="flex items-center border border-gray-300 rounded-lg bg-gray-50 overflow-hidden focus-within:border-blue-500 transition shadow-sm">
+          <input type="text" placeholder="What are you looking for?" class="flex-grow px-5 py-3 bg-transparent outline-none text-gray-700 text-sm md:text-base">
+          <button class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 border-l border-gray-300 transition">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </div>
+    </div>
 
     <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex-grow">
       
       <section class="hero-container mt-6 rounded-[2.5rem] md:rounded-[3.5rem] min-h-[400px] md:min-h-[500px] flex items-center relative">
         <img src="public/landing2.webp" class="hero-illustration" alt="Hero Illustration">
         
-        <div class="relative z-20 w-full md:w-1/2 px-8 md:pl-20 py-12 text-center md:text-left">
-          <h1 class="text-4xl md:text-6xl font-black text-[#0A2357] leading-tight">
-            Build Your Dream <br class="hidden md:block"/> Website Today
-          </h1>
-          <button onclick="location.hash='signup'" class="mt-8 mx-auto md:mx-0 bg-[#0A2357] text-white px-8 py-3 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-blue-900 transition active:scale-95 shadow-lg">
+        <div class="relative z-20 w-full md:w-1/2 px-8 md:pl-20 pt-12 pb-15 md:pt-16 md:pb-24 flex flex-col justify-end min-h-[400px] md:min-h-[500px]">
+          <h1 class="text-4xl md:text-6xl font-black text-[#0A2357] leading-tight mb-auto">
+             </h1>
+          <button onclick="location.hash='signup'" class="mt-8 mx-auto md:mx-0 bg-[#0A2357] text-white px-7 py-3 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-blue-900 transition active:scale-95 shadow-lg w-fit">
             Get Started 
             <span class="bg-white text-[#0A2357] rounded-full w-5 h-5 flex items-center justify-center text-[10px]">
               <i class="fa-solid fa-play"></i>
@@ -182,11 +203,12 @@
                <i class="fa-solid fa-cart-shopping text-7xl text-white/10 group-hover:scale-110 transition duration-500"></i>
             </div>
             <div class="p-6 text-center">
-              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">eCommerce Templates</h3>
+              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">E-Commerce Templates</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
                 <a href="#">Preview</a> <a href="#">Details</a>
               </div>
             </div>
+            
           </div>
 
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
@@ -194,11 +216,47 @@
                <i class="fa-solid fa-bullhorn text-7xl text-purple-600/20 group-hover:scale-110 transition duration-500"></i>
             </div>
             <div class="p-6 text-center">
-              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">Digital Marketing</h3>
+              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">Digital Marketing Templates</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
                 <a href="#">Preview</a> <a href="#">Details</a>
               </div>
             </div>
+            
+          </div>
+          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
+            <div class="h-48 bg-purple-100 flex items-center justify-center">
+               <i class="fa-solid fa-bullhorn text-7xl text-purple-600/20 group-hover:scale-110 transition duration-500"></i>
+            </div>
+            <div class="p-6 text-center">
+              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">Blogging</h3>
+              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
+                <a href="#">Preview</a> <a href="#">Details</a>
+              </div>
+            </div>
+            
+          </div>
+          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
+            <div class="h-48 bg-purple-100 flex items-center justify-center">
+               <i class="fa-solid fa-bullhorn text-7xl text-purple-600/20 group-hover:scale-110 transition duration-500"></i>
+            </div>
+            <div class="p-6 text-center">
+              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">Construction Themes</h3>
+              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
+                <a href="#">Preview</a> <a href="#">Details</a>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
+            <div class="h-48 bg-purple-100 flex items-center justify-center">
+               <i class="fa-solid fa-bullhorn text-7xl text-purple-600/20 group-hover:scale-110 transition duration-500"></i>
+            </div>
+            <div class="p-6 text-center">
+              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">Food Restaurent Templates</h3>
+              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
+                <a href="#">Preview</a> <a href="#">Details</a>
+              </div>
+            </div>
+            
           </div>
         </div>
       </div>
@@ -219,6 +277,71 @@
                <span class="text-gray-400 ml-1 font-bold">5.0</span>
             </div>
           </div>
+          <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
+            <div class="h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+              <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
+            </div>
+            <div class="flex justify-between items-center mb-1 text-sm">
+              <h4 class="font-black text-gray-800 uppercase">BuySphere</h4>
+              <span class="text-blue-700 font-black">$10</span>
+            </div>
+            <div class="flex items-center gap-1 text-[10px] text-yellow-400">
+               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+               <span class="text-gray-400 ml-1 font-bold">5.0</span>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
+            <div class="h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+              <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
+            </div>
+            <div class="flex justify-between items-center mb-1 text-sm">
+              <h4 class="font-black text-gray-800 uppercase">TurboCart</h4>
+              <span class="text-blue-700 font-black">$35</span>
+            </div>
+            <div class="flex items-center gap-1 text-[10px] text-yellow-400">
+               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+               <span class="text-gray-400 ml-1 font-bold">5.0</span>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
+            <div class="h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+              <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
+            </div>
+            <div class="flex justify-between items-center mb-1 text-sm">
+              <h4 class="font-black text-gray-800 uppercase">MegaBasket</h4>
+              <span class="text-blue-700 font-black">$29</span>
+            </div>
+            <div class="flex items-center gap-1 text-[10px] text-yellow-400">
+               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+               <span class="text-gray-400 ml-1 font-bold">5.0</span>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
+            <div class="h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+              <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
+            </div>
+            <div class="flex justify-between items-center mb-1 text-sm">
+              <h4 class="font-black text-gray-800 uppercase">NexaStore</h4>
+              <span class="text-blue-700 font-black">$10</span>
+            </div>
+            <div class="flex items-center gap-1 text-[10px] text-yellow-400">
+               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+               <span class="text-gray-400 ml-1 font-bold">5.0</span>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
+            <div class="h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+              <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
+            </div>
+            <div class="flex justify-between items-center mb-1 text-sm">
+              <h4 class="font-black text-gray-800 uppercase">SampleStore</h4>
+              <span class="text-blue-700 font-black">$35</span>
+            </div>
+            <div class="flex items-center gap-1 text-[10px] text-yellow-400">
+               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+               <span class="text-gray-400 ml-1 font-bold">5.0</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -231,10 +354,6 @@
   </div>
 
   <div id="signupPage" class="hidden auth-page"> </div>
-  <div id="loginPage" class="hidden auth-page"> </div>
-
-</body>
-<!-- </html>id="signupPage" class="hidden auth-page"> </div> -->
   <div id="loginPage" class="hidden auth-page"> </div>
 
 </body>
