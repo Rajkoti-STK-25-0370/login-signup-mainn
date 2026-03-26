@@ -49,6 +49,7 @@
 
   <script>
     const BACKEND_BASE_URL = "http://localhost:5000";
+    let cartCount = 0;
 
     function showPage(page) {
       var pages = ["home", "signup", "login", "error", "forgot", "verifyEmail", "verifyMobile", "verified", "createNewPassword"];
@@ -96,6 +97,28 @@
       }
     }
 
+    // TOGGLE HEART FUNCTION
+    function toggleHeart(element) {
+      const icon = element.querySelector('i');
+      if (icon.classList.contains('fa-regular')) {
+        icon.classList.replace('fa-regular', 'fa-solid');
+        element.classList.replace('text-gray-300', 'text-red-500');
+        element.classList.replace('hover:text-red-500', 'hover:text-red-600');
+      } else {
+        icon.classList.replace('fa-solid', 'fa-regular');
+        element.classList.replace('text-red-500', 'text-gray-300');
+        element.classList.replace('hover:text-red-600', 'hover:text-red-500');
+      }
+    }
+
+    // ADD TO CART FUNCTION
+    function addToCart() {
+      cartCount++;
+      const badge = document.getElementById('cartBadge');
+      badge.innerText = cartCount;
+      badge.classList.remove('hidden');
+    }
+
     window.addEventListener("hashchange", router);
     document.addEventListener("DOMContentLoaded", router);
 
@@ -127,9 +150,10 @@
       </div>
 
       <div class="flex items-center gap-4 md:gap-6 flex-shrink-0">
-        <button class="hidden sm:flex items-center gap-2 border border-white/30 rounded-full px-4 py-1.5 text-white text-xs font-semibold hover:bg-white/10 transition">
+        <button class="relative sm:flex items-center gap-2 border border-white/30 rounded-full px-4 py-1.5 text-white text-xs font-semibold hover:bg-white/10 transition">
           <i class="fa-solid fa-cart-shopping"></i>
           <span>Cart</span>
+          <span id="cartBadge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
         </button>
         <button onclick="toggleSearchBar()" class="w-9 h-9 flex items-center justify-center bg-white rounded-full text-[#06224C] hover:bg-gray-200 transition shadow-sm">
           <i class="fa-solid fa-magnifying-glass text-sm"></i>
@@ -160,11 +184,11 @@
     </div>
 
     <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex-grow">
+      
       <section class="hero-container mt-6 rounded-[2.5rem] md:rounded-[3.5rem] min-h-[400px] md:min-h-[500px] flex items-center relative">
         <img src="public/landing2.webp" class="hero-illustration" alt="Hero Illustration">
         <div class="relative z-20 w-full md:w-1/2 px-8 md:pl-20 pt-12 pb-15 md:pt-16 md:pb-24 flex flex-col justify-end min-h-[400px] md:min-h-[500px]">
-          <h1 class="text-3xl md:text-6xl font-black text-[#0A2357] leading-tight mb-auto">
-            </h1>
+          <h1 class="text-4xl md:text-6xl font-black text-[#0A2357] leading-tight mb-auto"></h1>
           <button onclick="location.hash='signup'" class="mt-8 mx-auto md:mx-0 bg-[#0A2357] text-white px-7 py-3 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-blue-900 transition active:scale-95 shadow-lg w-fit">
             Get Started 
             <span class="bg-white text-[#0A2357] rounded-full w-5 h-5 flex items-center justify-center text-[10px]">
@@ -174,7 +198,7 @@
         </div>
       </section>
 
-      <div class="mt-8 md:mt-12 text-center">
+      <div class="mt-8 md:mt-12 text-center px-4">
         <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Popular Searches</p>
         <div class="flex flex-wrap justify-center gap-3 pb-4">
           <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Food</span>
@@ -195,159 +219,249 @@
 
       <div id="categories-section" class="mt-12 md:mt-20">
         <h2 class="text-xs font-black text-[#0A2357] mb-8 uppercase tracking-[0.3em] border-l-4 border-blue-600 pl-3">Categories</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
-            <div class="h-48 overflow-hidden">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          
+          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-40 md:h-48 overflow-hidden">
                 <img src="public/word.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="WordPress">
             </div>
             <div class="p-6 text-center">
-              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">WordPress Themes</h3>
+              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">WordPress Themes</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
                 <a href="#">Edit</a> <a href="#">Preview</a>
               </div>
             </div>
           </div>
 
-          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
-            <div class="h-48 overflow-hidden">
+          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-40 md:h-48 overflow-hidden">
                 <img src="public/ecommerce.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="E-Commerce">
             </div>
             <div class="p-6 text-center">
-              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">E-Commerce Templates</h3>
+              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">E-Commerce Templates</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
                 <a href="#">Edit</a> <a href="#">Preview</a>
               </div>
             </div>
           </div>
 
-          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
-            <div class="h-48 overflow-hidden">
+          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-40 md:h-48 overflow-hidden">
                 <img src="public/digital.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Marketing">
             </div>
             <div class="p-6 text-center">
-              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">Digital Marketing Templates</h3>
+              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Digital Marketing Templates</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
                 <a href="#">Edit</a> <a href="#">Preview</a>
               </div>
             </div>
           </div>
-          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
-            <div class="h-48 overflow-hidden">
+
+          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-40 md:h-48 overflow-hidden">
                 <img src="public/blog.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Blogging">
             </div>
             <div class="p-6 text-center">
-              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">Blogging</h3>
+              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Blogging</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
                 <a href="#">Edit</a> <a href="#">Preview</a>
               </div>
             </div>
           </div>
-          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
-            <div class="h-48 overflow-hidden">
+
+          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-40 md:h-48 overflow-hidden">
                 <img src="public/construction.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Construction">
             </div>
             <div class="p-6 text-center">
-              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">Construction Themes</h3>
+              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Construction Themes</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
                 <a href="#">Edit</a> <a href="#">Preview</a>
               </div>
             </div>
           </div>
-          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
-            <div class="h-48 overflow-hidden">
+
+          <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-40 md:h-48 overflow-hidden">
                 <img src="public/food.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Food">
             </div>
             <div class="p-6 text-center">
-              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">Food Restaurant Templates</h3>
+              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Food Restaurant Templates</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
                 <a href="#">Edit</a> <a href="#">Preview</a>
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
       <div class="mt-16 md:mt-24 mb-24">
         <h2 class="text-xs font-black text-[#0A2357] mb-10 uppercase tracking-[0.3em]">Top Selling This Week</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
-            <div class="h-48 md:h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+          
+          <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-solid fa-heart text-lg"></i>
+            </div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
               <img src="public/word.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
             </div>
-            <div class="flex justify-between items-center mb-1 text-sm">
-              <h4 class="font-black text-gray-800 uppercase">Shopify - Store</h4>
-              <span class="text-blue-700 font-black">$59</span>
-            </div>
-            <div class="flex items-center gap-1 text-[10px] text-yellow-400">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                <span class="text-gray-400 ml-1 font-bold">3.0</span>
+            <div class="px-2">
+              <h4 class="text-xl font-bold text-[#06224C] mb-1">ShopNest</h4>
+              <p class="text-xs italic text-gray-500 mb-4">E-commerce Website</p>
+              <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl font-black text-[#06224C]">$ 29</span>
+                  <span class="text-[10px] font-bold text-gray-400">(10.5K Sales)</span>
+                </div>
+                <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span class="text-gray-400 font-bold ml-1 text-xs">(3.2)</span></div>
+              </div>
+              <div class="flex items-center gap-3">
+                <button onclick="addToCart()" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95"><i class="fa-solid fa-cart-shopping"></i></button>
+                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+              </div>
             </div>
           </div>
-          <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
-            <div class="h-48 md:h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+
+          <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
               <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
             </div>
-            <div class="flex justify-between items-center mb-1 text-sm">
-              <h4 class="font-black text-gray-800 uppercase">BuySphere</h4>
-              <span class="text-blue-700 font-black">$10</span>
-            </div>
-            <div class="flex items-center gap-1 text-[10px] text-yellow-400">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                <span class="text-gray-400 ml-1 font-bold">3.4</span>
+            <div class="px-2">
+              <h4 class="text-xl font-bold text-[#06224C] mb-1">BuySphere</h4>
+              <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
+              <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl font-black text-[#06224C]">$ 10</span>
+                  <span class="text-[10px] font-bold text-gray-400">(3.4K Sales)</span>
+                </div>
+                <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span class="text-gray-400 font-bold ml-1 text-xs">(3.4)</span></div>
+              </div>
+              <div class="flex items-center gap-3">
+                <button onclick="addToCart()" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95"><i class="fa-solid fa-cart-shopping"></i></button>
+                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+              </div>
             </div>
           </div>
-          <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
-            <div class="h-48 md:h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+
+          <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
               <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
             </div>
-            <div class="flex justify-between items-center mb-1 text-sm">
-              <h4 class="font-black text-gray-800 uppercase">TurboCart</h4>
-              <span class="text-blue-700 font-black">$35</span>
-            </div>
-            <div class="flex items-center gap-1 text-[10px] text-yellow-400">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                <span class="text-gray-400 ml-1 font-bold">2.9</span>
+            <div class="px-2">
+              <h4 class="text-xl font-bold text-[#06224C] mb-1">TurboCart</h4>
+              <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
+              <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl font-black text-[#06224C]">$ 35</span>
+                  <span class="text-[10px] font-bold text-gray-400">(2.9K Sales)</span>
+                </div>
+                <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span class="text-gray-400 font-bold ml-1 text-xs">(2.9)</span></div>
+              </div>
+              <div class="flex items-center gap-3">
+                <button onclick="addToCart()" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95"><i class="fa-solid fa-cart-shopping"></i></button>
+                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+              </div>
             </div>
           </div>
-          <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
-            <div class="h-48 md:h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+
+          <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
               <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
             </div>
-            <div class="flex justify-between items-center mb-1 text-sm">
-              <h4 class="font-black text-gray-800 uppercase">MegaBasket</h4>
-              <span class="text-blue-700 font-black">$29</span>
-            </div>
-            <div class="flex items-center gap-1 text-[10px] text-yellow-400">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                <span class="text-gray-400 ml-1 font-bold">4.2</span>
+            <div class="px-2">
+              <h4 class="text-xl font-bold text-[#06224C] mb-1">MegaBasket</h4>
+              <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
+              <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl font-black text-[#06224C]">$ 29</span>
+                  <span class="text-[10px] font-bold text-gray-400">(4.2K Sales)</span>
+                </div>
+                <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span class="text-gray-400 font-bold ml-1 text-xs">(4.2)</span></div>
+              </div>
+              <div class="flex items-center gap-3">
+                <button onclick="addToCart()" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95"><i class="fa-solid fa-cart-shopping"></i></button>
+                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+              </div>
             </div>
           </div>
-          <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
-            <div class="h-48 md:h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+
+          <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
               <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
             </div>
-            <div class="flex justify-between items-center mb-1 text-sm">
-              <h4 class="font-black text-gray-800 uppercase">NexaStore</h4>
-              <span class="text-blue-700 font-black">$10</span>
-            </div>
-            <div class="flex items-center gap-1 text-[10px] text-yellow-400">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                <span class="text-gray-400 ml-1 font-bold">4.7</span>
+            <div class="px-2">
+              <h4 class="text-xl font-bold text-[#06224C] mb-1">NexaStore</h4>
+              <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
+              <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl font-black text-[#06224C]">$ 10</span>
+                  <span class="text-[10px] font-bold text-gray-400">(4.7K Sales)</span>
+                </div>
+                <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span class="text-gray-400 font-bold ml-1 text-xs">(4.7)</span></div>
+              </div>
+              <div class="flex items-center gap-3">
+                <button onclick="addToCart()" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95"><i class="fa-solid fa-cart-shopping"></i></button>
+                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+              </div>
             </div>
           </div>
-          <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
-            <div class="h-48 md:h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+
+          <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
               <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
             </div>
-            <div class="flex justify-between items-center mb-1 text-sm">
-              <h4 class="font-black text-gray-800 uppercase">SampleStore</h4>
-              <span class="text-blue-700 font-black">$35</span>
-            </div>
-            <div class="flex items-center gap-1 text-[10px] text-yellow-400">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                <span class="text-gray-400 ml-1 font-bold">5.0</span>
+            <div class="px-2">
+              <h4 class="text-xl font-bold text-[#06224C] mb-1">SampleStore</h4>
+              <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
+              <div class="flex justify-between items-center mb-6">
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl font-black text-[#06224C]">$ 35</span>
+                  <span class="text-[10px] font-bold text-gray-400">(5.0K Sales)</span>
+                </div>
+                <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span class="text-gray-400 font-bold ml-1 text-xs">(5.0)</span></div>
+              </div>
+              <div class="flex items-center gap-3">
+                <button onclick="addToCart()" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95"><i class="fa-solid fa-cart-shopping"></i></button>
+                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
