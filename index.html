@@ -86,6 +86,16 @@
       }
     }
 
+    // TOGGLE MOBILE MENU FUNCTION
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+      } else {
+        menu.classList.add('hidden');
+      }
+    }
+
     window.addEventListener("hashchange", router);
     document.addEventListener("DOMContentLoaded", router);
 
@@ -96,46 +106,48 @@
   <div id="homePage" class="hidden min-h-screen flex flex-col">
     
     <nav class="sticky top-0 z-50 bg-[#06224C] border-b border-white/10 px-4 md:px-12 py-3 flex items-center justify-between shadow-sm">
-  
-  <div class="flex items-center flex-shrink-0">
-  <a href="#home" class="bg-white px-4 py-3 rounded-[60%] flex items-center justify-center shadow-md transition hover:scale-105 duration-300 min-w-[90px] aspect-[2/1]">
-    <img src="public/stackly-logo.webp" alt="Stackly" class="h-5 md:h-6 w-auto object-contain">
-  </a>
-</div>
+      <div class="flex items-center gap-4 lg:gap-10">
+        <button onclick="toggleMobileMenu()" class="lg:hidden text-white focus:outline-none">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
 
-  <div class="hidden lg:flex flex-grow justify-center">
-    <div class="flex space-x-10 text-[13px] font-bold text-white uppercase tracking-wide items-center">
-      <a href="#home" class="hover:text-blue-300 transition">Home</a>
-      <a href="#" class="hover:text-blue-300 transition">About Us</a>
-      
-      <a href="#" class="flex items-center gap-1.5 hover:text-blue-300 transition">
-        Our Products <i class="fa-solid fa-chevron-down text-[10px]"></i>
-      </a>
-      
-      <a href="#categories-section" class="flex items-center gap-1.5 hover:text-blue-300 transition">
-        Categories <i class="fa-solid fa-chevron-down text-[10px]"></i>
-      </a>
-      
-      <a href="#" class="hover:text-blue-300 transition">Contact</a>
+        <div class="flex items-center flex-shrink-0">
+          <a href="#home" class="bg-white px-4 py-3 rounded-[60%] flex items-center justify-center shadow-md transition hover:scale-105 duration-300 min-w-[90px] aspect-[2/1]">
+            <img src="public/stackly-logo.webp" alt="Stackly" class="h-5 md:h-6 w-auto object-contain">
+          </a>
+        </div>
+
+        <div class="hidden lg:flex space-x-10 text-[13px] font-bold text-white uppercase tracking-wide items-center">
+          <a href="#home" class="hover:text-blue-300 transition">Home</a>
+          <a href="#" class="hover:text-blue-300 transition">About Us</a>
+          <a href="#" class="flex items-center gap-1.5 hover:text-blue-300 transition">Our Products <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
+          <a href="#categories-section" class="flex items-center gap-1.5 hover:text-blue-300 transition">Categories <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
+          <a href="#" class="hover:text-blue-300 transition">Contact</a>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4 md:gap-6 flex-shrink-0">
+        <button class="hidden sm:flex items-center gap-2 border border-white/30 rounded-full px-4 py-1.5 text-white text-xs font-semibold hover:bg-white/10 transition">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Cart</span>
+        </button>
+        <button onclick="toggleSearchBar()" class="w-9 h-9 flex items-center justify-center bg-white rounded-full text-[#06224C] hover:bg-gray-200 transition shadow-sm">
+          <i class="fa-solid fa-magnifying-glass text-sm"></i>
+        </button>
+        <div class="w-10 h-10 rounded-full border-2 border-white/40 overflow-hidden cursor-pointer hover:border-white transition">
+          <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User" class="w-full h-full object-cover">
+        </div>
+      </div>
+    </nav>
+
+    <div id="mobileMenu" class="hidden lg:hidden bg-[#06224C] text-white w-full border-b border-white/10 py-5 px-6 flex flex-col gap-4 uppercase font-bold text-xs tracking-widest z-40 sticky top-[60px]">
+        <a href="#home" onclick="toggleMobileMenu()" class="hover:text-blue-300">Home</a>
+        <a href="#" onclick="toggleMobileMenu()" class="hover:text-blue-300">About Us</a>
+        <a href="#" onclick="toggleMobileMenu()" class="hover:text-blue-300">Our Products</a>
+        <a href="#categories-section" onclick="toggleMobileMenu()" class="hover:text-blue-300">Categories</a>
+        <a href="#" onclick="toggleMobileMenu()" class="hover:text-blue-300">Contact</a>
     </div>
-  </div>
 
-  <div class="flex items-center gap-4 md:gap-6 flex-shrink-0">
-    <button class="hidden sm:flex items-center gap-2 border border-white/30 rounded-full px-4 py-1.5 text-white text-xs font-semibold hover:bg-white/10 transition">
-      <i class="fa-solid fa-cart-shopping"></i>
-      <span>Cart</span>
-    </button>
-
-    <button onclick="toggleSearchBar()" class="w-9 h-9 flex items-center justify-center bg-white rounded-full text-[#06224C] hover:bg-gray-200 transition shadow-sm">
-      <i class="fa-solid fa-magnifying-glass text-sm"></i>
-    </button>
-
-    <div class="w-10 h-10 rounded-full border-2 border-white/40 overflow-hidden cursor-pointer hover:border-white transition">
-      <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User" class="w-full h-full object-cover">
-    </div>
-  </div>
-
-</nav>
     <div id="searchBarContainer" class="overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out bg-white border-b border-gray-200">
       <div class="max-w-7xl mx-auto px-4 md:px-8 py-6">
         <div class="flex items-center border border-gray-300 rounded-lg bg-gray-50 overflow-hidden focus-within:border-blue-500 transition shadow-sm">
@@ -148,13 +160,11 @@
     </div>
 
     <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex-grow">
-      
       <section class="hero-container mt-6 rounded-[2.5rem] md:rounded-[3.5rem] min-h-[400px] md:min-h-[500px] flex items-center relative">
         <img src="public/landing2.webp" class="hero-illustration" alt="Hero Illustration">
-        
         <div class="relative z-20 w-full md:w-1/2 px-8 md:pl-20 pt-12 pb-15 md:pt-16 md:pb-24 flex flex-col justify-end min-h-[400px] md:min-h-[500px]">
-          <h1 class="text-4xl md:text-6xl font-black text-[#0A2357] leading-tight mb-auto">
-             </h1>
+          <h1 class="text-3xl md:text-6xl font-black text-[#0A2357] leading-tight mb-auto">
+            </h1>
           <button onclick="location.hash='signup'" class="mt-8 mx-auto md:mx-0 bg-[#0A2357] text-white px-7 py-3 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-blue-900 transition active:scale-95 shadow-lg w-fit">
             Get Started 
             <span class="bg-white text-[#0A2357] rounded-full w-5 h-5 flex items-center justify-center text-[10px]">
@@ -164,7 +174,7 @@
         </div>
       </section>
 
-      <div class="mt-12 text-center">
+      <div class="mt-8 md:mt-12 text-center">
         <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Popular Searches</p>
         <div class="flex flex-wrap justify-center gap-3 pb-4">
           <span class="px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Food</span>
@@ -183,7 +193,7 @@
         </div>
       </div>
 
-      <div id="categories-section" class="mt-20">
+      <div id="categories-section" class="mt-12 md:mt-20">
         <h2 class="text-xs font-black text-[#0A2357] mb-8 uppercase tracking-[0.3em] border-l-4 border-blue-600 pl-3">Categories</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
@@ -208,7 +218,6 @@
                 <a href="#">Edit</a> <a href="#">Preview</a>
               </div>
             </div>
-            
           </div>
 
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
@@ -221,7 +230,6 @@
                 <a href="#">Edit</a> <a href="#">Preview</a>
               </div>
             </div>
-            
           </div>
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
             <div class="h-48 overflow-hidden">
@@ -233,7 +241,6 @@
                 <a href="#">Edit</a> <a href="#">Preview</a>
               </div>
             </div>
-            
           </div>
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer">
             <div class="h-48 overflow-hidden">
@@ -251,21 +258,20 @@
                 <img src="public/food.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Food">
             </div>
             <div class="p-6 text-center">
-              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">Food Restaurent Templates</h3>
+              <h3 class="font-bold text-lg text-gray-800 uppercase tracking-tight text-sm">Food Restaurant Templates</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
                 <a href="#">Edit</a> <a href="#">Preview</a>
               </div>
             </div>
-            
           </div>
         </div>
       </div>
 
-      <div class="mt-24 mb-24">
+      <div class="mt-16 md:mt-24 mb-24">
         <h2 class="text-xs font-black text-[#0A2357] mb-10 uppercase tracking-[0.3em]">Top Selling This Week</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
-            <div class="h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+            <div class="h-48 md:h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
               <img src="public/word.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
             </div>
             <div class="flex justify-between items-center mb-1 text-sm">
@@ -274,11 +280,11 @@
             </div>
             <div class="flex items-center gap-1 text-[10px] text-yellow-400">
                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                <span class="text-gray-400 ml-1 font-bold">5.0</span>
+                <span class="text-gray-400 ml-1 font-bold">3.0</span>
             </div>
           </div>
           <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
-            <div class="h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+            <div class="h-48 md:h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
               <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
             </div>
             <div class="flex justify-between items-center mb-1 text-sm">
@@ -287,11 +293,11 @@
             </div>
             <div class="flex items-center gap-1 text-[10px] text-yellow-400">
                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                <span class="text-gray-400 ml-1 font-bold">5.0</span>
+                <span class="text-gray-400 ml-1 font-bold">3.4</span>
             </div>
           </div>
           <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
-            <div class="h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+            <div class="h-48 md:h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
               <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
             </div>
             <div class="flex justify-between items-center mb-1 text-sm">
@@ -300,11 +306,11 @@
             </div>
             <div class="flex items-center gap-1 text-[10px] text-yellow-400">
                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                <span class="text-gray-400 ml-1 font-bold">5.0</span>
+                <span class="text-gray-400 ml-1 font-bold">2.9</span>
             </div>
           </div>
           <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
-            <div class="h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+            <div class="h-48 md:h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
               <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
             </div>
             <div class="flex justify-between items-center mb-1 text-sm">
@@ -313,11 +319,11 @@
             </div>
             <div class="flex items-center gap-1 text-[10px] text-yellow-400">
                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                <span class="text-gray-400 ml-1 font-bold">5.0</span>
+                <span class="text-gray-400 ml-1 font-bold">4.2</span>
             </div>
           </div>
           <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
-            <div class="h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+            <div class="h-48 md:h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
               <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
             </div>
             <div class="flex justify-between items-center mb-1 text-sm">
@@ -326,11 +332,11 @@
             </div>
             <div class="flex items-center gap-1 text-[10px] text-yellow-400">
                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                <span class="text-gray-400 ml-1 font-bold">5.0</span>
+                <span class="text-gray-400 ml-1 font-bold">4.7</span>
             </div>
           </div>
           <div class="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm hover:shadow-lg transition cursor-pointer group">
-            <div class="h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
+            <div class="h-48 md:h-52 bg-gray-50 rounded-2xl mb-4 overflow-hidden">
               <img src="https://via.placeholder.com/400x300" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product">
             </div>
             <div class="flex justify-between items-center mb-1 text-sm">
@@ -346,8 +352,8 @@
       </div>
     </div>
 
-    <footer class="bg-[#051129] py-16 w-full mt-auto">
-      <div class="text-center text-white/20 text-[9px] font-black uppercase tracking-[0.5em] px-4">
+    <footer class="bg-[#051129] py-12 md:py-16 w-full mt-auto">
+      <div class="text-center text-white/20 text-[8px] md:text-[9px] font-black uppercase tracking-[0.5em] px-4">
         © 2026 Stackly Market • Digital Asset Marketplace
       </div>
     </footer>
