@@ -25,7 +25,7 @@
       position: relative;
       overflow: hidden;
     }
-    /* Forces the illustration to fill and anchor to the bottom-right */
+    /* Forces the illustration to be responsive */
     .hero-illustration {
       position: absolute;
       right: 0;
@@ -33,7 +33,17 @@
       height: 100%;
       width: 100%;
       object-fit: cover;
+      object-position: right bottom;
       pointer-events: none;
+    }
+
+    /* Mobile specific image adjustment */
+    @media (max-width: 768px) {
+      .hero-illustration {
+        object-fit: contain;
+        object-position: center bottom;
+        opacity: 0.6; /* Slight transparency so text is readable on mobile */
+      }
     }
     
     .category-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
@@ -148,14 +158,14 @@
           <i class="fa-solid fa-bars text-xl"></i>
         </button>
 
-        <div  class="flex items-center flex-shrink-0">
-          <a  href="#home" class="bg-white px-3 md:px-5 py-2 md:py-3 rounded-[60%] flex items-center justify-center shadow-md transition hover:scale-105 duration-300 min-w-[85px] md:min-w-[100px] aspect-[2/1]">
+        <div class="flex items-center flex-shrink-0">
+          <a href="#home" class="bg-white px-3 md:px-4 py-2 md:py-3 rounded-[60%] flex items-center justify-center shadow-md transition hover:scale-105 duration-300 min-w-[85px] md:min-w-[90px] aspect-[2/1]">
             <img src="public/stackly-logo.webp" alt="Stackly" class="h-4 md:h-6 w-auto object-contain">
           </a>
         </div>
 
         <div class="hidden lg:flex space-x-10 text-[13px] font-bold text-white uppercase tracking-wide items-center">
-          <a href="#Home" class="hover:text-blue-300 transition whitespace-nowrap">Home</a>
+          <a href="#home" class="hover:text-blue-300 transition whitespace-nowrap">Home</a>
           <a href="#404" class="hover:text-blue-300 transition whitespace-nowrap">About Us</a>
           <a href="#404" class="flex items-center gap-1.5 hover:text-blue-300 transition whitespace-nowrap">Our Products <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
           <a href="#categories-section" class="flex items-center gap-1.5 hover:text-blue-300 transition whitespace-nowrap">Categories <i class="fa-solid fa-chevron-down text-[11px]"></i></a>
@@ -179,7 +189,7 @@
     </nav>
 
     <div id="mobileMenu" class="hidden lg:hidden bg-[#06224C] text-white w-full border-b border-white/10 py-5 px-6 flex flex-col gap-4 uppercase font-bold text-xs tracking-widest z-40 sticky top-[60px]">
-        <a href="#Home" onclick="toggleMobileMenu()">Home</a>
+        <a href="#home" onclick="toggleMobileMenu()">Home</a>
         <a href="#404" onclick="toggleMobileMenu()">About Us</a>
         <a href="#404" onclick="toggleMobileMenu()">Our Products</a>
         <a href="#categories-section" onclick="toggleMobileMenu()">Categories</a>
@@ -451,6 +461,7 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
