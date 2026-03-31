@@ -10,18 +10,19 @@
 
   <style>
     /* Your existing Auth Styles */
-    html { height: 100%; overflow-x: hidden; scroll-behavior: smooth; }
+    html { height: 100%; overflow-x: hidden; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body { font-family: Arial, Helvetica, sans-serif; margin: 0; min-height: 100%; overflow-x: hidden; }
     .font-welcome-heading { font-family: "Times New Roman", Georgia, serif; letter-spacing: 0.35em; font-weight: 600; text-align: center; }
     .error-text { font-size: 12px; color: #ff6b6b; margin-top: 4px; font-weight: 500; }
     .password-toggle-hidden .password-toggle-btn { visibility: hidden; pointer-events: none; }
     
-    /* iPhone Auto-Zoom Fix: Ensure font-size is 16px for inputs */
+    /* 1. iPhone Auto-Zoom Fix: Ensure font-size is 16px for inputs to prevent forced zoom */
     @media screen and (max-width: 768px) {
       input, select, textarea {
         font-size: 16px !important;
       }
     }
+
     /* Landing Page Specific CSS */
     #homePage { background-color: #FFF1F2; }
     .hero-container {
@@ -49,19 +50,27 @@
       .hero-container { min-height: 400px; }
     }
 
-    /* Navbar Protection for 150%-200% Zoom */
+    /* 2. Navbar Protection: Prevent breaking on mobile/zoom */
     .nav-container {
         display: flex;
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        flex-wrap: nowrap;
+        flex-wrap: nowrap; /* Keeps items on one line */
+        gap: 10px;
     }
     .nav-actions-group { 
         display: flex; 
         align-items: center; 
         flex-shrink: 0;
         margin-left: auto;
+        gap: 4px;
+    }
+
+    /* 3. Mobile Responsiveness: Grid Adjustments for smaller screens */
+    @media (max-width: 640px) {
+      .nav-actions-group .sm\:inline { display: none; } /* Force hide 'Cart' text on tiny screens */
+      .category-card h3 { font-size: 12px !important; }
     }
   </style>
 </head>
@@ -252,7 +261,7 @@
             <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
             <div class="h-40 md:h-48 overflow-hidden"><img src="public/word.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="WordPress"></div>
             <div class="p-6 text-center">
-              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight text-sm">WordPress Themes</h3>
+              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">WordPress Themes</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
             </div>
           </div>
@@ -261,7 +270,7 @@
             <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
             <div class="h-40 md:h-48 overflow-hidden"><img src="public/ecommerce.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="E-Commerce"></div>
             <div class="p-6 text-center">
-              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight text-sm">E-Commerce Templates</h3>
+              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">E-Commerce Templates</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
             </div>
           </div>
@@ -270,7 +279,7 @@
             <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
             <div class="h-40 md:h-48 overflow-hidden"><img src="public/digital.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Marketing"></div>
             <div class="p-6 text-center">
-              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight text-sm">Digital Marketing Templates</h3>
+              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Digital Marketing Templates</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
             </div>
           </div>
@@ -279,7 +288,7 @@
             <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
             <div class="h-40 md:h-48 overflow-hidden"><img src="public/blog.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Blogging"></div>
             <div class="p-6 text-center">
-              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight text-sm">Blogging</h3>
+              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Blogging</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
             </div>
           </div>
@@ -288,7 +297,7 @@
             <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
             <div class="h-40 md:h-48 overflow-hidden"><img src="public/construction.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Construction"></div>
             <div class="p-6 text-center">
-              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight text-sm">Construction Themes</h3>
+              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Construction Themes</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
             </div>
           </div>
@@ -297,7 +306,7 @@
             <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
             <div class="h-40 md:h-48 overflow-hidden"><img src="public/foood.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Food Restaurant"></div>
             <div class="p-6 text-center">
-              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight text-sm">Food Restaurant</h3>
+              <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Food Restaurant</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
             </div>
           </div>
