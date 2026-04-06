@@ -74,6 +74,73 @@
       height: 100%;
       position: absolute;
     }
+    /* Tablet & Smart Display Optimization: Surface Pro 7, Asus Zenbook Fold, Nest Hub */
+  @media screen and (min-width: 821px) and (max-width: 1200px) {
+    .hero-illustration {
+      /* Keep focus on the characters (right side) */
+      object-position: 75% 0%; 
+      
+      /* Moderate zoom to eliminate the 'brown wall' at the top */
+      transform: scale(1.15);
+      transform-origin: top;
+      
+      /* Physically pull image up to ensure the 'Persons Card' starts at the top */
+      top: -50px; 
+      
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+
+    .hero-container {
+      min-height: 480px; /* Optimal height for medium-to-large screens */
+      overflow: hidden !important;
+    }
+
+    /* Navbar Link adjustment: Prevents links from squishing on Hub/Zenbook */
+    .hidden.lg\:flex {
+      display: flex !important;
+      gap: 1.5rem; 
+    }
+
+    /* Popular Searches: Ensure they don't overlap too much on these specific heights */
+    #popular-searches {
+      margin-top: 20px;
+    }
+  }
+    /* Tablet Optimization: iPad Air (820px) and iPad Pro (834px - 1024px) */
+  @media screen and (min-width: 769px) and (max-width: 1180px) {
+    .hero-illustration {
+      /* Keep horizontal focus on characters, but less extreme than mobile */
+      object-position: 72% 0%; 
+      
+      /* Subtle zoom for a premium tablet feel */
+      transform: scale(1.15);
+      transform-origin: top;
+      
+      /* Pull up slightly to remove the empty ceiling color */
+      top: -40px; 
+      
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-container {
+      min-height: 480px; /* Taller hero area for larger tablet screens */
+      overflow: hidden !important;
+    }
+
+    /* Adjusting Navbar for iPad Pro width to prevent overlap */
+    .hidden.lg\:flex {
+      display: flex !important;
+      gap: 1.5rem; /* Slightly tighter gap so menu doesn't hit the search icon */
+    }
+    
+    .nav-container {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
 
     /* Important: Ensure the container hides the parts we moved out of bounds */
     .hero-container {
