@@ -45,7 +45,7 @@
   height: 100%;
   width: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: right center;
   pointer-events: none;
 }
    
@@ -56,6 +56,11 @@
       .auth-image-col { display: none !important; }
       .hero-container { min-height: 400px; }
     }
+    @media (max-width: 768px) {
+  .hero-illustration {
+    object-position: right center; /* shows full person */
+  }
+}
  
     /* Navbar Protection: Preventing horizontal push during zoom */
     .nav-container {
