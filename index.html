@@ -287,8 +287,12 @@ nav.sticky {
 /* 3. Ensure the mobile menu and search bar account for the fixed nav */
 #mobileMenu, #searchBarContainer {
   position: fixed;
+  top: 60px;
   width: 100%;
-  z-index: 999;
+  left: 0;
+  z-index: 9999;
+  background: white;
+  transition: all 0.3s ease-in-out;
 }
 
   /* DROPDOWN VISIBILITY FIX */
@@ -389,17 +393,24 @@ document.addEventListener("DOMContentLoaded", function() {
       else showPage("home");
     }
  
-    function toggleSearchBar() {
-      const searchBar = document.getElementById('searchBarContainer');
-      if (searchBar.classList.contains('max-h-0')) {
-        searchBar.classList.replace('max-h-0', 'max-h-40');
-        searchBar.classList.replace('opacity-0', 'opacity-100');
-        searchBar.querySelector('input').focus();
-      } else {
-        searchBar.classList.replace('max-h-40', 'max-h-0');
-        searchBar.classList.replace('opacity-100', 'opacity-0');
-      }
+   function toggleSearchBar() {
+    const searchBar = document.getElementById('searchBarContainer');
+    const input = searchBar.querySelector('input');
+    
+    // Check if it is currently closed
+    if (searchBar.classList.contains('max-h-0')) {
+        // OPENING: Remove all hiding classes
+        searchBar.classList.remove('max-h-0', 'opacity-0');
+        searchBar.classList.add('max-h-40', 'opacity-100');
+        
+        // Focus the input so the user can start typing immediately
+        setTimeout(() => input.focus(), 300);
+    } else {
+        // CLOSING: Re-add hiding classes
+        searchBar.classList.remove('max-h-40', 'opacity-100');
+        searchBar.classList.add('max-h-0', 'opacity-0');
     }
+}
  
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
