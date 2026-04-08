@@ -58,38 +58,101 @@
     transform: translateY(-4px) scale(1.05); /* Slight lift to show focus */
     transition: all 0.2s ease;
 }
+
    
     /* iPhone Auto-Zoom Fix: Prevents focus-zoom on small inputs */
     @media screen and (max-width: 768px) {
       input, select, textarea { font-size: 16px !important; }
     }
  
-    /* Landing Page Specific CSS */
-    #homePage { background-color: #FFF1F2; width: 100%; overflow-x: hidden; }
+   /* =========================================
+       1. Landing Page & Hero Section
+       ========================================= */
+    #homePage { 
+      background-color: #FFF1F2; 
+      width: 100%; 
+      overflow-x: hidden; 
+    }
+
     .hero-container {
       background-color: #FDE2E4;
       position: relative;
-      overflow: hidden;
+      overflow: hidden !important;
       min-height: 500px;
+      margin-top: 60px; /* Space for the fixed navbar */
     }
+
     .hero-illustration {
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  object-position: right center;
-  pointer-events: none;
-}
-   
-    .category-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
-   
-   @media (max-width: 1023px) {
-    .auth-form-card { min-height: 100svh; width: 100%; }
-    .auth-image-col { display: none !important; }
-    .hero-container { min-height: 400px; overflow: hidden !important; }
-  }
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: right center;
+      pointer-events: none;
+    }
+
+    .category-card:hover { 
+      transform: translateY(-5px); 
+      transition: all 0.3s ease; 
+    }
+
+    /* =========================================
+       2. Responsive Spacing & Alignment
+       ========================================= */
+
+    /* MOBILE DEVICES (up to 768px) */
+    @media (max-width: 768px) {
+      .hero-container {
+        min-height: 400px;
+      }
+      
+      .hero-illustration {
+        object-position: 75% center; /* Focus on characters */
+      }
+      
+      /* FIX: Spacing for "Get Started" button */
+      .hero-container > div.relative.z-20 {
+        padding-bottom: 2.5rem !important;
+        justify-content: center !important;
+      }
+      
+      .hero-container button {
+        margin-bottom: 15px;
+      }
+    }
+
+    /* TABLETS (769px to 1024px) */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .hero-container {
+        min-height: 480px;
+      }
+      .hero-illustration {
+        object-position: 65% center;
+      }
+    }
+
+    /* =========================================
+       3. Search Bar Fix (Crucial)
+       ========================================= */
+    #searchBarContainer {
+      position: fixed;
+      width: 100%;
+      left: 0;
+      top: 60px; /* Height of your navy navbar */
+      z-index: 9999; 
+      background: white;
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* =========================================
+       4. Auth & Helper Classes
+       ========================================= */
+    @media (max-width: 1023px) {
+      .auth-form-card { min-height: 100svh; width: 100%; }
+      .auth-image-col { display: none !important; }
+    }
   @media screen and (max-width: 768px) {
   /* Adds space at the bottom of the hero content so the button doesn't hit the edge */
   .hero-container > div.relative.z-20 {
