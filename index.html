@@ -9,7 +9,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
  
   <style>
-    /* 2. Ensure heart icons stay behind the fixed navbar when scrolling  this i sfor toggleheart*/
+    /* Ensures the focus ring matches the circular shape of the profile icon */
+.nav-actions-group button.rounded-full:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #06224C, 0 0 0 4px #60a5fa; /* Navy inner ring, Blue outer ring */
+}
+    /*  Ensure heart icons stay behind the fixed navbar when scrolling  this i sfor toggleheart*/
 .category-card div[onclick="toggleHeart(this)"] {
   z-index: 10 !important; /* Low value so it passes UNDER the navbar */
 }
@@ -34,6 +39,25 @@
     .font-welcome-heading { font-family: "Times New Roman", Georgia, serif; letter-spacing: 0.35em; font-weight: 600; text-align: center; }
     .error-text { font-size: 12px; color: #ff6b6b; margin-top: 4px; font-weight: 500; }
     .password-toggle-hidden .password-toggle-btn { visibility: hidden; pointer-events: none; }
+    /* Visible focus indicator for keyboard users */
+#popular-searches button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* Blue glow */
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+}
+
+/* Optional: improve tag hover/active feel */
+#popular-searches button:active {
+    transform: scale(0.95);
+}
+/* Visible focus indicator for the Get Started button */
+.hero-container button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px #FFF1F2, 0 0 0 10px #0A2357;fect for maximum visibility */
+    transform: translateY(-4px) scale(1.05); /* Slight lift to show focus */
+    transition: all 0.2s ease;
+}
    
     /* iPhone Auto-Zoom Fix: Prevents focus-zoom on small inputs */
     @media screen and (max-width: 768px) {
@@ -66,6 +90,18 @@
     .auth-image-col { display: none !important; }
     .hero-container { min-height: 400px; overflow: hidden !important; }
   }
+  @media screen and (max-width: 768px) {
+  /* Adds space at the bottom of the hero content so the button doesn't hit the edge */
+  .hero-container > div.relative.z-20 {
+    padding-bottom: 3rem !important; 
+    justify-content: center !important; /* Centers content vertically on mobile for better balance */
+  }
+  
+  /* Adds a specific margin to the button to push it away from the bottom edge */
+  .hero-container button {
+    margin-bottom: 20px;
+  }
+}
 
   @media (max-width: 768px) {
     .hero-illustration {
@@ -628,13 +664,11 @@ document.addEventListener("DOMContentLoaded", function() {
       <button onclick="toggleSearchBar()" class="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-white rounded-full text-[#06224C] hover:bg-gray-200 transition shadow-sm flex-shrink-0">
         <i class="fa-solid fa-magnifying-glass text-xs md:text-sm"></i>
       </button>
-      <div class="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-white/40 overflow-hidden cursor-pointer flex-shrink-0 relative">
-        <img 
-          src="public/profile.webp" 
-          alt="User" 
-          class="w-full h-full object-cover block"
-        />
-      </div>
+      <button type="button" 
+        aria-label="User Profile"
+        class="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-white/40 overflow-hidden cursor-pointer flex-shrink-0 relative focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#06224C] transition-all">
+    <img src="public/profile.webp" alt="User Profile Picture" class="w-full h-full object-cover block" />
+</button>
     </div>
   </div>
 </nav>
@@ -663,7 +697,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <source media="(max-width: 768px)" srcset="public/landing2.webp">
     <img src="public/landing2.webp" alt="Hero" class="hero-illustration">
   </picture>
-  <div class="relative z-20 w-full md:w-1/2 px-8 md:pl-20 pt-12 pb-15 md:pt-16 md:pb-24 flex flex-col justify-end min-h-[400px] md:min-h-[500px]">
+ <div class="relative z-20 w-full md:w-1/2 px-8 md:pl-20 pt-12 pb-15 md:pt-16 md:pb-24 flex flex-col justify-center md:justify-end min-h-[400px] md:min-h-[500px]">
     <h1 class="text-4xl md:text-6xl font-black text-[#0A2357] leading-tight mb-auto"></h1>
     <button onclick="location.hash='404'" class="mt-8 mx-auto md:mx-0 bg-[#0A2357] text-white px-7 py-3 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-blue-900 shadow-lg w-fit transition active:scale-95">
       Get Started
@@ -679,19 +713,47 @@ document.addEventListener("DOMContentLoaded", function() {
       <div class="mt-8 md:mt-12 text-center px-4">
         <p class="text-[10px] font-bold text-black-800 uppercase tracking-[0.2em] mb-4">Popular Searches</p>
         <div class="flex flex-wrap justify-center gap-2 md:gap-3 pb-4">
-          <span class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Food</span>
-          <span class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Blog</span>
-          <span class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Hotel</span>
-          <span class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">News</span>
-          <span class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Travel</span>
-          <span class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Education</span>
-          <span class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Portfolio</span>
-          <span class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Newspaper</span>
-          <span class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">E-commerce</span>
-          <span class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Real Estate</span>
-          <span class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Photography</span>
-          <span class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Dashboard</span>
-          <span class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Landing page</span>
+          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+    Food
+</button>
+          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+    Blog
+</button>
+<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+    Hotel
+</button>
+<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+    News
+</button>
+<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+    Travel
+</button>
+<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+    Education
+</button>
+<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+    Portfolio
+</button>
+<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+    Newspaper
+</button>
+<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+    E-Commerce
+</button>
+<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+    Real Estate
+</button>
+<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+    Photography
+</button>
+<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+    Dashboard
+</button>
+<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+    Landing Page
+</button>
+
+
         </div>
       </div>
  
@@ -757,7 +819,8 @@ document.addEventListener("DOMContentLoaded", function() {
       </div>
  
       <div class="mt-16 md:mt-24 mb-24">
-        <h2 class="text-xs font-black text-[#0A2357] mb-10 uppercase tracking-[0.3em]">Top Selling This Week</h2>
+       <h2 class="text-xs font-black text-[#0A2357] mb-10 uppercase tracking-[0.3em] border-l-4 border-blue-600 pl-3">Top Selling This Week</h2>
+
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
          
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
