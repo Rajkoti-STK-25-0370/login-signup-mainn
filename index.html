@@ -535,6 +535,42 @@ window.addEventListener('click', function() {
   const menu = document.getElementById('category-menu');
   menu.classList.remove('opacity-100', 'visible', 'translate-y-0');
 });
+
+
+function submitRating(productId, rating) {
+    const container = document.getElementById(`rating-container-${productId}`);
+    const stars = container.querySelectorAll('i');
+    const ratingText = document.getElementById(`user-rating-val-${productId}`);
+
+    // 1. Update the Stars Visually
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.replace('fa-regular', 'fa-solid');
+        } else {
+            star.classList.replace('fa-solid', 'fa-regular');
+        }
+    });
+
+    // 2. Update the numerical text
+    ratingText.innerText = `(${rating}.0)`;
+    ratingText.classList.replace('text-gray-400', 'text-blue-600');
+
+    // 3. ACCESSIBILITY FIX: Update the ARIA label for screen readers
+    container.setAttribute('aria-label', `Rating: ${rating} out of 5 stars`);
+
+    // 4. Trigger notification and save
+    showNotification(`You rated ${productId} ${rating} stars!`);
+    localStorage.setItem(`rating-${productId}`, rating);
+}
+
+// Optional: Load saved ratings when page opens
+document.addEventListener("DOMContentLoaded", function() {
+    const products = [ 'BuySphere', 'TurboCart','MegaBasket', 'SampleStore', 'ShopNest', 'NexaStore']; // Add your IDs here
+    products.forEach(id => {
+        const savedRating = localStorage.getItem(`rating-${id}`);
+        if (savedRating) submitRating(id, parseInt(savedRating));
+    });
+});
   </script>
  
   <div id="notFoundPage" class="hidden min-h-screen bg-[#FFF1F2] flex flex-col items-center justify-center text-center p-6">
@@ -732,7 +768,35 @@ window.addEventListener('click', function() {
               <p class="text-xs italic text-gray-500 mb-4">E-commerce Website</p>
               <div class="flex justify-between items-center mb-6">
                 <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 29</span><span class="text-[10px] font-bold text-gray-400">(10.5K Sales)</span></div>
-                <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><i class="fa-regular fa-star"></i><span class="text-gray-400 font-bold ml-1 text-xs">(3.2)</span></div>
+                <div class="flex items-center gap-1 text-yellow-400" 
+     id="rating-container-ShopNest" 
+     role="img" 
+     aria-label="Rating: 0 out of 5 stars">
+    
+    <div class="flex cursor-pointer group/stars">
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('ShopNest', 1)" 
+           role="button" aria-label="Rate 1 star"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('ShopNest', 2)" 
+           role="button" aria-label="Rate 2 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('ShopNest', 3)" 
+           role="button" aria-label="Rate 3 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('ShopNest', 4)" 
+           role="button" aria-label="Rate 4 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('ShopNest', 5)" 
+           role="button" aria-label="Rate 5 stars"></i>
+    </div>
+    
+    <span class="text-gray-400 font-bold ml-1 text-xs" 
+          id="user-rating-val-ShopNest" 
+          aria-hidden="true">(0.0)</span>
+</div>
+
+
               </div>
               <div class="flex items-center gap-3">
                 <button onclick="addToCart('ShopNest', 29, 'public/shopnest.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
@@ -751,7 +815,35 @@ window.addEventListener('click', function() {
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
               <div class="flex justify-between items-center mb-6">
                 <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 10</span><span class="text-[10px] font-bold text-gray-400">(3.4K Sales)</span></div>
-                <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><i class="fa-regular fa-star"></i><span class="text-gray-400 font-bold ml-1 text-xs">(3.4)</span></div>
+                <div class="flex items-center gap-1 text-yellow-400" 
+     id="rating-container-BuySphere" 
+     role="img" 
+     aria-label="Rating: 0 out of 5 stars">
+    
+    <div class="flex cursor-pointer group/stars">
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('BuySphere', 1)" 
+           role="button" aria-label="Rate 1 star"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('BuySphere', 2)" 
+           role="button" aria-label="Rate 2 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('BuySphere', 3)" 
+           role="button" aria-label="Rate 3 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('BuySphere', 4)" 
+           role="button" aria-label="Rate 4 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('BuySphere', 5)" 
+           role="button" aria-label="Rate 5 stars"></i>
+    </div>
+    
+    <span class="text-gray-400 font-bold ml-1 text-xs" 
+          id="user-rating-val-BuySphere" 
+          aria-hidden="true">(0.0)</span>
+</div>
+
+
               </div>
               <div class="flex items-center gap-3">
                 <button onclick="addToCart('BuySphere', 10, 'public/buysphere.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
@@ -769,7 +861,35 @@ window.addEventListener('click', function() {
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
               <div class="flex justify-between items-center mb-6">
                 <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 35</span><span class="text-[10px] font-bold text-gray-400">(2.9K Sales)</span></div>
-                <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><span class="text-gray-400 font-bold ml-1 text-xs">(2.9)</span></div>
+                <div class="flex items-center gap-1 text-yellow-400" 
+     id="rating-container-TurboCart" 
+     role="img" 
+     aria-label="Rating: 0 out of 5 stars">
+    
+    <div class="flex cursor-pointer group/stars">
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('TurboCart', 1)" 
+           role="button" aria-label="Rate 1 star"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('TurboCart', 2)" 
+           role="button" aria-label="Rate 2 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('TurboCart', 3)" 
+           role="button" aria-label="Rate 3 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('TurboCart', 4)" 
+           role="button" aria-label="Rate 4 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('TurboCart', 5)" 
+           role="button" aria-label="Rate 5 stars"></i>
+    </div>
+    
+    <span class="text-gray-400 font-bold ml-1 text-xs" 
+          id="user-rating-val-TurboCart" 
+          aria-hidden="true">(0.0)</span>
+</div>
+
+
               </div>
               <div class="flex items-center gap-3">
                 <button onclick="addToCart('TurboCart', 35, 'public/turbocart.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
@@ -787,7 +907,35 @@ window.addEventListener('click', function() {
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
               <div class="flex justify-between items-center mb-6">
                 <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 29</span><span class="text-[10px] font-bold text-gray-400">(4.2K Sales)</span></div>
-                <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><span class="text-gray-400 font-bold ml-1 text-xs">(4.2)</span></div>
+               <div class="flex items-center gap-1 text-yellow-400" 
+     id="rating-container-MegaBasket" 
+     role="img" 
+     aria-label="Rating: 0 out of 5 stars">
+    
+    <div class="flex cursor-pointer group/stars">
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('MegaBasket', 1)" 
+           role="button" aria-label="Rate 1 star"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('MegaBasket', 2)" 
+           role="button" aria-label="Rate 2 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('MegaBasket', 3)" 
+           role="button" aria-label="Rate 3 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('MegaBasket', 4)" 
+           role="button" aria-label="Rate 4 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('MegaBasket', 5)" 
+           role="button" aria-label="Rate 5 stars"></i>
+    </div>
+    
+    <span class="text-gray-400 font-bold ml-1 text-xs" 
+          id="user-rating-val-MegaBasket" 
+          aria-hidden="true">(0.0)</span>
+</div>
+
+
               </div>
               <div class="flex items-center gap-3">
                 <button onclick="addToCart('MegaBasket', 29, 'public/megabasket.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
@@ -806,7 +954,36 @@ window.addEventListener('click', function() {
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
               <div class="flex justify-between items-center mb-6">
                 <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 10</span><span class="text-[10px] font-bold text-gray-400">(4.7K Sales)</span></div>
-                <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span class="text-gray-400 font-bold ml-1 text-xs">(4.7)</span></div>
+                <div class="flex items-center gap-1 text-yellow-400" 
+     id="rating-container-NexaStore" 
+     role="img" 
+     aria-label="Rating: 0 out of 5 stars">
+    
+    <div class="flex cursor-pointer group/stars">
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('NexaStore', 1)" 
+           role="button" aria-label="Rate 1 star"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('NexaStore', 2)" 
+           role="button" aria-label="Rate 2 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('NexaStore', 3)" 
+           role="button" aria-label="Rate 3 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('NexaStore', 4)" 
+           role="button" aria-label="Rate 4 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('NexaStore', 5)" 
+           role="button" aria-label="Rate 5 stars"></i>
+    </div>
+    
+    <span class="text-gray-400 font-bold ml-1 text-xs" 
+          id="user-rating-val-NexaStore" 
+          aria-hidden="true">(0.0)</span>
+</div>
+
+
+
               </div>
               <div class="flex items-center gap-3">
                 <button onclick="addToCart('NexaStore', 10, 'public/nexastore1.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
@@ -824,7 +1001,33 @@ window.addEventListener('click', function() {
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
               <div class="flex justify-between items-center mb-6">
                 <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 35</span><span class="text-[10px] font-bold text-gray-400">(5.0K Sales)</span></div>
-                <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span class="text-gray-400 font-bold ml-1 text-xs">(5.0)</span></div>
+                <div class="flex items-center gap-1 text-yellow-400" 
+     id="rating-container-SampleStore" 
+     role="img" 
+     aria-label="Rating: 0 out of 5 stars">
+    
+    <div class="flex cursor-pointer group/stars">
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('SampleStore', 1)" 
+           role="button" aria-label="Rate 1 star"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('SampleStore', 2)" 
+           role="button" aria-label="Rate 2 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('SampleStore', 3)" 
+           role="button" aria-label="Rate 3 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('SampleStore', 4)" 
+           role="button" aria-label="Rate 4 stars"></i>
+        <i class="fa-regular fa-star hover:scale-110 transition" 
+           onclick="submitRating('SampleStore', 5)" 
+           role="button" aria-label="Rate 5 stars"></i>
+    </div>
+    
+    <span class="text-gray-400 font-bold ml-1 text-xs" 
+          id="user-rating-val-SampleStore" 
+          aria-hidden="true">(0.0)</span>
+</div>
               </div>
               <div class="flex items-center gap-3">
                 <button onclick="addToCart('SampleStore', 35, 'public/samplestore.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
