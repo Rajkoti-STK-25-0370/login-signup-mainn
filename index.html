@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
  
   <style>
-    /* Global fixes for high zoom (150%+) and white space removal */
+       /* Global fixes for high zoom (150%+) and white space removal */
     html, body {
       height: 100%;
       overflow-x: hidden !important;
@@ -195,28 +195,78 @@
 
  
     /* Navbar Protection: Preventing horizontal push during zoom */
-    .nav-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        flex-wrap: nowrap;
-        gap: 8px;
-        overflow: hidden;
-    }
-    .nav-actions-group {
-        display: flex;
-        align-items: center;
-        flex-shrink: 0;
-        margin-left: auto;
-        gap: 6px;
-    }
+  /* CHANGED: Removed 'overflow: hidden' so the dropdown is visible */
+  /* Forces the navbar to stay in a single row without wrapping */
+  .nav-container {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      width: 100%;
+      max-width: 100%;
+      flex-wrap: nowrap !important; /* Prevents the 'Cart' and 'Profile' from falling down */
+      gap: 12px;
+      overflow: visible !important; /* Keeps the dropdown menu visible */
+      padding-right: 0 !important;
+  }
+
+  /* Keeps the right-side icons grouped together */
+  .nav-actions-group {
+      display: flex !important;
+      align-items: center !important;
+      flex-shrink: 0 !important; /* Prevents icons from shrinking or moving */
+      gap: 12px;
+      margin-left: auto !important;
+  }
+
+  /* Ensures the logo and links don't get squashed */
+  .nav-container > div:first-child {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+  }
+
+  /* DROPDOWN VISIBILITY FIX */
+  #category-menu {
+    z-index: 9999 !important; /* Ensures it stays above the hero image */
+    display: none; /* We will use JS or Group-Hover to show it */
+  }
+
+  /* Show menu on hover of the group */
+  .group:hover #category-menu {
+    display: block !important;
+    opacity: 100 !important;
+    visibility: visible !important;
+  }
+
+  /* This adds an invisible 'bridge' so the menu doesn't close when moving the mouse down */
+  .group .absolute {
+    padding-top: 15px; 
+    background-clip: padding-box;
+  }
  
     /* Grid Adjustments for smaller screens */
     @media (max-width: 640px) {
       .nav-actions-group .sm\:inline { display: none; }
       .category-card h3 { font-size: 13px !important; }
     }
+    /* Fix to keep dropdown open and visible above the hero image */
+.group:hover .group-hover\:opacity-100,
+.group:hover .invisible {
+  opacity: 100 !important;
+  visibility: visible !important;
+  display: block !important; /* Forces the block to exist */
+}
+
+.group .absolute {
+  padding-top: 15px; 
+  background-clip: padding-box;
+  z-index: 9999 !important; /* Ensures it is on top of EVERYTHING */
+}
+
+/* Ensure the navbar itself doesn't crop the menu */
+nav {
+  overflow: visible !important;
+}
   </style>
 </head>
  
@@ -224,7 +274,12 @@
  
   <script>
     const BACKEND_BASE_URL = "http://localhost:5000";
-    let cartCount = 0;
+    let cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+
+// Update badge on page load
+document.addEventListener("DOMContentLoaded", function() {
+  updateCartBadge();
+});
  
     function showPage(page) {
       var pages = ["home", "signup", "login", "error", "forgot", "verifyEmail", "verifyMobile", "verified", "createNewPassword", "notFound"];
@@ -286,17 +341,41 @@
     }
  
     function addToCart() {
-      cartCount++;
-      const badge = document.getElementById('cartBadge');
-      badge.innerText = cartCount;
-      badge.classList.remove('hidden');
-    }
+  cartCount++;
+  localStorage.setItem('cartCount', cartCount);
+  updateCartBadge();
+}
+
+function updateCartBadge() {
+  const badge = document.getElementById('cartBadge');
+  if (cartCount > 0) {
+    badge.innerText = cartCount;
+    badge.classList.remove('hidden');
+  } else {
+    badge.classList.add('hidden');
+  }
+}
  
     window.addEventListener("hashchange", router);
     document.addEventListener("DOMContentLoaded", router);
  
     function validateEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
     function isMobile(value) { return /^[0-9]{10}$/.test(value.trim()); }
+    document.getElementById('category-dropdown-btn').addEventListener('click', function(e) {
+  e.stopPropagation(); // Prevents the click from bubbling up
+  const menu = document.getElementById('category-menu');
+  
+  // Toggle visibility classes
+  menu.classList.toggle('opacity-100');
+  menu.classList.toggle('visible');
+  menu.classList.toggle('translate-y-0');
+});
+
+// Close menu if user clicks anywhere else on the screen
+window.addEventListener('click', function() {
+  const menu = document.getElementById('category-menu');
+  menu.classList.remove('opacity-100', 'visible', 'translate-y-0');
+});
   </script>
  
   <div id="notFoundPage" class="hidden min-h-screen bg-[#FFF1F2] flex flex-col items-center justify-center text-center p-6">
@@ -309,46 +388,61 @@
  
   <div id="homePage" class="hidden min-h-screen flex flex-col">
     <nav class="sticky top-0 z-50 bg-[#06224C] border-b border-white/10 px-2 md:px-12 py-3 shadow-sm">
-      <div class="nav-container">
-        <div class="flex items-center gap-1 md:gap-8">
-          <button onclick="toggleMobileMenu()" class="lg:hidden text-white focus:outline-none p-1">
-            <i class="fa-solid fa-bars text-xl"></i>
-          </button>
- 
-          <div class="flex-shrink">
-            <a href="#home" class="bg-white px-2 md:px-4 py-2 md:py-3 rounded-[60%] flex items-center justify-center shadow-md transition hover:scale-105 min-w-[75px] md:min-w-[90px] aspect-[2/1]">
-              <img src="public/stackly-logo.webp" alt="Stackly" class="h-3 md:h-5 w-auto object-contain">
-            </a>
-          </div>
- 
-          <div class="hidden lg:flex space-x-6 xl:space-x-10 text-[13px] font-bold text-white uppercase tracking-wide items-center">
-            <a href="#Home" class="hover:text-blue-300 transition whitespace-nowrap">Home</a>
-            <a href="#404" class="hover:text-blue-300 transition whitespace-nowrap">About Us</a>
-            <a href="#404" class="flex items-center gap-1.5 hover:text-blue-300 transition whitespace-nowrap">Our Products <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
-            <a href="#categories-section" class="flex items-center gap-1.5 hover:text-blue-300 transition whitespace-nowrap">Categories <i class="fa-solid fa-chevron-down text-[11px]"></i></a>
-            <a href="#404" class="hover:text-blue-300 transition whitespace-nowrap">Contact</a>
-          </div>
-        </div>
- 
-        <div class="nav-actions-group">
-          <button class="relative flex items-center gap-1 border border-white/30 rounded-full px-2 md:px-4 py-1.5 text-white text-[10px] md:text-xs font-semibold hover:bg-white/10 transition">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span class="hidden sm:inline">Cart</span>
-            <span id="cartBadge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-          </button>
-          <button onclick="toggleSearchBar()" class="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-white rounded-full text-[#06224C] hover:bg-gray-200 transition shadow-sm flex-shrink-0">
-            <i class="fa-solid fa-magnifying-glass text-xs md:text-sm"></i>
-          </button>
-          <div class="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-white/40 overflow-hidden cursor-pointer flex-shrink-0 relative">
-             <img 
-               src="public/profile.webp" 
-               alt="User" 
-               class="w-full h-full object-cover block"
-             />
-           </div>
-        </div>
+  <div class="nav-container">
+    <div class="flex items-center gap-1 md:gap-8">
+      <button onclick="toggleMobileMenu()" class="lg:hidden text-white focus:outline-none p-1">
+        <i class="fa-solid fa-bars text-xl"></i>
+      </button>
+
+      <div class="flex-shrink">
+        <a href="#home" class="bg-white px-2 md:px-4 py-2 md:py-3 rounded-[60%] flex items-center justify-center shadow-md transition hover:scale-105 min-w-[75px] md:min-w-[90px] aspect-[2/1]">
+          <img src="public/stackly-logo.webp" alt="Stackly Logo" class="h-3 md:h-5 w-auto object-contain">
+        </a>
       </div>
-    </nav>
+
+      <div class="hidden lg:flex space-x-6 xl:space-x-10 text-[13px] font-bold text-white uppercase tracking-wide items-center">
+        <a href="#Home" class="hover:text-blue-300 transition whitespace-nowrap">Home</a>
+        <a href="#404" class="hover:text-blue-300 transition whitespace-nowrap">About Us</a>
+        <a href="#404" class="flex items-center gap-1.5 hover:text-blue-300 transition whitespace-nowrap">Our Products <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
+        <div class="relative group flex items-center">
+          <a href="#categories-section" class="hover:text-blue-300 transition whitespace-nowrap uppercase pr-1">
+            Categories
+          </a>
+          <button id="category-dropdown-btn" class="hover:text-blue-300 transition p-1">
+            <i class="fa-solid fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
+          </button>
+          <div id="category-menu" class="absolute left-0 top-full mt-2 w-64 bg-white rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-3 border border-gray-100 translate-y-2 group-hover:translate-y-0">
+            <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">PORTFOLIO</a>
+            <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">E-COMMERCE TEMPLATES</a>
+            <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">DIGITAL MARKETING</a>
+            <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">BLOGGING</a>
+            <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">CONSTRUCTION THEMES</a>
+            <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600">FOOD RESTAURANT</a>
+          </div>
+        </div>
+        <a href="#404" class="hover:text-blue-300 transition whitespace-nowrap">Contact</a>
+      </div>
+    </div>
+
+    <div class="nav-actions-group flex-shrink-0">
+      <button class="relative flex items-center gap-1 border border-white/30 rounded-full px-2 md:px-4 py-1.5 text-white text-[10px] md:text-xs font-semibold hover:bg-white/10 transition">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="hidden sm:inline">Cart</span>
+        <span id="cartBadge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+      </button>
+      <button onclick="toggleSearchBar()" class="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-white rounded-full text-[#06224C] hover:bg-gray-200 transition shadow-sm flex-shrink-0">
+        <i class="fa-solid fa-magnifying-glass text-xs md:text-sm"></i>
+      </button>
+      <div class="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-white/40 overflow-hidden cursor-pointer flex-shrink-0 relative">
+        <img 
+          src="public/profile.webp" 
+          alt="User" 
+          class="w-full h-full object-cover block"
+        />
+      </div>
+    </div>
+  </div>
+</nav>
  
     <div id="mobileMenu" class="hidden lg:hidden bg-[#06224C] text-white w-full border-b border-white/10 py-5 px-6 flex flex-col gap-4 uppercase font-bold text-xs tracking-widest z-40 sticky top-[60px]">
         <a href="#Home" onclick="toggleMobileMenu()">Home</a>
