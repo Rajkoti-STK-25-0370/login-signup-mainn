@@ -9,6 +9,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
  
   <style>
+    /* 2. Ensure heart icons stay behind the fixed navbar when scrolling  this i sfor toggleheart*/
+.category-card div[onclick="toggleHeart(this)"] {
+  z-index: 10 !important; /* Low value so it passes UNDER the navbar */
+}
+
+/* Ensure the category section itself doesn't fight the navbar */
+#categories-section {
+  position: relative;
+  z-index: 1;
+}
        /* Global fixes for high zoom (150%+) and white space removal */
     html, body {
       height: 100%;
@@ -224,6 +234,26 @@
       align-items: center;
       flex-shrink: 0;
   }
+  /* 1. Make the Navbar truly fixed to the viewport */
+nav.sticky {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000 !important; /* Ensure it stays above everything */
+}
+
+/* 2. Add padding to the page content so it doesn't hide behind the navbar */
+#homePage .w-full.max-w-7xl {
+  margin-top: 80px; /* Adjust this based on your navbar height */
+}
+
+/* 3. Ensure the mobile menu and search bar account for the fixed nav */
+#mobileMenu, #searchBarContainer {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+}
 
   /* DROPDOWN VISIBILITY FIX */
   #category-menu {
@@ -266,6 +296,23 @@
 /* Ensure the navbar itself doesn't crop the menu */
 nav {
   overflow: visible !important;
+}
+.toast-slide-in {
+    animation: toastIn 0.5s ease forwards;
+}
+
+@keyframes toastIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.toast-slide-out {
+    animation: toastOut 0.5s ease forwards;
+}
+
+@keyframes toastOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
 }
   </style>
 </head>
@@ -340,11 +387,123 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
  
-    function addToCart() {
-  cartCount++;
-  localStorage.setItem('cartCount', cartCount);
-  updateCartBadge();
+   
+
+function toggleCart() {
+    const sidebar = document.getElementById('cartSidebar');
+    const backdrop = document.getElementById('cartBackdrop');
+    sidebar.classList.toggle('translate-x-full');
+    backdrop.classList.toggle('opacity-0');
+    backdrop.classList.toggle('invisible');
+    renderCart();
 }
+
+// Modify your existing addToCart function
+let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+function addToCart(name, price, image) {
+    // 1. Ensure price is treated as a number
+    const numericPrice = parseFloat(price);
+
+    // 2. Check if item exists
+    const existingItem = cartItems.find(item => item.name === name);
+
+    if (existingItem) {
+        // 3. If it exists, increment. Ensure it's a number first.
+        existingItem.quantity = (existingItem.quantity || 0) + 1;
+    } else {
+        // 4. If new, set quantity to 1
+        cartItems.push({ 
+            name: name, 
+            price: numericPrice, 
+            image: image, 
+            quantity: 1 
+        });
+    }
+
+    // Save
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    
+    // Recalculate badge total
+    cartCount = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+    localStorage.setItem('cartCount', cartCount);
+    
+    updateCartBadge();
+    showNotification(name);
+    renderCart();
+}
+
+function renderCart() {
+    const list = document.getElementById('cartItemsList');
+    const totalEl = document.getElementById('cartTotal');
+    let total = 0;
+    
+    if (cartItems.length === 0) {
+        list.innerHTML = `<div class="text-center py-20"><p class="text-gray-400 font-bold uppercase text-xs tracking-widest">Cart is empty</p></div>`;
+        totalEl.innerText = "$0.00";
+        return;
+    }
+
+    list.innerHTML = cartItems.map((item, index) => {
+        // Ensure quantity and price are numbers to avoid NaN
+        const qty = item.quantity || 1;
+        const price = item.price || 0;
+        const itemTotal = price * qty;
+        total += itemTotal;
+
+        return `
+            <div class="flex gap-4 items-center border-b border-gray-100 pb-4">
+                <img src="${item.image}" class="w-16 h-12 object-cover rounded-lg">
+                <div class="flex-grow">
+                    <h4 class="text-[11px] font-black text-[#06224C] uppercase">${item.name}</h4>
+                    <p class="text-blue-600 font-bold text-xs">$${price} x ${qty}</p>
+                </div>
+                <button onclick="removeFromCart(${index})" class="text-gray-300 hover:text-red-500"><i class="fa-solid fa-trash"></i></button>
+            </div>`;
+    }).join('');
+    
+    totalEl.innerText = `$${total.toFixed(2)}`;
+}
+function removeFromCart(index) {
+    // Completely remove the item regardless of quantity
+    cartItems.splice(index, 1);
+    
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+    localStorage.setItem('cartCount', cartCount);
+    
+    updateCartBadge();
+    renderCart();
+}
+function showNotification(productName) {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    
+    // Design matching your theme: Navy background, white text, blue border
+    toast.className = `toast-slide-in bg-[#06224C] text-white border-l-4 border-blue-500 px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 min-w-[300px]`;
+    
+    toast.innerHTML = `
+        <div class="bg-blue-500/20 p-2 rounded-lg">
+            <i class="fa-solid fa-circle-check text-blue-400"></i>
+        </div>
+        <div>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-blue-300">Added to Cart</p>
+            <p class="text-sm font-black uppercase tracking-tight">${productName}</p>
+        </div>
+    `;
+
+    container.appendChild(toast);
+
+    // Auto-remove after 3 seconds
+    setTimeout(() => {
+        toast.classList.replace('toast-slide-in', 'toast-slide-out');
+        setTimeout(() => toast.remove(), 500);
+    }, 3000);
+}
+// Ensure the Cart button opens the sidebar
+document.addEventListener("DOMContentLoaded", function() {
+    const cartBtn = document.querySelector('.nav-actions-group button');
+    cartBtn.setAttribute('onclick', 'toggleCart()');
+});
 
 function updateCartBadge() {
   const badge = document.getElementById('cartBadge');
@@ -482,7 +641,7 @@ window.addEventListener('click', function() {
 </section>
  
       <div class="mt-8 md:mt-12 text-center px-4">
-        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Popular Searches</p>
+        <p class="text-[10px] font-bold text-black-800 uppercase tracking-[0.2em] mb-4">Popular Searches</p>
         <div class="flex flex-wrap justify-center gap-2 md:gap-3 pb-4">
           <span class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Food</span>
           <span class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400">Blog</span>
@@ -505,8 +664,8 @@ window.addEventListener('click', function() {
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
          
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-40 md:h-48 overflow-hidden"><img src="public/port.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="WordPress"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
+            <div class="h-40 md:h-48 overflow-hidden"><img src="public/port.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="PortFolio Website Preview"></div>
             <div class="p-6 text-center">
               <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Portfolio</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
@@ -514,8 +673,8 @@ window.addEventListener('click', function() {
           </div>
  
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-40 md:h-48 overflow-hidden"><img src="public/ecommerce.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="E-Commerce"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
+            <div class="h-40 md:h-48 overflow-hidden"><img src="public/ecommerce.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="E-Commerce Template Preview"></div>
             <div class="p-6 text-center">
               <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">E-Commerce Templates</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
@@ -523,8 +682,8 @@ window.addEventListener('click', function() {
           </div>
  
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-40 md:h-48 overflow-hidden"><img src="public/digital.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Marketing"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
+            <div class="h-40 md:h-48 overflow-hidden"><img src="public/digital.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Digital Marketing Website Template Preview"></div>
             <div class="p-6 text-center">
               <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Digital Marketing Templates</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
@@ -532,8 +691,8 @@ window.addEventListener('click', function() {
           </div>
  
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-40 md:h-48 overflow-hidden"><img src="public/blog.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Blogging"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
+            <div class="h-40 md:h-48 overflow-hidden"><img src="public/blog.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Blogging Website Preview"></div>
             <div class="p-6 text-center">
               <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Blogging</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
@@ -541,8 +700,8 @@ window.addEventListener('click', function() {
           </div>
  
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-40 md:h-48 overflow-hidden"><img src="public/construction.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Construction"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
+            <div class="h-40 md:h-48 overflow-hidden"><img src="public/construction.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Construction Website Preview"></div>
             <div class="p-6 text-center">
               <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Construction Themes</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
@@ -550,8 +709,8 @@ window.addEventListener('click', function() {
           </div>
  
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-40 md:h-48 overflow-hidden"><img src="public/foood.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Food Restaurant"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
+            <div class="h-40 md:h-48 overflow-hidden"><img src="public/foood.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Food Restaurant Website Preview"></div>
             <div class="p-6 text-center">
               <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Food Restaurant</h3>
               <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
@@ -566,8 +725,8 @@ window.addEventListener('click', function() {
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
          
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-solid fa-heart text-lg"></i></div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/shopnest.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-solid fa-heart text-lg"></i></div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/shopnest.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product Website Preview"></div>
             <div class="px-2">
               <h4 class="text-xl font-bold text-[#06224C] mb-1">ShopNest</h4>
               <p class="text-xs italic text-gray-500 mb-4">E-commerce Website</p>
@@ -576,15 +735,17 @@ window.addEventListener('click', function() {
                 <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><i class="fa-regular fa-star"></i><span class="text-gray-400 font-bold ml-1 text-xs">(3.2)</span></div>
               </div>
               <div class="flex items-center gap-3">
-                <button onclick="addToCart()" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95"><i class="fa-solid fa-cart-shopping"></i></button>
+                <button onclick="addToCart('ShopNest', 29, 'public/shopnest.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
+  <i class="fa-solid fa-cart-shopping"></i>
+</button>
                 <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
               </div>
             </div>
           </div>
  
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/buysphere.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-2000 hover:text-red-800 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/buysphere.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="BuySphere Website Preview"></div>
             <div class="px-2">
               <h4 class="text-xl font-bold text-[#06224C] mb-1">BuySphere</h4>
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
@@ -592,13 +753,17 @@ window.addEventListener('click', function() {
                 <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 10</span><span class="text-[10px] font-bold text-gray-400">(3.4K Sales)</span></div>
                 <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><i class="fa-regular fa-star"></i><span class="text-gray-400 font-bold ml-1 text-xs">(3.4)</span></div>
               </div>
-              <div class="flex items-center gap-3"><button onclick="addToCart()" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95"><i class="fa-solid fa-cart-shopping"></i></button><button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button></div>
+              <div class="flex items-center gap-3">
+                <button onclick="addToCart('BuySphere', 10, 'public/buysphere.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
+  <i class="fa-solid fa-cart-shopping"></i>
+</button>
+<button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button></div>
             </div>
           </div>
  
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/turbocart.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/turbocart.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="TurboCart Website Preview"></div>
             <div class="px-2">
               <h4 class="text-xl font-bold text-[#06224C] mb-1">TurboCart</h4>
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
@@ -606,12 +771,16 @@ window.addEventListener('click', function() {
                 <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 35</span><span class="text-[10px] font-bold text-gray-400">(2.9K Sales)</span></div>
                 <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><span class="text-gray-400 font-bold ml-1 text-xs">(2.9)</span></div>
               </div>
-              <div class="flex items-center gap-3"><button onclick="addToCart()" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95"><i class="fa-solid fa-cart-shopping"></i></button><button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button></div>
+              <div class="flex items-center gap-3">
+                <button onclick="addToCart('TurboCart', 35, 'public/turbocart.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
+             <i class="fa-solid fa-cart-shopping"></i>
+               </button>
+                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button></div>
             </div>
           </div>
  
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
             <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/megabasket.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
             <div class="px-2">
               <h4 class="text-xl font-bold text-[#06224C] mb-1">MegaBasket</h4>
@@ -620,13 +789,18 @@ window.addEventListener('click', function() {
                 <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 29</span><span class="text-[10px] font-bold text-gray-400">(4.2K Sales)</span></div>
                 <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><span class="text-gray-400 font-bold ml-1 text-xs">(4.2)</span></div>
               </div>
-              <div class="flex items-center gap-3"><button onclick="addToCart()" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95"><i class="fa-solid fa-cart-shopping"></i></button><button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button></div>
+              <div class="flex items-center gap-3">
+                <button onclick="addToCart('MegaBasket', 29, 'public/megabasket.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
+  <i class="fa-solid fa-cart-shopping"></i>
+</button>
+
+                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button></div>
             </div>
           </div>
  
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/nexastore.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/nexastore1.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="NexaStore Website Preview"></div>
             <div class="px-2">
               <h4 class="text-xl font-bold text-[#06224C] mb-1">NexaStore</h4>
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
@@ -634,13 +808,17 @@ window.addEventListener('click', function() {
                 <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 10</span><span class="text-[10px] font-bold text-gray-400">(4.7K Sales)</span></div>
                 <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i><span class="text-gray-400 font-bold ml-1 text-xs">(4.7)</span></div>
               </div>
-              <div class="flex items-center gap-3"><button onclick="addToCart()" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95"><i class="fa-solid fa-cart-shopping"></i></button><button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button></div>
+              <div class="flex items-center gap-3">
+                <button onclick="addToCart('NexaStore', 10, 'public/nexastore1.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
+  <i class="fa-solid fa-cart-shopping"></i>
+</button>
+<button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button></div>
             </div>
           </div>
  
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/samplestore.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/samplestore.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Samplestore Website Preview"></div>
             <div class="px-2">
               <h4 class="text-xl font-bold text-[#06224C] mb-1">SampleStore</h4>
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
@@ -648,7 +826,11 @@ window.addEventListener('click', function() {
                 <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 35</span><span class="text-[10px] font-bold text-gray-400">(5.0K Sales)</span></div>
                 <div class="flex items-center gap-1 text-yellow-400"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><span class="text-gray-400 font-bold ml-1 text-xs">(5.0)</span></div>
               </div>
-              <div class="flex items-center gap-3"><button onclick="addToCart()" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95"><i class="fa-solid fa-cart-shopping"></i></button><button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button></div>
+              <div class="flex items-center gap-3">
+                <button onclick="addToCart('SampleStore', 35, 'public/samplestore.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
+  <i class="fa-solid fa-cart-shopping"></i>
+</button>
+<button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button></div>
             </div>
           </div>
  
@@ -665,6 +847,33 @@ window.addEventListener('click', function() {
  
   <div id="signupPage" class="hidden auth-page"> </div>
   <div id="loginPage" class="hidden auth-page"> </div>
- 
+ <div id="cartSidebar" class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white shadow-2xl z-[9999] transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+    <div class="p-6 border-b flex justify-between items-center bg-[#06224C] text-white">
+        <h2 class="text-lg font-black uppercase tracking-widest">Your Cart</h2>
+        <button onclick="toggleCart()" class="hover:rotate-90 transition-transform duration-200">
+            <i class="fa-solid fa-xmark text-2xl"></i>
+        </button>
+    </div>
+
+    <div id="cartItemsList" class="flex-grow overflow-y-auto p-6 space-y-6">
+        <div id="emptyCartMsg" class="text-center py-20">
+            <i class="fa-solid fa-cart-ghost text-5xl text-gray-200 mb-4"></i>
+            <p class="text-gray-400 font-bold uppercase text-xs tracking-widest">Your cart is empty</p>
+        </div>
+    </div>
+
+    <div class="p-6 border-t bg-gray-50">
+        <div class="flex justify-between items-center mb-6">
+            <span class="text-gray-500 font-bold uppercase text-xs tracking-widest">Subtotal</span>
+            <span id="cartTotal" class="text-xl font-black text-[#06224C]">$0.00</span>
+        </div>
+        <button onclick="location.hash='404'" class="w-full bg-[#0A2357] text-white py-4 rounded-xl font-black uppercase text-xs tracking-[0.2em] hover:bg-blue-900 transition shadow-lg active:scale-95">
+            Checkout Now
+        </button>
+    </div>
+</div>
+
+<div id="cartBackdrop" onclick="toggleCart()" class="fixed inset-0 bg-black/50 opacity-0 invisible z-[9998] transition-opacity duration-300"></div>
+<div id="toast-container" class="fixed bottom-5 right-5 z-[10000] flex flex-col gap-3"></div>
 </body>
 </html>
