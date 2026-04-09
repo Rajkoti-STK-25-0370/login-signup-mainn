@@ -9,22 +9,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
  
   <style>
-    /* Ensures the focus ring matches the circular shape of the profile icon */
-.nav-actions-group button.rounded-full:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 2px #06224C, 0 0 0 4px #60a5fa; /* Navy inner ring, Blue outer ring */
-}
-    /*  Ensure heart icons stay behind the fixed navbar when scrolling  this i sfor toggleheart*/
-.category-card div[onclick="toggleHeart(this)"] {
-  z-index: 10 !important; /* Low value so it passes UNDER the navbar */
-}
-
-/* Ensure the category section itself doesn't fight the navbar */
-#categories-section {
-  position: relative;
-  z-index: 1;
-}
-       /* Global fixes for high zoom (150%+) and white space removal */
+    /* ========================================
+       1. GLOBAL STYLES & RESETS
+       ======================================== */
     html, body {
       height: 100%;
       overflow-x: hidden !important;
@@ -34,33 +21,212 @@
       margin: 0;
       padding: 0;
     }
-    body { font-family: Arial, Helvetica, sans-serif; min-height: 100%; position: relative; }
-   
-    .font-welcome-heading { font-family: "Times New Roman", Georgia, serif; letter-spacing: 0.35em; font-weight: 600; text-align: center; }
-    .error-text { font-size: 12px; color: #ff6b6b; margin-top: 4px; font-weight: 500; }
-    .password-toggle-hidden .password-toggle-btn { visibility: hidden; pointer-events: none; }
-    /* Visible focus indicator for keyboard users */
-#popular-searches button:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* Blue glow */
-    border-color: #3b82f6;
-    transform: translateY(-2px);
-}
+    
+    body { 
+      font-family: Arial, Helvetica, sans-serif; 
+      min-height: 100%; 
+      position: relative; 
+    }
 
-/* Optional: improve tag hover/active feel */
-#popular-searches button:active {
-    transform: scale(0.95);
-}
-/* Visible focus indicator for the Get Started button */
-.hero-container button:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 4px #FFF1F2, 0 0 0 10px #0A2357;/*Effect for maximum visibility */
-    transform: translateY(-4px) scale(1.05); /* Slight lift to show focus */
-    transition: all 0.2s ease;
-}
+    /* ========================================
+       2. TYPOGRAPHY & UTILITY CLASSES
+       ======================================== */
+    .font-welcome-heading { 
+      font-family: "Times New Roman", Georgia, serif; 
+      letter-spacing: 0.35em; 
+      font-weight: 600; 
+      text-align: center; 
+    }
+    
+    .error-text { 
+      font-size: 12px; 
+      color: #ff6b6b; 
+      margin-top: 4px; 
+      font-weight: 500; 
+    }
+    
+    .password-toggle-hidden .password-toggle-btn { 
+      visibility: hidden; 
+      pointer-events: none; 
+    }
 
-   
-    /* iPhone Auto-Zoom Fix: Prevents focus-zoom on small inputs */
+    /* ========================================
+       3. NAVBAR STYLES
+       ======================================== */
+    nav {
+      overflow: visible !important;
+    }
+
+    nav.sticky {
+      position: fixed !important;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10000 !important;
+    }
+
+    .nav-container {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      width: 100%;
+      max-width: 100%;
+      flex-wrap: nowrap !important;
+      gap: 12px;
+      overflow: visible !important;
+      padding-right: 0 !important;
+    }
+
+    .nav-container > div:first-child {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .nav-actions-group {
+      display: flex !important;
+      align-items: center !important;
+      flex-shrink: 0 !important;
+      gap: 12px;
+      margin-left: auto !important;
+    }
+
+    .nav-actions-group button.rounded-full:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px #06224C, 0 0 0 4px #60a5fa;
+    }
+
+    /* ========================================
+       4. DROPDOWN MENU STYLES
+       ======================================== */
+    #category-menu {
+      z-index: 9999 !important;
+      display: none;
+    }
+
+    .group:hover #category-menu {
+      display: block !important;
+      opacity: 100 !important;
+      visibility: visible !important;
+    }
+
+    .group .absolute {
+      padding-top: 15px; 
+      background-clip: padding-box;
+      z-index: 9999 !important;
+    }
+
+    .group:hover .group-hover\:opacity-100,
+    .group:hover .invisible {
+      opacity: 100 !important;
+      visibility: visible !important;
+      display: block !important;
+    }
+
+    /* ========================================
+       5. MOBILE MENU & SEARCH BAR
+       ======================================== */
+    #mobileMenu, #searchBarContainer {
+      position: fixed;
+      top: 60px;
+      width: 100%;
+      left: 0;
+      z-index: 9999;
+      background: white;
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* ========================================
+       6. HOME PAGE & HERO SECTION
+       ======================================== */
+    #homePage { 
+      background-color: #FFF1F2; 
+      width: 100%; 
+      overflow-x: hidden; 
+    }
+
+    #homePage .w-full.max-w-7xl {
+      margin-top: 80px;
+    }
+
+    .hero-container {
+      background-color: #FDE2E4;
+      position: relative;
+      overflow: hidden !important;
+      min-height: 500px;
+    }
+
+    .hero-illustration {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: right center;
+      pointer-events: none;
+    }
+
+    /* ========================================
+       7. CATEGORY CARDS
+       ======================================== */
+    .category-card:hover { 
+      transform: translateY(-5px); 
+      transition: all 0.3s ease; 
+    }
+
+    .category-card div[onclick="toggleHeart(this)"] {
+      z-index: 10 !important;
+    }
+
+    #categories-section {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ========================================
+       8. FOCUS INDICATORS (ACCESSIBILITY)
+       ======================================== */
+    #popular-searches button:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+    }
+
+    #popular-searches button:active {
+      transform: scale(0.95);
+    }
+
+    .hero-container button:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 4px #FFF1F2, 0 0 0 10px #0A2357;
+      transform: translateY(-4px) scale(1.05);
+      transition: all 0.2s ease;
+    }
+
+    /* ========================================
+       9. TOAST NOTIFICATIONS
+       ======================================== */
+    .toast-slide-in {
+      animation: toastIn 0.5s ease forwards;
+    }
+
+    @keyframes toastIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .toast-slide-out {
+      animation: toastOut 0.5s ease forwards;
+    }
+
+    @keyframes toastOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(100%); opacity: 0; }
+    }
+
+     /* iPhone Auto-Zoom Fix: Prevents focus-zoom on small inputs */
     @media screen and (max-width: 768px) {
       input, select, textarea { font-size: 16px !important; }
     }
@@ -84,7 +250,9 @@
   pointer-events: none;
 }
    
-    .category-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+    .category-card:hover { transform: translateY(-5px); 
+      transition: all 0.3s ease; 
+    }
    
    @media (max-width: 1023px) {
     .auth-form-card { min-height: 100svh; width: 100%; }
@@ -107,15 +275,15 @@
   @media (max-width: 768px) {
     .hero-illustration {
       /* Keep your focus point */
-      object-position: 67% 0%; 
+      object-position: 68% 0%; 
       
       /* Use scale and translateY together */
       /* transform-origin: top ensures scaling happens from the top down */
-      transform: scale(1.25);
+      transform: scale(1.30);
       transform-origin: top; 
       
       /* Move the image UP to remove the empty space */
-      top: -63px; 
+      top: -70px; 
       
       width: 100%;
       height: 100%;
@@ -158,7 +326,7 @@
   /* Targeted for: iPhone SE, XR, 12 Pro, 14 Pro Max, Pixel 7, Samsung S8+, S20 Ultra, A51/71 */
 @media screen and (max-width: 480px) {
   .hero-illustration {
-    object-position: 69% 0%; 
+    object-position: 67% 0%; 
     transform: scale(1.4); /* Extra zoom for narrow screens */
     transform-origin: top;
     top: -70px; /* Pulls image up significantly */
@@ -168,6 +336,72 @@
   }
   .hero-container {
     min-height: 380px;
+    overflow: hidden !important;
+  }
+}
+/* Targeted specifically for larger iPhones like XR, 11, 12/13/14 Pro Max */
+@media screen and (max-width: 480px) and (min-height: 512px) {
+  .hero-illustration {
+    /* Slightly less zoom than SE to fit the taller screen better */
+    object-position: 70.5% 0%; 
+    transform: scale(1.53); 
+    transform-origin: top;
+    
+    /* Pull up less than the SE since the screen is taller */
+    top: -79px; 
+    
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+  
+  .hero-container {
+    /* Taller container for the larger screen */
+    min-height: 450px; 
+    overflow: hidden !important;
+  }
+  
+  /* Ensure the button and text have enough space on the taller screen */
+  .hero-container > div.relative.z-20 {
+    padding-bottom: 4rem !important;
+  }
+}
+
+/* Your original code for smaller devices like iPhone SE */
+@media screen and (max-width: 380px) {
+  .hero-illustration {
+    object-position: 69% 0%; 
+    transform: scale(1.4);
+    transform-origin: top;
+    top: -70px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+  .hero-container {
+    min-height: 380px;
+  }
+}
+/* =========================================
+   2. Samsung Galaxy S8+ (Narrow & Tall)
+   ========================================= */
+@media screen and (min-width: 350px) and (max-width: 365px) and (min-height: 700px) {
+  .hero-illustration {
+    /* Focus more on the characters since the screen is narrow */
+    object-position: 68% 0%; 
+    transform: scale(1.3); 
+    transform-origin: top;
+    
+    /* Pull up slightly less to accommodate the tall screen */
+    top: -65px; 
+    
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+  .hero-container {
+    /* Increase height to take advantage of the S8+'s long screen */
+    min-height: 420px; 
     overflow: hidden !important;
   }
 }
@@ -191,7 +425,7 @@
     object-position: 100% 0%; 
     transform: scale(1.15);
     transform-origin: top;
-    top: -74px; 
+    top: -77px; 
     width: 100%;
     height: 100%;
   }
@@ -199,6 +433,8 @@
     min-height: 450px;
   }
 }
+
+
     /* Tablet Optimization: iPad Air (820px) and iPad Pro (834px - 1024px) */
   @media screen and (min-width: 769px) and (max-width: 1180px) {
     .hero-illustration {
@@ -240,135 +476,20 @@
     }
   }
 
- 
-    /* Navbar Protection: Preventing horizontal push during zoom */
-  /* CHANGED: Removed 'overflow: hidden' so the dropdown is visible */
-  /* Forces the navbar to stay in a single row without wrapping */
-  .nav-container {
-      display: flex !important;
-      align-items: center !important;
-      justify-content: space-between !important;
-      width: 100%;
-      max-width: 100%;
-      flex-wrap: nowrap !important; /* Prevents the 'Cart' and 'Profile' from falling down */
-      gap: 12px;
-      overflow: visible !important; /* Keeps the dropdown menu visible */
-      padding-right: 0 !important;
-  }
-
-  /* Keeps the right-side icons grouped together */
-  .nav-actions-group {
-      display: flex !important;
-      align-items: center !important;
-      flex-shrink: 0 !important; /* Prevents icons from shrinking or moving */
-      gap: 12px;
-      margin-left: auto !important;
-  }
-
-  /* Ensures the logo and links don't get squashed */
-  .nav-container > div:first-child {
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-  }
-  /* 1. Make the Navbar truly fixed to the viewport */
-nav.sticky {
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 10000 !important; /* Ensure it stays above everything */
-}
-
-/* 2. Add padding to the page content so it doesn't hide behind the navbar */
-#homePage .w-full.max-w-7xl {
-  margin-top: 80px; /* Adjust this based on your navbar height */
-}
-
-/* 3. Ensure the mobile menu and search bar account for the fixed nav */
-#mobileMenu, #searchBarContainer {
-  position: fixed;
-  top: 60px;
-  width: 100%;
-  left: 0;
-  z-index: 9999;
-  background: white;
-  transition: all 0.3s ease-in-out;
-}
-
-  /* DROPDOWN VISIBILITY FIX */
-  #category-menu {
-    z-index: 9999 !important; /* Ensures it stays above the hero image */
-    display: none; /* We will use JS or Group-Hover to show it */
-  }
-
-  /* Show menu on hover of the group */
-  .group:hover #category-menu {
-    display: block !important;
-    opacity: 100 !important;
-    visibility: visible !important;
-  }
-
-  /* This adds an invisible 'bridge' so the menu doesn't close when moving the mouse down */
-  .group .absolute {
-    padding-top: 15px; 
-    background-clip: padding-box;
-  }
- 
-    /* Grid Adjustments for smaller screens */
-    @media (max-width: 640px) {
-      .nav-actions-group .sm\:inline { display: none; }
-      .category-card h3 { font-size: 13px !important; }
-    }
-    /* Fix to keep dropdown open and visible above the hero image */
-.group:hover .group-hover\:opacity-100,
-.group:hover .invisible {
-  opacity: 100 !important;
-  visibility: visible !important;
-  display: block !important; /* Forces the block to exist */
-}
-
-.group .absolute {
-  padding-top: 15px; 
-  background-clip: padding-box;
-  z-index: 9999 !important; /* Ensures it is on top of EVERYTHING */
-}
-
-/* Ensure the navbar itself doesn't crop the menu */
-nav {
-  overflow: visible !important;
-}
-.toast-slide-in {
-    animation: toastIn 0.5s ease forwards;
-}
-
-@keyframes toastIn {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
-
-.toast-slide-out {
-    animation: toastOut 0.5s ease forwards;
-}
-
-@keyframes toastOut {
-    from { transform: translateX(0); opacity: 1; }
-    to { transform: translateX(100%); opacity: 0; }
-}
   </style>
 </head>
  
 <body class="bg-white antialiased">
  
+  <!-- ========================================
+       JAVASCRIPT SECTION
+       ======================================== -->
   <script>
     const BACKEND_BASE_URL = "http://localhost:5000";
     let cartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-// Update badge on page load
-document.addEventListener("DOMContentLoaded", function() {
-  updateCartBadge();
-});
- 
+    // ===== PAGE NAVIGATION =====
     function showPage(page) {
       var pages = ["home", "signup", "login", "error", "forgot", "verifyEmail", "verifyMobile", "verified", "createNewPassword", "notFound"];
       pages.forEach(function (key) {
@@ -393,25 +514,21 @@ document.addEventListener("DOMContentLoaded", function() {
       else if (hash === "") showPage("home");
       else showPage("home");
     }
- 
-   function toggleSearchBar() {
-    const searchBar = document.getElementById('searchBarContainer');
-    const input = searchBar.querySelector('input');
-    
-    // Check if it is currently closed
-    if (searchBar.classList.contains('max-h-0')) {
-        // OPENING: Remove all hiding classes
+
+    // ===== UI TOGGLES =====
+    function toggleSearchBar() {
+      const searchBar = document.getElementById('searchBarContainer');
+      const input = searchBar.querySelector('input');
+      
+      if (searchBar.classList.contains('max-h-0')) {
         searchBar.classList.remove('max-h-0', 'opacity-0');
         searchBar.classList.add('max-h-40', 'opacity-100');
-        
-        // Focus the input so the user can start typing immediately
         setTimeout(() => input.focus(), 300);
-    } else {
-        // CLOSING: Re-add hiding classes
+      } else {
         searchBar.classList.remove('max-h-40', 'opacity-100');
         searchBar.classList.add('max-h-0', 'opacity-0');
+      }
     }
-}
  
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
@@ -434,724 +551,698 @@ document.addEventListener("DOMContentLoaded", function() {
         element.classList.replace('hover:text-red-600', 'hover:text-red-500');
       }
     }
- 
-   
 
-function toggleCart() {
-    const sidebar = document.getElementById('cartSidebar');
-    const backdrop = document.getElementById('cartBackdrop');
-    sidebar.classList.toggle('translate-x-full');
-    backdrop.classList.toggle('opacity-0');
-    backdrop.classList.toggle('invisible');
-    renderCart();
-}
-
-// Modify your existing addToCart function
-let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-function addToCart(name, price, image) {
-    // 1. Ensure price is treated as a number
-    const numericPrice = parseFloat(price);
-
-    // 2. Check if item exists
-    const existingItem = cartItems.find(item => item.name === name);
-
-    if (existingItem) {
-        // 3. If it exists, increment. Ensure it's a number first.
-        existingItem.quantity = (existingItem.quantity || 0) + 1;
-    } else {
-        // 4. If new, set quantity to 1
-        cartItems.push({ 
-            name: name, 
-            price: numericPrice, 
-            image: image, 
-            quantity: 1 
-        });
+    // ===== CART FUNCTIONS =====
+    function toggleCart() {
+      const sidebar = document.getElementById('cartSidebar');
+      const backdrop = document.getElementById('cartBackdrop');
+      sidebar.classList.toggle('translate-x-full');
+      backdrop.classList.toggle('opacity-0');
+      backdrop.classList.toggle('invisible');
+      renderCart();
     }
 
-    // Save
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    
-    // Recalculate badge total
-    cartCount = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
-    localStorage.setItem('cartCount', cartCount);
-    
-    updateCartBadge();
-    showNotification(name);
-    renderCart();
-}
+    function addToCart(name, price, image) {
+      const numericPrice = parseFloat(price);
+      const existingItem = cartItems.find(item => item.name === name);
 
-function renderCart() {
-    const list = document.getElementById('cartItemsList');
-    const totalEl = document.getElementById('cartTotal');
-    let total = 0;
-    
-    if (cartItems.length === 0) {
+      if (existingItem) {
+        existingItem.quantity = (existingItem.quantity || 0) + 1;
+      } else {
+        cartItems.push({ 
+          name: name, 
+          price: numericPrice, 
+          image: image, 
+          quantity: 1 
+        });
+      }
+
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      cartCount = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+      localStorage.setItem('cartCount', cartCount);
+      
+      updateCartBadge();
+      showNotification(name);
+      renderCart();
+    }
+
+    function renderCart() {
+      const list = document.getElementById('cartItemsList');
+      const totalEl = document.getElementById('cartTotal');
+      let total = 0;
+      
+      if (cartItems.length === 0) {
         list.innerHTML = `<div class="text-center py-20"><p class="text-gray-400 font-bold uppercase text-xs tracking-widest">Cart is empty</p></div>`;
         totalEl.innerText = "$0.00";
         return;
-    }
+      }
 
-    list.innerHTML = cartItems.map((item, index) => {
-        // Ensure quantity and price are numbers to avoid NaN
+      list.innerHTML = cartItems.map((item, index) => {
         const qty = item.quantity || 1;
         const price = item.price || 0;
         const itemTotal = price * qty;
         total += itemTotal;
 
         return `
-            <div class="flex gap-4 items-center border-b border-gray-100 pb-4">
-                <img src="${item.image}" class="w-16 h-12 object-cover rounded-lg">
-                <div class="flex-grow">
-                    <h4 class="text-[11px] font-black text-[#06224C] uppercase">${item.name}</h4>
-                    <p class="text-blue-600 font-bold text-xs">$${price} x ${qty}</p>
-                </div>
-                <button onclick="removeFromCart(${index})" class="text-gray-300 hover:text-red-500"><i class="fa-solid fa-trash"></i></button>
-            </div>`;
-    }).join('');
-    
-    totalEl.innerText = `$${total.toFixed(2)}`;
-}
-function removeFromCart(index) {
-    // Completely remove the item regardless of quantity
-    cartItems.splice(index, 1);
-    
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-    localStorage.setItem('cartCount', cartCount);
-    
-    updateCartBadge();
-    renderCart();
-}
-function showNotification(productName) {
-    const container = document.getElementById('toast-container');
-    const toast = document.createElement('div');
-    
-    // Design matching your theme: Navy background, white text, blue border
-    toast.className = `toast-slide-in bg-[#06224C] text-white border-l-4 border-blue-500 px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 min-w-[300px]`;
-    
-    toast.innerHTML = `
+          <div class="flex gap-4 items-center border-b border-gray-100 pb-4">
+            <img src="${item.image}" class="w-16 h-12 object-cover rounded-lg">
+            <div class="flex-grow">
+              <h4 class="text-[11px] font-black text-[#06224C] uppercase">${item.name}</h4>
+              <p class="text-blue-600 font-bold text-xs">$${price} x ${qty}</p>
+            </div>
+            <button onclick="removeFromCart(${index})" class="text-gray-300 hover:text-red-500"><i class="fa-solid fa-trash"></i></button>
+          </div>`;
+      }).join('');
+      
+      totalEl.innerText = `$${total.toFixed(2)}`;
+    }
+
+    function removeFromCart(index) {
+      cartItems.splice(index, 1);
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+      localStorage.setItem('cartCount', cartCount);
+      
+      updateCartBadge();
+      renderCart();
+    }
+
+    function updateCartBadge() {
+      const badge = document.getElementById('cartBadge');
+      if (cartCount > 0) {
+        badge.innerText = cartCount;
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
+    }
+
+    function showNotification(productName) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      
+      toast.className = `toast-slide-in bg-[#06224C] text-white border-l-4 border-blue-500 px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 min-w-[300px]`;
+      
+      toast.innerHTML = `
         <div class="bg-blue-500/20 p-2 rounded-lg">
-            <i class="fa-solid fa-circle-check text-blue-400"></i>
+          <i class="fa-solid fa-circle-check text-blue-400"></i>
         </div>
         <div>
-            <p class="text-[10px] font-bold uppercase tracking-widest text-blue-300">Added to Cart</p>
-            <p class="text-sm font-black uppercase tracking-tight">${productName}</p>
+          <p class="text-[10px] font-bold uppercase tracking-widest text-blue-300">Added to Cart</p>
+          <p class="text-sm font-black uppercase tracking-tight">${productName}</p>
         </div>
-    `;
+      `;
 
-    container.appendChild(toast);
+      container.appendChild(toast);
 
-    // Auto-remove after 3 seconds
-    setTimeout(() => {
+      setTimeout(() => {
         toast.classList.replace('toast-slide-in', 'toast-slide-out');
         setTimeout(() => toast.remove(), 500);
-    }, 3000);
-}
-// Ensure the Cart button opens the sidebar
-document.addEventListener("DOMContentLoaded", function() {
-    const cartBtn = document.querySelector('.nav-actions-group button');
-    cartBtn.setAttribute('onclick', 'toggleCart()');
-});
+      }, 3000);
+    }
 
-function updateCartBadge() {
-  const badge = document.getElementById('cartBadge');
-  if (cartCount > 0) {
-    badge.innerText = cartCount;
-    badge.classList.remove('hidden');
-  } else {
-    badge.classList.add('hidden');
-  }
-}
- 
-    window.addEventListener("hashchange", router);
-    document.addEventListener("DOMContentLoaded", router);
- 
-    function validateEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
-    function isMobile(value) { return /^[0-9]{10}$/.test(value.trim()); }
-    document.getElementById('category-dropdown-btn').addEventListener('click', function(e) {
-  e.stopPropagation(); // Prevents the click from bubbling up
-  const menu = document.getElementById('category-menu');
-  
-  // Toggle visibility classes
-  menu.classList.toggle('opacity-100');
-  menu.classList.toggle('visible');
-  menu.classList.toggle('translate-y-0');
-});
+    // ===== RATING SYSTEM =====
+    function submitRating(productId, rating) {
+      const container = document.getElementById(`rating-container-${productId}`);
+      const stars = container.querySelectorAll('i');
+      const ratingText = document.getElementById(`user-rating-val-${productId}`);
 
-// Close menu if user clicks anywhere else on the screen
-window.addEventListener('click', function() {
-  const menu = document.getElementById('category-menu');
-  menu.classList.remove('opacity-100', 'visible', 'translate-y-0');
-});
-
-
-function submitRating(productId, rating) {
-    const container = document.getElementById(`rating-container-${productId}`);
-    const stars = container.querySelectorAll('i');
-    const ratingText = document.getElementById(`user-rating-val-${productId}`);
-
-    // 1. Update the Stars Visually
-    stars.forEach((star, index) => {
+      stars.forEach((star, index) => {
         if (index < rating) {
-            star.classList.replace('fa-regular', 'fa-solid');
+          star.classList.replace('fa-regular', 'fa-solid');
         } else {
-            star.classList.replace('fa-solid', 'fa-regular');
+          star.classList.replace('fa-solid', 'fa-regular');
         }
-    });
+      });
 
-    // 2. Update the numerical text
-    ratingText.innerText = `(${rating}.0)`;
-    ratingText.classList.replace('text-gray-400', 'text-blue-600');
+      ratingText.innerText = `(${rating}.0)`;
+      ratingText.classList.replace('text-gray-400', 'text-blue-600');
+      container.setAttribute('aria-label', `Rating: ${rating} out of 5 stars`);
 
-    // 3. ACCESSIBILITY FIX: Update the ARIA label for screen readers
-    container.setAttribute('aria-label', `Rating: ${rating} out of 5 stars`);
+      showNotification(`You rated ${productId} ${rating} stars!`);
+      localStorage.setItem(`rating-${productId}`, rating);
+    }
 
-    // 4. Trigger notification and save
-    showNotification(`You rated ${productId} ${rating} stars!`);
-    localStorage.setItem(`rating-${productId}`, rating);
-}
+    // ===== VALIDATION HELPERS =====
+    function validateEmail(email) { 
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); 
+    }
+    
+    function isMobile(value) { 
+      return /^[0-9]{10}$/.test(value.trim()); 
+    }
 
-// Optional: Load saved ratings when page opens
-document.addEventListener("DOMContentLoaded", function() {
-    const products = [ 'BuySphere', 'TurboCart','MegaBasket', 'SampleStore', 'ShopNest', 'NexaStore']; // Add your IDs here
-    products.forEach(id => {
+    // ===== EVENT LISTENERS =====
+    window.addEventListener("hashchange", router);
+    
+    document.addEventListener("DOMContentLoaded", function() {
+      router();
+      updateCartBadge();
+      
+      // Initialize cart button
+      const cartBtn = document.querySelector('.nav-actions-group button');
+      cartBtn.setAttribute('onclick', 'toggleCart()');
+
+      // Load saved ratings
+      const products = ['BuySphere', 'TurboCart', 'MegaBasket', 'SampleStore', 'ShopNest', 'NexaStore'];
+      products.forEach(id => {
         const savedRating = localStorage.getItem(`rating-${id}`);
         if (savedRating) submitRating(id, parseInt(savedRating));
+      });
+
+      // Category dropdown toggle
+      document.getElementById('category-dropdown-btn').addEventListener('click', function(e) {
+        e.stopPropagation();
+        const menu = document.getElementById('category-menu');
+        menu.classList.toggle('opacity-100');
+        menu.classList.toggle('visible');
+        menu.classList.toggle('translate-y-0');
+      });
+
+      // Close dropdown when clicking outside
+      window.addEventListener('click', function() {
+        const menu = document.getElementById('category-menu');
+        menu.classList.remove('opacity-100', 'visible', 'translate-y-0');
+      });
     });
-});
   </script>
- 
+
+  <!-- ========================================
+       404 NOT FOUND PAGE
+       ======================================== -->
   <div id="notFoundPage" class="hidden min-h-screen bg-[#FFF1F2] flex flex-col items-center justify-center text-center p-6">
     <div class="mb-8"><i class="fa-solid fa-triangle-exclamation text-8xl text-red-500 opacity-20"></i></div>
     <h1 class="text-9xl font-black text-[#0A2357] mb-4">404</h1>
     <p class="text-2xl font-bold text-gray-600 mb-4 uppercase tracking-widest">Page Not Found</p>
     <p class="text-gray-500 mb-10 max-w-md">The page you are looking for might be under maintenance or does not exist.</p>
-    <a href="#home" class="bg-[#0A2357] text-white px-10 py-4 rounded-2xl font-black uppercase text-sm tracking-widest hover:bg-blue-900 transition-all shadow-xl flex items-center gap-3"><i class="fa-solid fa-arrow-left"></i> Go Back To Home</a>
+    <a href="#home" class="bg-[#0A2357] text-white px-10 py-4 rounded-2xl font-black uppercase text-sm tracking-widest hover:bg-blue-900 transition-all shadow-xl flex items-center gap-3">
+      <i class="fa-solid fa-arrow-left"></i> Go Back To Home
+    </a>
   </div>
- 
+
+  <!-- ========================================
+       HOME PAGE
+       ======================================== -->
   <div id="homePage" class="hidden min-h-screen flex flex-col">
+    
+    <!-- NAVIGATION BAR -->
     <nav class="sticky top-0 z-50 bg-[#06224C] border-b border-white/10 px-2 md:px-12 py-3 shadow-sm">
-  <div class="nav-container">
-    <div class="flex items-center gap-1 md:gap-8">
-      <button onclick="toggleMobileMenu()" class="lg:hidden text-white focus:outline-none p-1">
-        <i class="fa-solid fa-bars text-xl"></i>
-      </button>
-
-      <div class="flex-shrink">
-        <a href="#home" class="bg-white px-2 md:px-4 py-2 md:py-3 rounded-[60%] flex items-center justify-center shadow-md transition hover:scale-80 min-w-[75px] md:min-w-[90px] aspect-[2/1]">
-          <img src="public/stackly-logo.webp" alt="Stackly Logo" class="h-3 md:h-5 w-auto object-contain">
-        </a>
-      </div>
-
-      <div class="hidden lg:flex space-x-6 xl:space-x-10 text-[13px] font-bold text-white uppercase tracking-wide items-center">
-        <a href="#Home" class="hover:text-blue-300 transition whitespace-nowrap">Home</a>
-        <a href="#404" class="hover:text-blue-300 transition whitespace-nowrap">About Us</a>
-        <a href="#404" class="flex items-center gap-1.5 hover:text-blue-300 transition whitespace-nowrap">Our Products <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
-        <div class="relative group flex items-center">
-          <a href="#categories-section" class="hover:text-blue-300 transition whitespace-nowrap uppercase pr-1">
-            Categories
-          </a>
-          <button id="category-dropdown-btn" class="hover:text-blue-300 transition p-1">
-            <i class="fa-solid fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
+      <div class="nav-container">
+        <div class="flex items-center gap-1 md:gap-8">
+          <button onclick="toggleMobileMenu()" class="lg:hidden text-white focus:outline-none p-1">
+            <i class="fa-solid fa-bars text-xl"></i>
           </button>
-          <div id="category-menu" class="absolute left-0 top-full mt-2 w-64 bg-white rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-3 border border-gray-100 translate-y-2 group-hover:translate-y-0">
-            <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">PORTFOLIO</a>
-            <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">E-COMMERCE TEMPLATES</a>
-            <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">DIGITAL MARKETING</a>
-            <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">BLOGGING</a>
-            <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">CONSTRUCTION THEMES</a>
-            <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600">FOOD RESTAURANT</a>
+
+          <div class="flex-shrink">
+            <a href="#home" class="bg-white px-2 md:px-4 py-2 md:py-3 rounded-[60%] flex items-center justify-center shadow-md transition hover:scale-80 min-w-[75px] md:min-w-[90px] aspect-[2/1]">
+              <img src="public/stackly-logo.webp" alt="Stackly Logo" class="h-3 md:h-5 w-auto object-contain">
+            </a>
+          </div>
+
+          <div class="hidden lg:flex space-x-6 xl:space-x-10 text-[13px] font-bold text-white uppercase tracking-wide items-center">
+            <a href="#Home" class="hover:text-blue-300 transition whitespace-nowrap">Home</a>
+            <a href="#404" class="hover:text-blue-300 transition whitespace-nowrap">About Us</a>
+            <a href="#404" class="flex items-center gap-1.5 hover:text-blue-300 transition whitespace-nowrap">Our Products <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
+            
+            <div class="relative group flex items-center">
+              <a href="#categories-section" class="hover:text-blue-300 transition whitespace-nowrap uppercase pr-1">Categories</a>
+              <button id="category-dropdown-btn" class="hover:text-blue-300 transition p-1">
+                <i class="fa-solid fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
+              </button>
+              <div id="category-menu" class="absolute left-0 top-full mt-2 w-64 bg-white rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-3 border border-gray-100 translate-y-2 group-hover:translate-y-0">
+                <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">PORTFOLIO</a>
+                <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">E-COMMERCE TEMPLATES</a>
+                <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">DIGITAL MARKETING</a>
+                <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">BLOGGING</a>
+                <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">CONSTRUCTION THEMES</a>
+                <a href="#categories-section" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600">FOOD RESTAURANT</a>
+              </div>
+            </div>
+            
+            <a href="#404" class="hover:text-blue-300 transition whitespace-nowrap">Contact</a>
           </div>
         </div>
-        <a href="#404" class="hover:text-blue-300 transition whitespace-nowrap">Contact</a>
+
+        <div class="nav-actions-group flex-shrink-0">
+          <button class="relative flex items-center gap-1 border border-white/30 rounded-full px-2 md:px-4 py-1.5 text-white text-[10px] md:text-xs font-semibold hover:bg-white/10 transition">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="hidden sm:inline">Cart</span>
+            <span id="cartBadge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+          </button>
+          
+          <button onclick="toggleSearchBar()" class="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-white rounded-full text-[#06224C] hover:bg-gray-200 transition shadow-sm flex-shrink-0">
+            <i class="fa-solid fa-magnifying-glass text-xs md:text-sm"></i>
+          </button>
+          
+          <button type="button" aria-label="User Profile" class="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-white/40 overflow-hidden cursor-pointer flex-shrink-0 relative focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#06224C] transition-all">
+            <img src="public/profile.webp" alt="User Profile Picture" class="w-full h-full object-cover block" />
+          </button>
+        </div>
       </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div id="mobileMenu" class="hidden lg:hidden bg-[#06224C] text-white w-full border-b border-white/10 py-5 px-6 flex flex-col gap-4 uppercase font-bold text-xs tracking-widest z-40 sticky top-[60px]">
+      <a href="#Home" onclick="toggleMobileMenu()">Home</a>
+      <a href="#404" onclick="toggleMobileMenu()">About Us</a>
+      <a href="#404" onclick="toggleMobileMenu()">Our Products</a>
+      <a href="#categories-section" onclick="toggleMobileMenu()">Categories</a>
+      <a href="#404" onclick="toggleMobileMenu()">Contact</a>
     </div>
 
-    <div class="nav-actions-group flex-shrink-0">
-      <button class="relative flex items-center gap-1 border border-white/30 rounded-full px-2 md:px-4 py-1.5 text-white text-[10px] md:text-xs font-semibold hover:bg-white/10 transition">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span class="hidden sm:inline">Cart</span>
-        <span id="cartBadge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-      </button>
-      <button onclick="toggleSearchBar()" class="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-white rounded-full text-[#06224C] hover:bg-gray-200 transition shadow-sm flex-shrink-0">
-        <i class="fa-solid fa-magnifying-glass text-xs md:text-sm"></i>
-      </button>
-      <button type="button" 
-        aria-label="User Profile"
-        class="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-white/40 overflow-hidden cursor-pointer flex-shrink-0 relative focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#06224C] transition-all">
-    <img src="public/profile.webp" alt="User Profile Picture" class="w-full h-full object-cover block" />
-</button>
-    </div>
-  </div>
-</nav>
- 
-    <div id="mobileMenu" class="hidden lg:hidden bg-[#06224C] text-white w-full border-b border-white/10 py-5 px-6 flex flex-col gap-4 uppercase font-bold text-xs tracking-widest z-40 sticky top-[60px]">
-        <a href="#Home" onclick="toggleMobileMenu()">Home</a>
-        <a href="#404" onclick="toggleMobileMenu()">About Us</a>
-        <a href="#404" onclick="toggleMobileMenu()">Our Products</a>
-        <a href="#categories-section" onclick="toggleMobileMenu()">Categories</a>
-        <a href="#404" onclick="toggleMobileMenu()">Contact</a>
-    </div>
- 
+    <!-- SEARCH BAR -->
     <div id="searchBarContainer" class="overflow-hidden max-h-0 opacity-0 transition-all duration-300 bg-white border-b border-gray-200">
       <div class="max-w-7xl mx-auto px-4 md:px-8 py-6">
         <div class="flex items-center border border-gray-300 rounded-lg bg-gray-50 overflow-hidden">
           <input type="text" placeholder="What are you looking for?" class="flex-grow px-5 py-3 bg-transparent outline-none text-gray-700 text-sm">
-          <button class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 border-l border-gray-300 transition"><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 border-l border-gray-300 transition">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
         </div>
       </div>
     </div>
- 
+
+    <!-- MAIN CONTENT -->
     <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex-grow overflow-hidden">
-     
+      
+      <!-- HERO SECTION -->
       <section class="hero-container mt-6 rounded-[2.5rem] md:rounded-[3.5rem] flex items-center relative">
-  <picture>
-    <source media="(max-width: 768px)" srcset="public/landing2.webp">
-    <img src="public/landing2.webp" alt="Hero" class="hero-illustration">
-  </picture>
- <div class="relative z-20 w-full md:w-1/2 px-8 md:pl-20 pt-12 pb-15 md:pt-16 md:pb-24 flex flex-col justify-center md:justify-end min-h-[400px] md:min-h-[500px]">
-    <h1 class="text-4xl md:text-6xl font-black text-[#0A2357] leading-tight mb-auto"></h1>
-    <button onclick="location.hash='404'" class="mt-8 mx-auto md:mx-0 bg-[#0A2357] text-white px-7 py-3 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-blue-900 shadow-lg w-fit transition active:scale-95">
-      Get Started
-      <span class="bg-white text-[#0A2357] rounded-full w-5 h-5 flex items-center justify-center text-[10px]">
-        <i class="fa-solid fa-play"></i>
-      </span>
-    </button>
+        <picture>
+          <source media="(max-width: 768px)" srcset="public/landing2.webp">
+          <img src="public/landing2.webp" alt="Hero" class="hero-illustration">
+        </picture>
+        
+        <div class="relative z-20 w-full md:w-1/2 px-8 md:pl-20 pt-12 pb-15 md:pt-16 md:pb-24 flex flex-col justify-center md:justify-end min-h-[400px] md:min-h-[500px]">
+          <h1 class="text-4xl md:text-6xl font-black text-[#0A2357] leading-tight mb-auto"></h1>
+          <button onclick="location.hash='404'" class="mt-8 mx-auto md:mx-0 bg-[#0A2357] text-white px-7 py-3 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-blue-900 shadow-lg w-fit transition active:scale-95">
+            Get Started
+            <span class="bg-white text-[#0A2357] rounded-full w-5 h-5 flex items-center justify-center text-[10px]">
+              <i class="fa-solid fa-play"></i>
+            </span>
+          </button>
+        </div>
+      </section>
 
-  </div>
-
-</section>
- 
-      <div class="mt-8 md:mt-12 text-center px-4">
+      <!-- POPULAR SEARCHES -->
+      <div id="popular-searches" class="mt-8 md:mt-12 text-center px-4">
         <p class="text-[10px] font-bold text-black-800 uppercase tracking-[0.2em] mb-4">Popular Searches</p>
         <div class="flex flex-wrap justify-center gap-2 md:gap-3 pb-4">
-          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-    Food
-</button>
-          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-    Blog
-</button>
-<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-    Hotel
-</button>
-<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-    News
-</button>
-<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-    Travel
-</button>
-<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-    Education
-</button>
-<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-    Portfolio
-</button>
-<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-    Newspaper
-</button>
-<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-    E-Commerce
-</button>
-<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-    Real Estate
-</button>
-<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-    Photography
-</button>
-<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-    Dashboard
-</button>
-<button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-    Landing Page
-</button>
-
-
+          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">Food</button>
+          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">Blog</button>
+          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">Hotel</button>
+          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">News</button>
+          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">Travel</button>
+          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">Education</button>
+          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">Portfolio</button>
+          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">Newspaper</button>
+          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">E-Commerce</button>
+          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">Real Estate</button>
+          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">Photography</button>
+          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">Dashboard</button>
+          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">Landing Page</button>
         </div>
       </div>
- 
+
+      <!-- CATEGORIES SECTION -->
       <div id="categories-section" class="mt-12 md:mt-20">
         <h2 class="text-xs font-black text-[#0A2357] mb-8 uppercase tracking-[0.3em] border-l-4 border-blue-600 pl-3">Categories</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-         
+          
+          <!-- Portfolio Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-40 md:h-48 overflow-hidden"><img src="public/port.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="PortFolio Website Preview"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-40 md:h-48 overflow-hidden">
+              <img src="public/port.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Portfolio Website Preview">
+            </div>
             <div class="p-6 text-center">
               <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Portfolio</h3>
-              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
+              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
+                <a href="#">Edit</a>
+                <a href="#">Preview</a>
+              </div>
             </div>
           </div>
- 
+
+          <!-- E-Commerce Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-40 md:h-48 overflow-hidden"><img src="public/ecommerce.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="E-Commerce Template Preview"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-40 md:h-48 overflow-hidden">
+              <img src="public/ecommerce.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="E-Commerce Template Preview">
+            </div>
             <div class="p-6 text-center">
               <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">E-Commerce Templates</h3>
-              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
+              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
+                <a href="#">Edit</a>
+                <a href="#">Preview</a>
+              </div>
             </div>
           </div>
- 
+
+          <!-- Digital Marketing Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-40 md:h-48 overflow-hidden"><img src="public/digital.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Digital Marketing Website Template Preview"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-40 md:h-48 overflow-hidden">
+              <img src="public/digital.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Digital Marketing Website Template Preview">
+            </div>
             <div class="p-6 text-center">
               <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Digital Marketing Templates</h3>
-              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
+              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
+                <a href="#">Edit</a>
+                <a href="#">Preview</a>
+              </div>
             </div>
           </div>
- 
+
+          <!-- Blogging Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-40 md:h-48 overflow-hidden"><img src="public/blog.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Blogging Website Preview"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-40 md:h-48 overflow-hidden">
+              <img src="public/blog.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Blogging Website Preview">
+            </div>
             <div class="p-6 text-center">
               <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Blogging</h3>
-              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
+              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
+                <a href="#">Edit</a>
+                <a href="#">Preview</a>
+              </div>
             </div>
           </div>
- 
+
+          <!-- Construction Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-40 md:h-48 overflow-hidden"><img src="public/construction.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Construction Website Preview"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-40 md:h-48 overflow-hidden">
+              <img src="public/construction.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Construction Website Preview">
+            </div>
             <div class="p-6 text-center">
               <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Construction Themes</h3>
-              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
+              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
+                <a href="#">Edit</a>
+                <a href="#">Preview</a>
+              </div>
             </div>
           </div>
- 
+
+          <!-- Food Restaurant Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-40 md:h-48 overflow-hidden"><img src="public/foood.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Food Restaurant Website Preview"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-40 md:h-48 overflow-hidden">
+              <img src="public/foood.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Food Restaurant Website Preview">
+            </div>
             <div class="p-6 text-center">
               <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Food Restaurant</h3>
-              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline"><a href="#">Edit</a> <a href="#">Preview</a></div>
+              <div class="mt-4 flex justify-center gap-6 text-[10px] font-black text-blue-600 uppercase underline">
+                <a href="#">Edit</a>
+                <a href="#">Preview</a>
+              </div>
             </div>
           </div>
- 
+
         </div>
       </div>
- 
+
+      <!-- TOP SELLING SECTION -->
       <div class="mt-16 md:mt-24 mb-24">
-       <h2 class="text-xs font-black text-[#0A2357] mb-10 uppercase tracking-[0.3em] border-l-4 border-blue-600 pl-3">Top Selling This Week</h2>
+        <h2 class="text-xs font-black text-[#0A2357] mb-10 uppercase tracking-[0.3em] border-l-4 border-blue-600 pl-3">Top Selling This Week</h2>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-         
+          
+          <!-- ShopNest Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-solid fa-heart text-lg"></i></div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/shopnest.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product Website Preview"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-solid fa-heart text-lg"></i>
+            </div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
+              <img src="public/shopnest.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Product Website Preview">
+            </div>
             <div class="px-2">
               <h4 class="text-xl font-bold text-[#06224C] mb-1">ShopNest</h4>
               <p class="text-xs italic text-gray-500 mb-4">E-commerce Website</p>
               <div class="flex justify-between items-center mb-6">
-                <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 29</span><span class="text-[10px] font-bold text-gray-400">(10.5K Sales)</span></div>
-                <div class="flex items-center gap-1 text-yellow-400" 
-     id="rating-container-ShopNest" 
-     role="img" 
-     aria-label="Rating: 0 out of 5 stars">
-    
-    <div class="flex cursor-pointer group/stars">
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('ShopNest', 1)" 
-           role="button" aria-label="Rate 1 star"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('ShopNest', 2)" 
-           role="button" aria-label="Rate 2 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('ShopNest', 3)" 
-           role="button" aria-label="Rate 3 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('ShopNest', 4)" 
-           role="button" aria-label="Rate 4 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('ShopNest', 5)" 
-           role="button" aria-label="Rate 5 stars"></i>
-    </div>
-    
-    <span class="text-gray-400 font-bold ml-1 text-xs" 
-          id="user-rating-val-ShopNest" 
-          aria-hidden="true">(0.0)</span>
-</div>
-
-
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl font-black text-[#06224C]">$ 29</span>
+                  <span class="text-[10px] font-bold text-gray-400">(10.5K Sales)</span>
+                </div>
+                <div class="flex items-center gap-1 text-yellow-400" id="rating-container-ShopNest" role="img" aria-label="Rating: 0 out of 5 stars">
+                  <div class="flex cursor-pointer group/stars">
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('ShopNest', 1)" role="button" aria-label="Rate 1 star"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('ShopNest', 2)" role="button" aria-label="Rate 2 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('ShopNest', 3)" role="button" aria-label="Rate 3 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('ShopNest', 4)" role="button" aria-label="Rate 4 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('ShopNest', 5)" role="button" aria-label="Rate 5 stars"></i>
+                  </div>
+                  <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-ShopNest" aria-hidden="true">(0.0)</span>
+                </div>
               </div>
               <div class="flex items-center gap-3">
                 <button onclick="addToCart('ShopNest', 29, 'public/shopnest.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
-  <i class="fa-solid fa-cart-shopping"></i>
-</button>
+                  <i class="fa-solid fa-cart-shopping"></i>
+                </button>
                 <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
               </div>
             </div>
           </div>
- 
+
+          <!-- BuySphere Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-2000 hover:text-red-800 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/buysphere.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="BuySphere Website Preview"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
+              <img src="public/buysphere.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="BuySphere Website Preview">
+            </div>
             <div class="px-2">
               <h4 class="text-xl font-bold text-[#06224C] mb-1">BuySphere</h4>
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
               <div class="flex justify-between items-center mb-6">
-                <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 10</span><span class="text-[10px] font-bold text-gray-400">(3.4K Sales)</span></div>
-                <div class="flex items-center gap-1 text-yellow-400" 
-     id="rating-container-BuySphere" 
-     role="img" 
-     aria-label="Rating: 0 out of 5 stars">
-    
-    <div class="flex cursor-pointer group/stars">
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('BuySphere', 1)" 
-           role="button" aria-label="Rate 1 star"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('BuySphere', 2)" 
-           role="button" aria-label="Rate 2 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('BuySphere', 3)" 
-           role="button" aria-label="Rate 3 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('BuySphere', 4)" 
-           role="button" aria-label="Rate 4 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('BuySphere', 5)" 
-           role="button" aria-label="Rate 5 stars"></i>
-    </div>
-    
-    <span class="text-gray-400 font-bold ml-1 text-xs" 
-          id="user-rating-val-BuySphere" 
-          aria-hidden="true">(0.0)</span>
-</div>
-
-
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl font-black text-[#06224C]">$ 10</span>
+                  <span class="text-[10px] font-bold text-gray-400">(3.4K Sales)</span>
+                </div>
+                <div class="flex items-center gap-1 text-yellow-400" id="rating-container-BuySphere" role="img" aria-label="Rating: 0 out of 5 stars">
+                  <div class="flex cursor-pointer group/stars">
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('BuySphere', 1)" role="button" aria-label="Rate 1 star"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('BuySphere', 2)" role="button" aria-label="Rate 2 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('BuySphere', 3)" role="button" aria-label="Rate 3 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('BuySphere', 4)" role="button" aria-label="Rate 4 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('BuySphere', 5)" role="button" aria-label="Rate 5 stars"></i>
+                  </div>
+                  <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-BuySphere" aria-hidden="true">(0.0)</span>
+                </div>
               </div>
               <div class="flex items-center gap-3">
                 <button onclick="addToCart('BuySphere', 10, 'public/buysphere.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
-  <i class="fa-solid fa-cart-shopping"></i>
-</button>
-<button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button></div>
+                  <i class="fa-solid fa-cart-shopping"></i>
+                </button>
+                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+              </div>
             </div>
           </div>
- 
+
+          <!-- TurboCart Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/turbocart.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="TurboCart Website Preview"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
+              <img src="public/turbocart.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="TurboCart Website Preview">
+            </div>
             <div class="px-2">
               <h4 class="text-xl font-bold text-[#06224C] mb-1">TurboCart</h4>
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
               <div class="flex justify-between items-center mb-6">
-                <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 35</span><span class="text-[10px] font-bold text-gray-400">(2.9K Sales)</span></div>
-                <div class="flex items-center gap-1 text-yellow-400" 
-     id="rating-container-TurboCart" 
-     role="img" 
-     aria-label="Rating: 0 out of 5 stars">
-    
-    <div class="flex cursor-pointer group/stars">
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('TurboCart', 1)" 
-           role="button" aria-label="Rate 1 star"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('TurboCart', 2)" 
-           role="button" aria-label="Rate 2 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('TurboCart', 3)" 
-           role="button" aria-label="Rate 3 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('TurboCart', 4)" 
-           role="button" aria-label="Rate 4 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('TurboCart', 5)" 
-           role="button" aria-label="Rate 5 stars"></i>
-    </div>
-    
-    <span class="text-gray-400 font-bold ml-1 text-xs" 
-          id="user-rating-val-TurboCart" 
-          aria-hidden="true">(0.0)</span>
-</div>
-
-
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl font-black text-[#06224C]">$ 35</span>
+                  <span class="text-[10px] font-bold text-gray-400">(2.9K Sales)</span>
+                </div>
+                <div class="flex items-center gap-1 text-yellow-400" id="rating-container-TurboCart" role="img" aria-label="Rating: 0 out of 5 stars">
+                  <div class="flex cursor-pointer group/stars">
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('TurboCart', 1)" role="button" aria-label="Rate 1 star"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('TurboCart', 2)" role="button" aria-label="Rate 2 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('TurboCart', 3)" role="button" aria-label="Rate 3 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('TurboCart', 4)" role="button" aria-label="Rate 4 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('TurboCart', 5)" role="button" aria-label="Rate 5 stars"></i>
+                  </div>
+                  <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-TurboCart" aria-hidden="true">(0.0)</span>
+                </div>
               </div>
               <div class="flex items-center gap-3">
                 <button onclick="addToCart('TurboCart', 35, 'public/turbocart.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
-             <i class="fa-solid fa-cart-shopping"></i>
-               </button>
-                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button></div>
+                  <i class="fa-solid fa-cart-shopping"></i>
+                </button>
+                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+              </div>
             </div>
           </div>
- 
+
+          <!-- MegaBasket Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/megabasket.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
+              <img src="public/megabasket.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+            </div>
             <div class="px-2">
               <h4 class="text-xl font-bold text-[#06224C] mb-1">MegaBasket</h4>
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
               <div class="flex justify-between items-center mb-6">
-                <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 29</span><span class="text-[10px] font-bold text-gray-400">(4.2K Sales)</span></div>
-               <div class="flex items-center gap-1 text-yellow-400" 
-     id="rating-container-MegaBasket" 
-     role="img" 
-     aria-label="Rating: 0 out of 5 stars">
-    
-    <div class="flex cursor-pointer group/stars">
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('MegaBasket', 1)" 
-           role="button" aria-label="Rate 1 star"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('MegaBasket', 2)" 
-           role="button" aria-label="Rate 2 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('MegaBasket', 3)" 
-           role="button" aria-label="Rate 3 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('MegaBasket', 4)" 
-           role="button" aria-label="Rate 4 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('MegaBasket', 5)" 
-           role="button" aria-label="Rate 5 stars"></i>
-    </div>
-    
-    <span class="text-gray-400 font-bold ml-1 text-xs" 
-          id="user-rating-val-MegaBasket" 
-          aria-hidden="true">(0.0)</span>
-</div>
-
-
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl font-black text-[#06224C]">$ 29</span>
+                  <span class="text-[10px] font-bold text-gray-400">(4.2K Sales)</span>
+                </div>
+                <div class="flex items-center gap-1 text-yellow-400" id="rating-container-MegaBasket" role="img" aria-label="Rating: 0 out of 5 stars">
+                  <div class="flex cursor-pointer group/stars">
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('MegaBasket', 1)" role="button" aria-label="Rate 1 star"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('MegaBasket', 2)" role="button" aria-label="Rate 2 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('MegaBasket', 3)" role="button" aria-label="Rate 3 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('MegaBasket', 4)" role="button" aria-label="Rate 4 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('MegaBasket', 5)" role="button" aria-label="Rate 5 stars"></i>
+                  </div>
+                  <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-MegaBasket" aria-hidden="true">(0.0)</span>
+                </div>
               </div>
               <div class="flex items-center gap-3">
                 <button onclick="addToCart('MegaBasket', 29, 'public/megabasket.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
-  <i class="fa-solid fa-cart-shopping"></i>
-</button>
-
-                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button></div>
+                  <i class="fa-solid fa-cart-shopping"></i>
+                </button>
+                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+              </div>
             </div>
           </div>
- 
+
+          <!-- NexaStore Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/nexastore1.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="NexaStore Website Preview"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
+              <img src="public/nexastore1.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="NexaStore Website Preview">
+            </div>
             <div class="px-2">
               <h4 class="text-xl font-bold text-[#06224C] mb-1">NexaStore</h4>
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
               <div class="flex justify-between items-center mb-6">
-                <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 10</span><span class="text-[10px] font-bold text-gray-400">(4.7K Sales)</span></div>
-                <div class="flex items-center gap-1 text-yellow-400" 
-     id="rating-container-NexaStore" 
-     role="img" 
-     aria-label="Rating: 0 out of 5 stars">
-    
-    <div class="flex cursor-pointer group/stars">
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('NexaStore', 1)" 
-           role="button" aria-label="Rate 1 star"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('NexaStore', 2)" 
-           role="button" aria-label="Rate 2 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('NexaStore', 3)" 
-           role="button" aria-label="Rate 3 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('NexaStore', 4)" 
-           role="button" aria-label="Rate 4 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('NexaStore', 5)" 
-           role="button" aria-label="Rate 5 stars"></i>
-    </div>
-    
-    <span class="text-gray-400 font-bold ml-1 text-xs" 
-          id="user-rating-val-NexaStore" 
-          aria-hidden="true">(0.0)</span>
-</div>
-
-
-
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl font-black text-[#06224C]">$ 10</span>
+                  <span class="text-[10px] font-bold text-gray-400">(4.7K Sales)</span>
+                </div>
+                <div class="flex items-center gap-1 text-yellow-400" id="rating-container-NexaStore" role="img" aria-label="Rating: 0 out of 5 stars">
+                  <div class="flex cursor-pointer group/stars">
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('NexaStore', 1)" role="button" aria-label="Rate 1 star"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('NexaStore', 2)" role="button" aria-label="Rate 2 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('NexaStore', 3)" role="button" aria-label="Rate 3 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('NexaStore', 4)" role="button" aria-label="Rate 4 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('NexaStore', 5)" role="button" aria-label="Rate 5 stars"></i>
+                  </div>
+                  <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-NexaStore" aria-hidden="true">(0.0)</span>
+                </div>
               </div>
               <div class="flex items-center gap-3">
                 <button onclick="addToCart('NexaStore', 10, 'public/nexastore1.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
-  <i class="fa-solid fa-cart-shopping"></i>
-</button>
-<button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button></div>
+                  <i class="fa-solid fa-cart-shopping"></i>
+                </button>
+                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+              </div>
             </div>
           </div>
- 
+
+          <!-- SampleStore Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-2000 hover:text-red-500 transition-colors cursor-pointer"><i class="fa-regular fa-heart text-lg"></i></div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden"><img src="public/samplestore.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Samplestore Website Preview"></div>
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+              <i class="fa-regular fa-heart text-lg"></i>
+            </div>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
+              <img src="public/samplestore.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Samplestore Website Preview">
+            </div>
             <div class="px-2">
               <h4 class="text-xl font-bold text-[#06224C] mb-1">SampleStore</h4>
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
               <div class="flex justify-between items-center mb-6">
-                <div class="flex items-center gap-3"><span class="text-2xl font-black text-[#06224C]">$ 35</span><span class="text-[10px] font-bold text-gray-400">(5.0K Sales)</span></div>
-                <div class="flex items-center gap-1 text-yellow-400" 
-     id="rating-container-SampleStore" 
-     role="img" 
-     aria-label="Rating: 0 out of 5 stars">
-    
-    <div class="flex cursor-pointer group/stars">
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('SampleStore', 1)" 
-           role="button" aria-label="Rate 1 star"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('SampleStore', 2)" 
-           role="button" aria-label="Rate 2 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('SampleStore', 3)" 
-           role="button" aria-label="Rate 3 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('SampleStore', 4)" 
-           role="button" aria-label="Rate 4 stars"></i>
-        <i class="fa-regular fa-star hover:scale-110 transition" 
-           onclick="submitRating('SampleStore', 5)" 
-           role="button" aria-label="Rate 5 stars"></i>
-    </div>
-    
-    <span class="text-gray-400 font-bold ml-1 text-xs" 
-          id="user-rating-val-SampleStore" 
-          aria-hidden="true">(0.0)</span>
-</div>
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl font-black text-[#06224C]">$ 35</span>
+                  <span class="text-[10px] font-bold text-gray-400">(5.0K Sales)</span>
+                </div>
+                <div class="flex items-center gap-1 text-yellow-400" id="rating-container-SampleStore" role="img" aria-label="Rating: 0 out of 5 stars">
+                  <div class="flex cursor-pointer group/stars">
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('SampleStore', 1)" role="button" aria-label="Rate 1 star"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('SampleStore', 2)" role="button" aria-label="Rate 2 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('SampleStore', 3)" role="button" aria-label="Rate 3 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('SampleStore', 4)" role="button" aria-label="Rate 4 stars"></i>
+                    <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('SampleStore', 5)" role="button" aria-label="Rate 5 stars"></i>
+                  </div>
+                  <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-SampleStore" aria-hidden="true">(0.0)</span>
+                </div>
               </div>
               <div class="flex items-center gap-3">
                 <button onclick="addToCart('SampleStore', 35, 'public/samplestore.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
-  <i class="fa-solid fa-cart-shopping"></i>
-</button>
-<button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button></div>
+                  <i class="fa-solid fa-cart-shopping"></i>
+                </button>
+                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+              </div>
             </div>
           </div>
- 
+
         </div>
       </div>
     </div>
- 
+
+    <!-- FOOTER -->
     <footer class="bg-[#051129] py-12 md:py-16 w-full mt-auto">
       <div class="text-center text-white/20 text-[8px] md:text-[9px] font-black uppercase tracking-[0.5em] px-4">
         © 2026 Stackly Market • Digital Asset Marketplace
       </div>
     </footer>
   </div>
- 
-  <div id="signupPage" class="hidden auth-page"> </div>
-  <div id="loginPage" class="hidden auth-page"> </div>
- <div id="cartSidebar" class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white shadow-2xl z-[9999] transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+
+  <!-- ADDITIONAL PAGES (Hidden by default) -->
+  <div id="signupPage" class="hidden auth-page"></div>
+  <div id="loginPage" class="hidden auth-page"></div>
+
+  <!-- CART SIDEBAR -->
+  <div id="cartSidebar" class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white shadow-2xl z-[9999] transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
     <div class="p-6 border-b flex justify-between items-center bg-[#06224C] text-white">
-        <h2 class="text-lg font-black uppercase tracking-widest">Your Cart</h2>
-        <button onclick="toggleCart()" class="hover:rotate-90 transition-transform duration-200">
-            <i class="fa-solid fa-xmark text-2xl"></i>
-        </button>
+      <h2 class="text-lg font-black uppercase tracking-widest">Your Cart</h2>
+      <button onclick="toggleCart()" class="hover:rotate-90 transition-transform duration-200">
+        <i class="fa-solid fa-xmark text-2xl"></i>
+      </button>
     </div>
 
     <div id="cartItemsList" class="flex-grow overflow-y-auto p-6 space-y-6">
-        <div id="emptyCartMsg" class="text-center py-20">
-            <i class="fa-solid fa-cart-ghost text-5xl text-gray-200 mb-4"></i>
-            <p class="text-gray-400 font-bold uppercase text-xs tracking-widest">Your cart is empty</p>
-        </div>
+      <div id="emptyCartMsg" class="text-center py-20">
+        <i class="fa-solid fa-cart-ghost text-5xl text-gray-200 mb-4"></i>
+        <p class="text-gray-400 font-bold uppercase text-xs tracking-widest">Your cart is empty</p>
+      </div>
     </div>
 
     <div class="p-6 border-t bg-gray-50">
-        <div class="flex justify-between items-center mb-6">
-            <span class="text-gray-500 font-bold uppercase text-xs tracking-widest">Subtotal</span>
-            <span id="cartTotal" class="text-xl font-black text-[#06224C]">$0.00</span>
-        </div>
-        <button onclick="location.hash='404'" class="w-full bg-[#0A2357] text-white py-4 rounded-xl font-black uppercase text-xs tracking-[0.2em] hover:bg-blue-900 transition shadow-lg active:scale-95">
-            Checkout Now
-        </button>
+      <div class="flex justify-between items-center mb-6">
+        <span class="text-gray-500 font-bold uppercase text-xs tracking-widest">Subtotal</span>
+        <span id="cartTotal" class="text-xl font-black text-[#06224C]">$0.00</span>
+      </div>
+      <button onclick="location.hash='404'" class="w-full bg-[#0A2357] text-white py-4 rounded-xl font-black uppercase text-xs tracking-[0.2em] hover:bg-blue-900 transition shadow-lg active:scale-95">
+        Checkout Now
+      </button>
     </div>
-</div>
+  </div>
 
-<div id="cartBackdrop" onclick="toggleCart()" class="fixed inset-0 bg-black/50 opacity-0 invisible z-[9998] transition-opacity duration-300"></div>
-<div id="toast-container" class="fixed bottom-5 right-5 z-[10000] flex flex-col gap-3"></div>
+  <!-- CART BACKDROP -->
+  <div id="cartBackdrop" onclick="toggleCart()" class="fixed inset-0 bg-black/50 opacity-0 invisible z-[9998] transition-opacity duration-300"></div>
+  
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-[10000] flex flex-col gap-3"></div>
+
 </body>
 </html>
