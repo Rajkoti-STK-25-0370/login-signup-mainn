@@ -602,45 +602,89 @@
     }
 
     function renderCart() {
-      const list = document.getElementById('cartItemsList');
-      const totalEl = document.getElementById('cartTotal');
-      let total = 0;
-      
-      if (cartItems.length === 0) {
-        list.innerHTML = `<div class="text-center py-20"><p class="text-gray-400 font-bold uppercase text-xs tracking-widest">Cart is empty</p></div>`;
-        totalEl.innerText = "$0.00";
-        return;
-      }
+  const list = document.getElementById('cartItemsList');
+  const totalEl = document.getElementById('cartTotal');
+  let total = 0;
+  
+  if (cartItems.length === 0) {
+    list.innerHTML = `<div class="text-center py-20"><p class="text-gray-400 font-bold uppercase text-xs tracking-widest">Cart is empty</p></div>`;
+    totalEl.innerText = "$0.00";
+    return;
+  }
 
-      list.innerHTML = cartItems.map((item, index) => {
-        const qty = item.quantity || 1;
-        const price = item.price || 0;
-        const itemTotal = price * qty;
-        total += itemTotal;
+  list.innerHTML = cartItems.map((item, index) => {
+    const qty = item.quantity || 1;
+    const price = item.price || 0;
+    const itemTotal = price * qty;
+    total += itemTotal;
 
-        return `
-          <div class="flex gap-4 items-center border-b border-gray-100 pb-4">
-            <img src="${item.image}" class="w-16 h-12 object-cover rounded-lg">
-            <div class="flex-grow">
-              <h4 class="text-[11px] font-black text-[#06224C] uppercase">${item.name}</h4>
-              <p class="text-blue-600 font-bold text-xs">$${price} x ${qty}</p>
-            </div>
-            <button onclick="removeFromCart(${index})" class="text-gray-300 hover:text-red-500"><i class="fa-solid fa-trash"></i></button>
-          </div>`;
-      }).join('');
-      
-      totalEl.innerText = `$${total.toFixed(2)}`;
-    }
+    return `
+      <div class="flex gap-4 items-center border-b border-gray-100 pb-4">
+        <img src="${item.image}" class="w-16 h-12 object-cover rounded-lg">
+        <div class="flex-grow">
+          <h4 class="text-[11px] font-black text-[#06224C] uppercase">${item.name}</h4>
+          <p class="text-blue-600 font-bold text-xs">$${price} x ${qty}</p>
+          
+          <!-- Quantity Controls -->
+          <div class="flex items-center gap-2 mt-2">
+            <button onclick="decreaseQuantity(${index})" class="w-6 h-6 bg-gray-100 rounded flex items-center justify-center hover:bg-gray-200 transition">
+              <i class="fa-solid fa-minus text-xs"></i>
+            </button>
+            <span class="text-xs font-bold w-8 text-center">${qty}</span>
+            <button onclick="increaseQuantity(${index})" class="w-6 h-6 bg-gray-100 rounded flex items-center justify-center hover:bg-gray-200 transition">
+              <i class="fa-solid fa-plus text-xs"></i>
+            </button>
+          </div>
+        </div>
+        <button onclick="deleteFromCart(${index})" class="text-gray-300 hover:text-red-500">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>`;
+  }).join('');
+  
+  totalEl.innerText = `$${total.toFixed(2)}`;
+}
 
-    function removeFromCart(index) {
-      cartItems.splice(index, 1);
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-      localStorage.setItem('cartCount', cartCount);
-      
-      updateCartBadge();
-      renderCart();
-    }
+// Decrease quantity (or remove if qty = 1)
+function decreaseQuantity(index) {
+  const item = cartItems[index];
+  if (item.quantity > 1) {
+    item.quantity -= 1;
+  } else {
+    cartItems.splice(index, 1);
+  }
+  
+  localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  localStorage.setItem('cartCount', cartCount);
+  
+  updateCartBadge();
+  renderCart();
+}
+
+// Increase quantity
+function increaseQuantity(index) {
+  cartItems[index].quantity += 1;
+  
+  localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  localStorage.setItem('cartCount', cartCount);
+  
+  updateCartBadge();
+  renderCart();
+}
+
+// Completely delete item
+function deleteFromCart(index) {
+  cartItems.splice(index, 1);
+  
+  localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+  localStorage.setItem('cartCount', cartCount);
+  
+  updateCartBadge();
+  renderCart();
+}
 
     function updateCartBadge() {
       const badge = document.getElementById('cartBadge');
@@ -1065,7 +1109,7 @@ window.addEventListener('click', function() {
 
           <!-- BuySphere Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-black-200 hover:text-red-500 transition-colors cursor-pointer">
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-black-300 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
             </div>
             <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
