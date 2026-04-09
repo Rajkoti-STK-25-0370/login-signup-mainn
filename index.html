@@ -99,12 +99,13 @@
     /* ========================================
        4. DROPDOWN MENU STYLES
        ======================================== */
-    #category-menu {
+    
+       #category-menu {
       z-index: 9999 !important;
       display: none;
     }
 
-    .group:hover #category-menu {
+    .group:hover #category-menu #products-menu {
       display: block !important;
       opacity: 100 !important;
       visibility: visible !important;
@@ -253,7 +254,19 @@
     .category-card:hover { transform: translateY(-5px); 
       transition: all 0.3s ease; 
     }
-   
+   /* Ensure hero content feels weighted properly */
+.hero-container > div.relative.z-20 {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the button horizontally */
+    text-align: center;  /* Centers any text you add later */
+}
+
+@media (min-width: 1024px) {
+    .hero-container > div.relative.z-20 {
+        padding-top: 10rem; /* Pushes content down to align with the 'browser' window in your image */
+    }
+}
    @media (max-width: 1023px) {
     .auth-form-card { min-height: 100svh; width: 100%; }
     .auth-image-col { display: none !important; }
@@ -711,6 +724,25 @@
       });
 
       // Category dropdown toggle
+      // 1. Toggle Our Products Menu
+document.getElementById('products-dropdown-btn').addEventListener('click', function(e) {
+  e.stopPropagation();
+  const menu = document.getElementById('products-menu');
+  menu.classList.toggle('opacity-100');
+  menu.classList.toggle('visible');
+  menu.classList.toggle('translate-y-0');
+  
+  // Optional: Close the other menu if it's open
+  document.getElementById('category-menu').classList.remove('opacity-100', 'visible', 'translate-y-0');
+});
+
+// 2. Update the "Window Click" logic to close BOTH menus
+window.addEventListener('click', function() {
+  const catMenu = document.getElementById('category-menu');
+  const prodMenu = document.getElementById('products-menu');
+  catMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
+  prodMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
+});
       
       document.getElementById('category-dropdown-btn').addEventListener('click', function(e) {
         e.stopPropagation();
@@ -722,8 +754,8 @@
 
       // Close dropdown when clicking outside
       window.addEventListener('click', function() {
-        const menu = document.getElementById('category-menu');
-        menu.classList.remove('opacity-100', 'visible', 'translate-y-0');
+        const catMenu = document.getElementById('category-menu');
+        catMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
       });
     });
   </script>
@@ -763,7 +795,20 @@
           <div class="hidden lg:flex space-x-6 xl:space-x-10 text-[13px] font-bold text-white uppercase tracking-wide items-center">
             <a href="#Home" class="hover:text-blue-300 transition whitespace-nowrap">Home</a>
             <a href="#404" class="hover:text-blue-300 transition whitespace-nowrap">About Us</a>
-            <a href="#404" class="flex items-center gap-1.5 hover:text-blue-300 transition whitespace-nowrap">Our Products <i class="fa-solid fa-chevron-down text-[10px]"></i></a>
+            <div class="relative group flex items-center">
+  <a href="#404" class="hover:text-blue-300 transition whitespace-nowrap uppercase pr-1">
+    Our Products
+  </a>
+  <button id="products-dropdown-btn" class="hover:text-blue-300 transition p-1">
+    <i class="fa-solid fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
+  </button>
+  <div id="products-menu" class="absolute left-0 top-full mt-2 w-64 bg-white rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-[100] py-3 border border-gray-100 translate-y-2 group-hover:translate-y-0">
+    <a href="#404" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">PREMIUM TEMPLATES</a>
+    <a href="#404" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">UI KITS</a>
+    <a href="#404" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">WORDPRESS THEMES</a>
+    <a href="#404" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600">FREE ASSETS</a>
+  </div>
+</div>
             
             <div class="relative group flex items-center">
               <a href="#categories-section" class="hover:text-blue-300 transition whitespace-nowrap uppercase pr-1">Categories</a>
@@ -833,14 +878,14 @@
           <img src="public/landing2.webp" alt="Hero" class="hero-illustration">
         </picture>
         
-        <div class="relative z-20 w-full md:w-1/2 px-8 md:pl-20 pt-12 pb-15 md:pt-16 md:pb-24 flex flex-col justify-center md:justify-end min-h-[400px] md:min-h-[500px]">
+        <div class="relative z-20 w-full px-8 pt-12 pb-15 md:pt-16 md:pb-24 flex flex-col items-center justify-center min-h-[400px] md:min-h-[500px]">
           <h1 class="text-4xl md:text-6xl font-black text-[#0A2357] leading-tight mb-auto"></h1>
-          <button onclick="location.hash='404'" class="mt-8 mx-auto md:mx-0 bg-[#0A2357] text-white px-7 py-3 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-blue-900 shadow-lg w-fit transition active:scale-95">
-            Get Started
-            <span class="bg-white text-[#0A2357] rounded-full w-5 h-5 flex items-center justify-center text-[10px]">
-              <i class="fa-solid fa-play"></i>
-            </span>
-          </button>
+         <button onclick="location.hash='404'" class="mt-8 mx-auto bg-[#0A2357] text-white px-7 py-3 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-blue-900 shadow-lg w-fit transition active:scale-95">
+  Get Started
+  <span class="bg-white text-[#0A2357] rounded-full w-5 h-5 flex items-center justify-center text-[10px]">
+    <i class="fa-solid fa-play"></i>
+  </span>
+</button>
         </div>
       </section>
 
@@ -871,7 +916,7 @@
           
           <!-- Portfolio Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-black-200 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
             </div>
             <div class="h-40 md:h-48 overflow-hidden">
@@ -888,7 +933,7 @@
 
           <!-- E-Commerce Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-black-200 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
             </div>
             <div class="h-40 md:h-48 overflow-hidden">
@@ -905,7 +950,7 @@
 
           <!-- Digital Marketing Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-black-200 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
             </div>
             <div class="h-40 md:h-48 overflow-hidden">
@@ -922,7 +967,7 @@
 
           <!-- Blogging Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
             </div>
             <div class="h-40 md:h-48 overflow-hidden">
@@ -939,7 +984,7 @@
 
           <!-- Construction Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
             </div>
             <div class="h-40 md:h-48 overflow-hidden">
@@ -982,7 +1027,7 @@
           
           <!-- ShopNest Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-black-200 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-solid fa-heart text-lg"></i>
             </div>
             <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
@@ -1011,14 +1056,14 @@
                 <button onclick="addToCart('ShopNest', 29, 'public/shopnest.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
                   <i class="fa-solid fa-cart-shopping"></i>
                 </button>
-                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-30">View Template</button>
               </div>
             </div>
           </div>
 
           <!-- BuySphere Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-black-200 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
             </div>
             <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
@@ -1054,7 +1099,7 @@
 
           <!-- TurboCart Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-black-200 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
             </div>
             <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
@@ -1090,7 +1135,7 @@
 
           <!-- MegaBasket Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-blue-200 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
             </div>
             <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
@@ -1126,7 +1171,7 @@
 
           <!-- NexaStore Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-black-200 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
             </div>
             <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
@@ -1162,7 +1207,7 @@
 
           <!-- SampleStore Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-200 hover:text-red-500 transition-colors cursor-pointer">
+            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-black-200 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
             </div>
             <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
