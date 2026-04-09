@@ -53,22 +53,7 @@
     /* ========================================
        3. NAVBAR STYLES
        ======================================== */
-   /* Responsive Fix for High Zoom / Small Heights */
-@media screen and (max-height: 600px), screen and (min-width: 150%) {
-    nav.sticky {
-        position: relative !important; /* Stop floating at the top */
-    }
-    
-    #mobileMenu {
-        position: relative !important; /* Push menu below nav instead of overlapping */
-        top: 0 !important;
-    }
-
-    #homePage .w-full.max-w-7xl {
-        margin-top: 20px !important; /* Remove the massive gap when nav isn't fixed */
-    }
-}
-       nav {
+    nav {
       overflow: visible !important;
     }
 
@@ -88,7 +73,7 @@
       justify-content: space-between !important;
       width: 100%;
       max-width: 100%;
-      flex-wrap: nowrap !important;
+      flex-wrap: wrap !important;
       gap: 12px;
       overflow: visible !important;
       padding-right: 0 !important;
@@ -163,10 +148,9 @@
       overflow-x: hidden; 
     }
 
-   #homePage .w-full.max-w-7xl {
-    /* Use padding-top instead of margin-top so it's more flexible */
-    padding-top: 100px; 
-}
+    #homePage .w-full.max-w-7xl {
+      margin-top: 80px;
+    }
 
     .hero-container {
       background-color: #FDE2E4;
