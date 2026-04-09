@@ -49,6 +49,29 @@
       visibility: hidden; 
       pointer-events: none; 
     }
+    /* Fix for Desktop View (Left Bottom Corner) */
+@media (min-width: 1025px) {
+    .hero-container > div.relative.z-20 {
+        align-items: flex-start !important; /* Forces left alignment */
+        justify-content: flex-end !important; /* Pushes content to bottom */
+        padding-bottom: 5rem !important;    /* Gap from the bottom edge */
+        padding-left: 6rem !important;      /* Gap from the left edge */
+    }
+}
+
+/* Fix for Mobile View (Centered Bottom with Safe Gap) */
+@media (max-width: 768px) {
+    .hero-container > div.relative.z-20 {
+        align-items: center !important;     /* Centers button on mobile */
+        justify-content: flex-end !important; /* Keeps it at the bottom */
+        padding-bottom: 1.5rem !important;  /* Prevents touching the banner edge */
+    }
+
+    /* Ensure the button itself has breathing room */
+    .hero-container button {
+        margin-bottom: 10px; 
+    }
+}
 
     /* ========================================
        3. NAVBAR STYLES
@@ -555,17 +578,20 @@
     }
  
     function toggleHeart(element) {
-      const icon = element.querySelector('i');
-      if (icon.classList.contains('fa-regular')) {
-        icon.classList.replace('fa-regular', 'fa-solid');
-        element.classList.replace('text-gray-300', 'text-red-500');
-        element.classList.replace('hover:text-red-500', 'hover:text-red-600');
-      } else {
-        icon.classList.replace('fa-solid', 'fa-regular');
-        element.classList.replace('text-red-500', 'text-gray-300');
-        element.classList.replace('hover:text-red-600', 'hover:text-red-500');
-      }
-    }
+  const icon = element.querySelector('i');
+  
+  if (icon.classList.contains('fa-regular')) {
+    // Turn solid red
+    icon.classList.replace('fa-regular', 'fa-solid');
+    element.classList.remove('text-gray-300', 'text-gray-200', 'text-black-200', 'text-blue-200');
+    element.classList.add('text-red-500');
+  } else {
+    // Turn back to outline
+    icon.classList.replace('fa-solid', 'fa-regular');
+    element.classList.remove('text-red-500');
+    element.classList.add('text-gray-300');
+  }
+}
 
     // ===== CART FUNCTIONS =====
     function toggleCart() {
@@ -924,14 +950,16 @@ window.addEventListener('click', function() {
           <img src="public/landing22.webp" alt="Hero" class="hero-illustration">
         </picture>
         
-        <div class="relative z-20 w-full px-8 pt-12 pb-15 md:pt-16 md:pb-24 flex flex-col items-center justify-center min-h-[400px] md:min-h-[500px]">
-          <h1 class="text-4xl md:text-6xl font-black text-[#0A2357] leading-tight mb-auto"></h1>
-         <button onclick="location.hash='404'" class="mt-8 mx-auto bg-[#0A2357] text-white px-7 py-3 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-blue-900 shadow-lg w-fit transition active:scale-95">
-  Get Started
-  <span class="bg-white text-[#0A2357] rounded-full w-5 h-5 flex items-center justify-center text-[10px]">
-    <i class="fa-solid fa-play"></i>
-  </span>
-</button>
+       <div class="relative z-20 w-full px-8 md:pl-20 pt-12 pb-10 md:pb-16 flex flex-col items-center md:items-start justify-end min-h-[400px] md:min-h-[500px]">
+    <h1 class="text-4xl md:text-6xl font-black text-[#0A2357] leading-tight mb-auto"></h1>
+    
+    <button onclick="location.hash='404'" class="mb-4 md:mb-0 bg-[#0A2357] text-white px-7 py-3 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-blue-900 shadow-lg w-fit transition active:scale-95">
+        Get Started
+        <span class="bg-white text-[#0A2357] rounded-full w-5 h-5 flex items-center justify-center text-[10px]">
+            <i class="fa-solid fa-play"></i>
+        </span>
+    </button>
+</div>
         </div>
       </section>
 
