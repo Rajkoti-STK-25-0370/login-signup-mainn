@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>Stackly | Market</title>
  
   <script src="https://cdn.tailwindcss.com"></script>
@@ -148,9 +148,10 @@
       overflow-x: hidden; 
     }
 
-    #homePage .w-full.max-w-7xl {
-      margin-top: 80px;
-    }
+   #homePage .w-full.max-w-7xl {
+    /* Use padding-top instead of margin-top so it's more flexible */
+    padding-top: 100px; 
+}
 
     .hero-container {
       background-color: #FDE2E4;
@@ -794,7 +795,7 @@ window.addEventListener('click', function() {
             </a>
           </div>
 
-          <div class="hidden lg:flex space-x-6 xl:space-x-10 text-[13px] font-bold text-white uppercase tracking-wide items-center">
+          <div class="hidden lg:flex gap-x-4 xl:gap-x-8 text-[13px] font-bold text-white uppercase tracking-wide items-center flex-wrap justify-center">
             <a href="#Home" class="hover:text-blue-300 transition whitespace-nowrap">Home</a>
             <a href="#404" class="hover:text-blue-300 transition whitespace-nowrap">About Us</a>
             <div class="relative group flex items-center">
