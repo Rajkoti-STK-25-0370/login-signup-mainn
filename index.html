@@ -9,6 +9,35 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
  
   <style>
+    /* BUG FIX: Showcase zoom alignment */
+/* @media screen and (min-resolution: 192dpi) {
+    #showcase-section .flex-col {
+        gap: 1.5rem !important;
+    }
+} */
+    /* Styling for Category Filter Buttons */
+.category-btn {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.category-btn.active {
+    background-color: #06224C;
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(6, 34, 76, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Template Card Zoom */
+.template-card img {
+    transition: transform 0.6s ease;
+}
+.template-card:hover img {
+    transform: scale(1.1);
+}
+
+/* Stats Section Shadow */
+.stat-box {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
     /* ========================================
        1. GLOBAL STYLES & RESETS
        ======================================== */
@@ -1518,10 +1547,204 @@ function deleteFromCart(index) {
             <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
             </div>  
           </div>
-          
 </div>
 
         </div>
+        <section id="all-templates" class="mt-16 md:mt-24 px-4 max-w-7xl mx-auto">
+    <h2 class="text-xs font-black text-[#0A2357] mb-10 uppercase tracking-[0.3em] border-l-4 border-blue-600 pl-3">All Templates</h2>
+
+    <div class="flex flex-wrap gap-2 md:gap-4 mb-10 overflow-x-auto pb-2 scrollbar-hide">
+        <button onclick="filterTemplates('all', this)" class="category-btn active px-6 py-2 rounded-full border border-gray-200 text-sm font-bold whitespace-nowrap">All Templates</button>
+        <button onclick="filterTemplates('portfolio', this)" class="category-btn px-6 py-2 rounded-full border border-gray-200 text-sm font-bold whitespace-nowrap">Portfolio</button>
+        <button onclick="filterTemplates('blog', this)" class="category-btn px-6 py-2 rounded-full border border-gray-200 text-sm font-bold whitespace-nowrap">Blog</button>
+        <button onclick="filterTemplates('e-commerce', this)" class="category-btn px-6 py-2 rounded-full border border-gray-200 text-sm font-bold whitespace-nowrap">E-Commerce</button>
+        <button onclick="filterTemplates('business', this)" class="category-btn px-6 py-2 rounded-full border border-gray-200 text-sm font-bold whitespace-nowrap">Business</button>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group">
+            <div class="h-48 overflow-hidden"><img src="public/port.webp" class="w-full h-full object-cover"></div>
+            <div class="p-6 text-center">
+                <h3 class="font-bold text-gray-800 uppercase tracking-tight">Creative Portfolio</h3>
+                <p class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
+            </div>
+        </div>
+
+        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group">
+            <div class="h-48 overflow-hidden"><img src="public/ecommerce.webp" class="w-full h-full object-cover"></div>
+            <div class="p-6 text-center">
+                <h3 class="font-bold text-gray-800 uppercase tracking-tight">Modern Store</h3>
+                <p class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
+            </div>
+        </div>
+
+        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group">
+            <div class="h-48 overflow-hidden"><img src="public/digital01.webp" class="w-full h-full object-cover"></div>
+            <div class="p-6 text-center">
+                <h3 class="font-bold text-gray-800 uppercase tracking-tight">Corporate Business</h3>
+                <p class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
+            </div>
+        </div>
+
+        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group">
+            <div class="h-48 overflow-hidden"><img src="public/construction02.webp" class="w-full h-full object-cover"></div>
+            <div class="p-6 text-center">
+                <h3 class="font-bold text-gray-800 uppercase tracking-tight">Industrial Build</h3>
+                <p class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
+            </div>
+        </div>
+
+        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group">
+            <div class="h-48 overflow-hidden"><img src="public/bloggg.webp" class="w-full h-full object-cover"></div>
+            <div class="p-6 text-center">
+                <h3 class="font-bold text-gray-800 uppercase tracking-tight">Fashion Blog</h3>
+                <p class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
+            </div>
+        </div>
+
+        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group">
+            <div class="h-48 overflow-hidden"><img src="public/foodd03.webp" class="w-full h-full object-cover"></div>
+            <div class="p-6 text-center">
+                <h3 class="font-bold text-gray-800 uppercase tracking-tight">Luxury Jewelry</h3>
+                <p class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mt-20 mb-20 px-4 max-w-7xl mx-auto">
+    <div class="bg-gradient-to-b from-[#005BC5] to-[#002B5C] rounded-[1rem] p-10 md:p-20 text-center text-white shadow-2xl">
+        
+        <div class="mb-16">
+            <h2 class="text-2xl md:text-4xl font-medium mb-4 italic" style="font-family: Georgia, serif;">
+                Step into the digital world with confidence
+            </h2>
+            <p class="text-lg md:text-xl opacity-90 italic" style="font-family: Georgia, serif;">
+                Join millions turning ideas into reality—and start building your own success story today.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-16 max-w-5xl mx-auto">
+            <div class="bg-white rounded-lg p-6 shadow-lg transform transition hover:scale-105">
+                <p class="text-2xl font-bold text-gray-800" style="font-family: Georgia, serif;">500K +</p>
+                <p class="text-sm text-gray-600 italic" style="font-family: Georgia, serif;">users</p>
+            </div>
+            <div class="bg-white rounded-lg p-6 shadow-lg transform transition hover:scale-105">
+                <p class="text-2xl font-bold text-gray-800" style="font-family: Georgia, serif;">12 +</p>
+                <p class="text-sm text-gray-600 italic" style="font-family: Georgia, serif;">countries</p>
+            </div>
+            <div class="bg-white rounded-lg p-6 shadow-lg transform transition hover:scale-105">
+                <p class="text-2xl font-bold text-gray-800" style="font-family: Georgia, serif;">10 +</p>
+                <p class="text-sm text-gray-600 italic" style="font-family: Georgia, serif;">sites created daily</p>
+            </div>
+        </div>
+
+        <button onclick="location.hash='404'" class="bg-white text-gray-800 px-12 py-3 rounded-full font-semibold text-sm shadow-xl hover:bg-gray-100 transition active:scale-95 border border-gray-200">
+            Get Started
+        </button>
+    </div>
+</section>
+<section class="mt-20 mb-20 px-4 max-w-7xl mx-auto">
+    <div class="bg-[#E6EFF1] rounded-[3rem] p-10 md:p-16 flex flex-col md:flex-row gap-10 md:gap-16 border-l-4 border-blue-600">
+        
+        <div class="w-full md:w-1/2 flex flex-col items-start gap-6">
+            <h2 class="text-4xl md:text-5xl font-black text-gray-900 leading-tight">
+                How to use a drag & drop website builder
+            </h2>
+            
+            <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mt-2">
+                Create your site with our drag & drop builder in 3 simple steps:
+            </p>
+            
+            <button onclick="location.hash='404'" class="mt-6 bg-[#2B2B2B] text-white px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-gray-800 transition shadow-lg active:scale-95">
+                Get Started
+            </button>
+        </div>
+        
+        <div class="w-full md:w-1/2 flex flex-col gap-10 text-left">
+            <div class="flex flex-col gap-2">
+                <p class="text-lg md:text-xl font-black text-gray-900 leading-snug">
+                    <span class="text-blue-600">1.</span> Sign up for our free drag & drop website builder.
+                </p>
+                <p class="text-xs font-semibold text-gray-600 pl-6">
+                    Pick your site type and start shaping your online presence.
+                </p>
+            </div>
+            
+            <div class="flex flex-col gap-2">
+                <p class="text-lg md:text-xl font-black text-gray-900 leading-snug">
+                    <span class="text-blue-600">2.</span> Customize a template or have a website tailored for you.
+                </p>
+                <p class="text-xs font-semibold text-gray-600 pl-6">
+                    Select the best starting point for your online journey.
+                </p>
+            </div>
+            
+            <div class="flex flex-col gap-2">
+                <p class="text-lg md:text-xl font-black text-gray-900 leading-snug">
+                    <span class="text-blue-600">3.</span> Drag & drop thousands of design features.
+                </p>
+                <p class="text-xs font-semibold text-gray-600 pl-6">
+                    Add text, galleries, videos, vector art, and more.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="features-showcase" class="mt-20 mb-20 px-4 max-w-7xl mx-auto">
+    <div class="bg-[#E6EFF1] rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-16 flex flex-col lg:flex-row items-center gap-10 lg:gap-16 border-l-8 border-blue-500 shadow-sm">
+        
+        <div class="w-full lg:w-1/2">
+            <div class="bg-white rounded-[2rem] aspect-video md:aspect-square lg:aspect-auto lg:h-[450px] flex items-center justify-center shadow-lg overflow-hidden relative group">
+                <img src="public/showcase.webp" alt="Feature Showcase" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <p class="text-4xl font-black text-gray-200 opacity-50 uppercase tracking-widest"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full lg:w-1/2 flex flex-col gap-8 md:gap-10">
+            
+            <div class="flex flex-col gap-3">
+                <div class="flex justify-between items-center cursor-pointer group">
+                    <h3 class="text-xl md:text-2xl font-black text-[#06224C] flex items-center gap-3">
+                        <span class="text-blue-600">1.</span> Sections
+                    </h3>
+                    <i class="fa-solid fa-chevron-down text-xs text-gray-400 group-hover:text-blue-600 transition-colors"></i>
+                </div>
+                <p class="text-sm md:text-base text-gray-600 leading-relaxed pl-8">
+                    Design your website content effortlessly using our ready-made layout options. With a collection of more than 100 professionally crafted designs, you can present your work in a visually impressive and engaging way.
+                </p>
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <div class="flex justify-between items-center cursor-pointer group">
+                    <h3 class="text-xl md:text-2xl font-black text-[#06224C] flex items-center gap-3">
+                        <span class="text-blue-600">2.</span> Shapers
+                    </h3>
+                    <i class="fa-solid fa-chevron-down text-xs text-gray-400 group-hover:text-blue-600 transition-colors"></i>
+                </div>
+                <p class="text-sm md:text-base text-gray-600 leading-relaxed pl-8">
+                    Enhance your website's look and feel with our collection of abstract-style layouts. Featuring 15+ unique shape-based designs, these options range from fun and creative to clean and professional.
+                </p>
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <div class="flex justify-between items-center cursor-pointer group">
+                    <h3 class="text-xl md:text-2xl font-black text-[#06224C] flex items-center gap-3">
+                        <span class="text-blue-600">3.</span> Dynamic Backgrounds
+                    </h3>
+                    <i class="fa-solid fa-chevron-down text-xs text-gray-400 group-hover:text-blue-600 transition-colors"></i>
+                </div>
+                <p class="text-sm md:text-base text-gray-600 leading-relaxed pl-8">
+                    Deliver a more interactive and captivating browsing experience using fixed and scroll features. By keeping images stationary as users scroll, you can achieve a stylish parallax effect.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
       </div>
     </div>
     
