@@ -489,22 +489,42 @@
   /* BUG FIX #4: CONSISTENT POPULAR SEARCHES GRID */
   #popular-searches .flex {
     display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-    gap: 0.5rem;
-    justify-items: center;
+    grid-template-columns: repeat(2,1fr);
+    gap: 0.75rem !important;
+    max-width: 600px;
+    margin:0 auto;
   }
 
-  @media (max-width: 768px) {
+  /* Mobile (Small Phones): 2 columns, perfectly aligned */
+@media (max-width: 480px) {
     #popular-searches .flex {
-      grid-template-columns: repeat(3, 1fr); /* Exactly 3 per row on mobile */
+        grid-template-columns: repeat(2, 1fr) !important;
     }
-  }
+}
 
-  @media (min-width: 769px) {
+/* Tablets: 3 columns */
+@media (min-width: 481px) and (max-width: 1024px) {
     #popular-searches .flex {
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        grid-template-columns: repeat(3, 1fr) !important;
     }
-  }
+}
+
+/* Desktop: 4 or 5 columns */
+@media (min-width: 1025px) {
+    #popular-searches .flex {
+        grid-template-columns: repeat(5, 1fr) !important;
+        max-width: 1000px;
+    }
+}
+
+/* Force all buttons in this section to be the same width */
+#popular-searches button {
+    width: 100% !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
 
   </style>
 </head>
@@ -909,7 +929,7 @@ function deleteFromCart(index) {
           </button>
 
           <div class="flex-shrink">
-            <a href="#home" class="bg-white px-2 md:px-4 py-2 md:py-3 rounded-[60%] flex items-center justify-center shadow-md transition hover:scale-80 min-w-[75px] md:min-w-[90px] aspect-[2/1]">
+            <a href="#home" tabindex="-1" class="bg-white px-2 md:px-4 py-2 md:py-3 rounded-[60%] flex items-center justify-center shadow-md transition hover:scale-80 min-w-[75px] md:min-w-[90px] aspect-[2/1]">
               <img src="public/stackly-logo.webp" alt="Stackly Logo" class="h-3 md:h-5 w-auto object-contain">
             </a>
           </div>
@@ -966,7 +986,7 @@ function deleteFromCart(index) {
     </nav>
 
     <!-- MOBILE MENU -->
-    <div id="mobileMenu" class="hidden lg:hidden bg-[#06224C] text-white w-full border-b border-white/10 py-5 px-6 flex flex-col gap-4 uppercase font-bold text-xs tracking-widest z-40 sticky top-[60px]">
+    <div id="mobileMenu" class="hidden invisible lg:hidden bg-[#06224C] text-white w-full border-b border-white/10 py-5 px-6 flex flex-col gap-4 uppercase font-bold text-xs tracking-widest z-40 sticky top-[60px]">
       <a href="#Home" onclick="toggleMobileMenu()" class="text-white">Home</a>
       <a href="#404" onclick="toggleMobileMenu()" class="text-white">About Us</a>
       <a href="#404" onclick="toggleMobileMenu()" class="text-white">Our Products</a>
@@ -975,7 +995,7 @@ function deleteFromCart(index) {
     </div>
 
     <!-- SEARCH BAR -->
-    <div id="searchBarContainer" class="overflow-hidden max-h-0 opacity-0 transition-all duration-300 bg-white border-b border-gray-200">
+    <div id="searchBarContainer" class="invisible overflow-hidden max-h-0 opacity-0 transition-all duration-300 bg-white border-b border-gray-200">
       <div class="max-w-7xl mx-auto px-4 md:px-8 py-6">
         <form onsubmit="handleSearch(event)" class="flex items-center border border-gray-300 rounded-lg bg-gray-50 overflow-hidden">
   <input type="text" id="searchInput" placeholder="What are you looking for?" class="flex-grow px-5 py-3 bg-transparent outline-none text-gray-700 text-sm">
@@ -990,14 +1010,14 @@ function deleteFromCart(index) {
     <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex-grow overflow-hidden">
       
       <!-- HERO SECTION -->
-      <section class="hero-container mt-6 rounded-[2.5rem] md:rounded-[3.5rem] flex items-center relative">
-        <picture>
+      <section class="hero-container mt-6 rounded-[2.5rem] md:rounded-[3.5rem] flex items-center relative" tabindex="-1">
+        <picture tabindex="-1">
           <source media="(max-width: 768px)" srcset="public/landinmble3.webp">
-          <img src="public/landing22.webp" alt="Hero" class="hero-illustration" loading="eager">
+          <img src="public/landing22.webp" alt="Hero" class="hero-illustration" loading="eager" tabindex="-1">
         </picture>
         
-       <div class="relative z-20 w-full px-8 md:pl-20 pt-12 pb-4 md:pb-16 flex flex-col items-center md:items-start justify-end min-h-[400px] md:min-h-[500px]">
-    <h1 class="text-4xl md:text-6xl font-black text-[#0A2357] leading-tight mb-auto"></h1>
+       <div class="relative z-20 w-full  px-8 md:pl-20 pt-12 pb-4 md:pb-16 flex flex-col items-center md:items-start justify-end min-h-[400px] md:min-h-[500px]" tabindex="-1">
+    <h1 class="text-4xl md:text-6xl font-black text-[#0A2357] leading-tight mb-auto" tabindex="-1"></h1>
     
     <button onclick="location.hash='404'" class="mb-4 md:mb-0 bg-[#0A2357] text-white px-7 py-3 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-blue-900 shadow-lg w-fit transition active:scale-95">
         Get Started
@@ -1025,6 +1045,7 @@ function deleteFromCart(index) {
           <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">Photography</button>
           <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">Dashboard</button>
           <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">Landing Page</button>
+          <button type="button" class="px-4 md:px-6 py-2 border border-gray-100 bg-white rounded-full text-[11px] font-bold text-gray-600 shadow-sm cursor-pointer hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">Construction</button>
         </div>
       </div>
 
