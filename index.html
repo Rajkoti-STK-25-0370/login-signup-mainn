@@ -922,6 +922,7 @@ function deleteFromCart(index) {
     const stars = container.querySelectorAll('i');
     const ratingText = document.getElementById(`user-rating-val-${productId}`);
 
+    // Update the visual stars
     stars.forEach((star, index) => {
         if (index < rating) {
             star.classList.replace('fa-regular', 'fa-solid');
@@ -930,10 +931,13 @@ function deleteFromCart(index) {
         }
     });
 
+    // Update the visual text
     ratingText.innerText = `(${rating}.0)`;
     ratingText.classList.replace('text-gray-400', 'text-blue-600');
 
-    // ONLY show the notification if this is a fresh user click, NOT a page refresh
+    // ACCESSIBILITY FIX: Update the ARIA label so screen readers announce the new value
+    container.setAttribute('aria-label', `Rating: ${rating} out of 5 stars`);
+
     if (!isInitialLoad) {
         showNotification(`You rated ${productId} ${rating} stars!`);
         localStorage.setItem(`rating-${productId}`, rating);
