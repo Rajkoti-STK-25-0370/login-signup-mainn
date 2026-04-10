@@ -634,12 +634,12 @@
       const input = searchBar.querySelector('input');
       
       if (searchBar.classList.contains('max-h-0')) {
-        searchBar.classList.remove('max-h-0', 'opacity-0');
+        searchBar.classList.remove('max-h-0', 'opacity-0', 'invisible');
         searchBar.classList.add('max-h-40', 'opacity-100');
         setTimeout(() => input.focus(), 300);
       } else {
         searchBar.classList.remove('max-h-40', 'opacity-100');
-        searchBar.classList.add('max-h-0', 'opacity-0');
+        searchBar.classList.add('max-h-0', 'opacity-0', 'invisible');
       }
     }
  
