@@ -542,6 +542,20 @@
     justify-content: space-between;
     width: 100%;
 }
+/* Ensure consistent Heart Icon colors */
+.wishlist-btn {
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 1.25rem;
+}
+/* Default state: Gray */
+.wishlist-btn .fa-heart {
+    color: #d1d5db; /* text-gray-300 */
+}
+/* Active/Selected state */
+.wishlist-btn.text-red-500 .fa-heart {
+    color: #ef4444 !important;
+}
 
   </style>
 </head>
@@ -1188,219 +1202,262 @@ function deleteFromCart(index) {
           
           <!-- ShopNest Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
-              <i class="fa-solid fa-heart text-lg"></i>
+    <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
+        <img src="public/shopnest.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="ShopNest Website Preview">
+    </div>
+
+    <div class="px-2 flex-grow flex flex-col">
+        <div class="flex justify-between items-start mb-1 gap-2">
+            <h4 class="product-card-title text-xl font-bold text-[#06224C]">ShopNest</h4>
+            
+            <div onclick="toggleHeart(this)" class="wishlist-btn text-gray-300 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
+                <i class="fa-regular fa-heart text-2xl"></i>
             </div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
-              <img src="public/shopnest.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="ShopNest Website Preview">
+        </div>
+
+        <p class="text-xs italic text-gray-500 mb-4">E-commerce Website</p>
+
+        <div class="price-rating-row mb-6 mt-auto">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-black text-[#06224C]">$ 29</span>
+                <span class="text-[10px] font-bold text-gray-400 whitespace-nowrap">(10.5K Sales)</span>
             </div>
-            <div class="px-2">
-              <h4 class="text-xl font-bold text-[#06224C] mb-1">ShopNest</h4>
-              <p class="text-xs italic text-gray-500 mb-4">E-commerce Website</p>
-              <div class="price-rating-row mb-6 mt-auto">
-                <div class="flex items-center gap-2">
-                  <span class="text-2xl font-black text-[#06224C]">$ 29</span>
-                  <span class="text-[10px] font-bold text-gray-400">(10.5K Sales)</span>
-                </div>
-                <div class="flex items-center gap-1 text-yellow-400" id="rating-container-ShopNest" role="img" aria-label="Rating: 0 out of 5 stars">
-                  <div class="flex cursor-pointer group/stars">
+            <div class="flex items-center gap-1 text-yellow-400" id="rating-container-ShopNest" role="img" aria-label="Rating: 0 out of 5 stars">
+                <div class="flex cursor-pointer group/stars">
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('ShopNest', 1)" role="button" aria-label="Rate 1 star"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('ShopNest', 2)" role="button" aria-label="Rate 2 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('ShopNest', 3)" role="button" aria-label="Rate 3 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('ShopNest', 4)" role="button" aria-label="Rate 4 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('ShopNest', 5)" role="button" aria-label="Rate 5 stars"></i>
-                  </div>
-                  <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-ShopNest" aria-hidden="true">(0.0)</span>
                 </div>
-              </div>
-              <div class="flex items-center gap-3">
-                <button onclick="addToCart('ShopNest', 29, 'public/shopnest.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
-                  <i class="fa-solid fa-cart-shopping"></i>
-                </button>
-                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
-              </div>
+                <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-ShopNest" aria-hidden="true">(0.0)</span>
             </div>
-          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <button onclick="addToCart('ShopNest', 29, 'public/shopnest.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+            <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+        </div>
+    </div>
+</div>
 
           <!-- BuySphere Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
-              <i class="fa-regular fa-heart text-lg"></i>
+    <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
+        <img src="public/buysphere.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="BuySphere Website Preview">
+    </div>
+
+    <div class="px-2 flex-grow flex flex-col">
+        <div class="flex justify-between items-start mb-1 gap-2">
+            <h4 class="product-card-title text-xl font-bold text-[#06224C]">BuySphere</h4>
+            
+            <div onclick="toggleHeart(this)" class="wishlist-btn text-gray-300 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
+                <i class="fa-regular fa-heart text-2xl"></i>
             </div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
-              <img src="public/buysphere.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="BuySphere Website Preview">
+        </div>
+
+        <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
+
+        <div class="price-rating-row mb-6 mt-auto">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-black text-[#06224C]">$ 10</span>
+                <span class="text-[10px] font-bold text-gray-400">(3.4K Sales)</span>
             </div>
-            <div class="px-2">
-              <h4 class="text-xl font-bold text-[#06224C] mb-1">BuySphere</h4>
-              <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
-              <div class="price-rating-row mb-6 mt-auto">
-                <div class="flex items-center gap-2">
-                  <span class="text-2xl font-black text-[#06224C]">$ 10</span>
-                  <span class="text-[10px] font-bold text-gray-400">(3.4K Sales)</span>
-                </div>
-                <div class="flex items-center gap-1 text-yellow-400" id="rating-container-BuySphere" role="img" aria-label="Rating: 0 out of 5 stars">
-                  <div class="flex cursor-pointer group/stars">
+            <div class="flex items-center gap-1 text-yellow-400" id="rating-container-BuySphere" role="img" aria-label="Rating: 0 out of 5 stars">
+                <div class="flex cursor-pointer group/stars">
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('BuySphere', 1)" role="button" aria-label="Rate 1 star"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('BuySphere', 2)" role="button" aria-label="Rate 2 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('BuySphere', 3)" role="button" aria-label="Rate 3 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('BuySphere', 4)" role="button" aria-label="Rate 4 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('BuySphere', 5)" role="button" aria-label="Rate 5 stars"></i>
-                  </div>
-                  <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-BuySphere" aria-hidden="true">(0.0)</span>
                 </div>
-              </div>
-              <div class="flex items-center gap-3">
-                <button onclick="addToCart('BuySphere', 10, 'public/buysphere.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
-                  <i class="fa-solid fa-cart-shopping"></i>
-                </button>
-                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
-              </div>
+                <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-BuySphere" aria-hidden="true">(0.0)</span>
             </div>
-          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <button onclick="addToCart('BuySphere', 10, 'public/buysphere.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+            <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+        </div>
+    </div>
+</div>
 
           <!-- TurboCart Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
-              <i class="fa-regular fa-heart text-lg"></i>
+    <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
+        <img src="public/turbocart.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="TurboCart Website Preview">
+    </div>
+
+    <div class="px-2 flex-grow flex flex-col">
+        <div class="flex justify-between items-start mb-1 gap-2">
+            <h4 class="product-card-title text-xl font-bold text-[#06224C]">TurboCart</h4>
+            
+            <div onclick="toggleHeart(this)" class="wishlist-btn text-gray-300 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
+                <i class="fa-regular fa-heart text-2xl"></i>
             </div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
-              <img src="public/turbocart.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="TurboCart Website Preview">
+        </div>
+
+        <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
+
+        <div class="price-rating-row mb-6 mt-auto">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-black text-[#06224C]">$ 35</span>
+                <span class="text-[10px] font-bold text-gray-400">(2.9K Sales)</span>
             </div>
-            <div class="px-2">
-              <h4 class="text-xl font-bold text-[#06224C] mb-1">TurboCart</h4>
-              <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
-              <div class="price-rating-row mb-6 mt-auto">
-                <div class="flex items-center gap-2">
-                  <span class="text-2xl font-black text-[#06224C]">$ 35</span>
-                  <span class="text-[10px] font-bold text-gray-400">(2.9K Sales)</span>
-                </div>
-                <div class="flex items-center gap-1 text-yellow-400" id="rating-container-TurboCart" role="img" aria-label="Rating: 0 out of 5 stars">
-                  <div class="flex cursor-pointer group/stars">
+            <div class="flex items-center gap-1 text-yellow-400" id="rating-container-TurboCart" role="img" aria-label="Rating: 0 out of 5 stars">
+                <div class="flex cursor-pointer group/stars">
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('TurboCart', 1)" role="button" aria-label="Rate 1 star"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('TurboCart', 2)" role="button" aria-label="Rate 2 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('TurboCart', 3)" role="button" aria-label="Rate 3 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('TurboCart', 4)" role="button" aria-label="Rate 4 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('TurboCart', 5)" role="button" aria-label="Rate 5 stars"></i>
-                  </div>
-                  <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-TurboCart" aria-hidden="true">(0.0)</span>
                 </div>
-              </div>
-              <div class="flex items-center gap-3">
-                <button onclick="addToCart('TurboCart', 35, 'public/turbocart.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
-                  <i class="fa-solid fa-cart-shopping"></i>
-                </button>
-                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
-              </div>
+                <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-TurboCart" aria-hidden="true">(0.0)</span>
             </div>
-          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <button onclick="addToCart('TurboCart', 35, 'public/turbocart.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+            <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+        </div>
+    </div>
+</div>
 
           <!-- MegaBasket Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
-              <i class="fa-regular fa-heart text-lg"></i>
+    
+    <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
+        <img src="public/megabasket.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="MegaBasket Website Preview">
+    </div>
+
+    <div class="px-2">
+        <div class="flex justify-between items-start mb-1">
+            <h4 class="text-xl font-bold text-[#06224C]">MegaBasket</h4>
+            
+            <div onclick="toggleHeart(this)" class="wishlist-btn text-gray-300 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
+                <i class="fa-regular fa-heart text-2xl"></i>
             </div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
-              <img src="public/megabasket.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="MegaBasket Website Preview">
+        </div>
+
+        <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
+
+        <div class="price-rating-row mb-6 mt-auto">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-black text-[#06224C]">$ 29</span>
+                <span class="text-[10px] font-bold text-gray-400">(4.2K Sales)</span>
             </div>
-            <div class="px-2">
-              <h4 class="text-xl font-bold text-[#06224C] mb-1">MegaBasket</h4>
-              <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
-              <div class="price-rating-row mb-6 mt-auto">
-                <div class="flex items-center gap-2">
-                  <span class="text-2xl font-black text-[#06224C]">$ 29</span>
-                  <span class="text-[10px] font-bold text-gray-400">(4.2K Sales)</span>
-                </div>
-                <div class="flex items-center gap-1 text-yellow-400" id="rating-container-MegaBasket" role="img" aria-label="Rating: 0 out of 5 stars">
-                  <div class="flex cursor-pointer group/stars">
+            <div class="flex items-center gap-1 text-yellow-400" id="rating-container-MegaBasket" role="img" aria-label="Rating: 0 out of 5 stars">
+                <div class="flex cursor-pointer group/stars">
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('MegaBasket', 1)" role="button" aria-label="Rate 1 star"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('MegaBasket', 2)" role="button" aria-label="Rate 2 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('MegaBasket', 3)" role="button" aria-label="Rate 3 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('MegaBasket', 4)" role="button" aria-label="Rate 4 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('MegaBasket', 5)" role="button" aria-label="Rate 5 stars"></i>
-                  </div>
-                  <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-MegaBasket" aria-hidden="true">(0.0)</span>
                 </div>
-              </div>
-              <div class="flex items-center gap-3">
-                <button onclick="addToCart('MegaBasket', 29, 'public/megabasket.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
-                  <i class="fa-solid fa-cart-shopping"></i>
-                </button>
-                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
-              </div>
+                <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-MegaBasket" aria-hidden="true">(0.0)</span>
             </div>
-          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <button onclick="addToCart('MegaBasket', 29, 'public/megabasket.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+            <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+        </div>
+    </div>
+</div>
 
           <!-- NexaStore Product Card -->
-          <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
-              <i class="fa-regular fa-heart text-lg"></i>
+         <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
+    <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
+        <img src="public/nexastore1.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="NexaStore Website Preview">
+    </div>
+
+    <div class="px-2 flex-grow flex flex-col">
+        <div class="flex justify-between items-start mb-1 gap-2">
+            <h4 class="product-card-title text-xl font-bold text-[#06224C]">NexaStore</h4>
+            
+            <div onclick="toggleHeart(this)" class="wishlist-btn text-gray-300 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
+                <i class="fa-regular fa-heart text-2xl"></i>
             </div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
-              <img src="public/nexastore1.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="NexaStore Website Preview">
+        </div>
+
+        <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
+
+        <div class="price-rating-row mb-6 mt-auto">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-black text-[#06224C]">$ 10</span>
+                <span class="text-[10px] font-bold text-gray-400">(4.7K Sales)</span>
             </div>
-            <div class="px-2">
-              <h4 class="text-xl font-bold text-[#06224C] mb-1">NexaStore</h4>
-              <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
-              <div class="price-rating-row mb-6 mt-auto">
-                <div class="flex items-center gap-2">
-                  <span class="text-2xl font-black text-[#06224C]">$ 10</span>
-                  <span class="text-[10px] font-bold text-gray-400">(4.7K Sales)</span>
-                </div>
-                <div class="flex items-center gap-1 text-yellow-400" id="rating-container-NexaStore" role="img" aria-label="Rating: 0 out of 5 stars">
-                  <div class="flex cursor-pointer group/stars">
+            <div class="flex items-center gap-1 text-yellow-400" id="rating-container-NexaStore" role="img" aria-label="Rating: 0 out of 5 stars">
+                <div class="flex cursor-pointer group/stars">
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('NexaStore', 1)" role="button" aria-label="Rate 1 star"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('NexaStore', 2)" role="button" aria-label="Rate 2 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('NexaStore', 3)" role="button" aria-label="Rate 3 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('NexaStore', 4)" role="button" aria-label="Rate 4 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('NexaStore', 5)" role="button" aria-label="Rate 5 stars"></i>
-                  </div>
-                  <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-NexaStore" aria-hidden="true">(0.0)</span>
                 </div>
-              </div>
-              <div class="flex items-center gap-3">
-                <button onclick="addToCart('NexaStore', 10, 'public/nexastore1.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
-                  <i class="fa-solid fa-cart-shopping"></i>
-                </button>
-                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
-              </div>
+                <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-NexaStore" aria-hidden="true">(0.0)</span>
             </div>
-          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <button onclick="addToCart('NexaStore', 10, 'public/nexastore1.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+            <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+        </div>
+    </div>
+</div>
 
           <!-- SampleStore Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-            <div onclick="toggleHeart(this)" class="absolute top-8 right-8 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
-              <i class="fa-regular fa-heart text-lg"></i>
+    <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
+        <img src="public/samplestore.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Samplestore Website Preview">
+    </div>
+
+    <div class="px-2 flex-grow flex flex-col">
+        <div class="flex justify-between items-start mb-1 gap-2">
+            <h4 class="product-card-title text-xl font-bold text-[#06224C]">SampleStore</h4>
+            
+            <div onclick="toggleHeart(this)" class="wishlist-btn text-gray-300 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
+                <i class="fa-regular fa-heart text-2xl"></i>
             </div>
-            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
-              <img src="public/samplestore.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Samplestore Website Preview">
+        </div>
+
+        <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
+
+        <div class="price-rating-row mb-6 mt-auto">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-black text-[#06224C]">$ 35</span>
+                <span class="text-[10px] font-bold text-gray-400">(5.0K Sales)</span>
             </div>
-            <div class="px-2">
-              <h4 class="text-xl font-bold text-[#06224C] mb-1">SampleStore</h4>
-              <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
-              <div class="price-rating-row mb-6 mt-auto">
-                <div class="flex items-center gap-2">
-                  <span class="text-2xl font-black text-[#06224C]">$ 35</span>
-                  <span class="text-[10px] font-bold text-gray-400">(5.0K Sales)</span>
-                </div>
-                <div class="flex items-center gap-1 text-yellow-400" id="rating-container-SampleStore" role="img" aria-label="Rating: 0 out of 5 stars">
-                  <div class="flex cursor-pointer group/stars">
+            <div class="flex items-center gap-1 text-yellow-400" id="rating-container-SampleStore" role="img" aria-label="Rating: 0 out of 5 stars">
+                <div class="flex cursor-pointer group/stars">
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('SampleStore', 1)" role="button" aria-label="Rate 1 star"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('SampleStore', 2)" role="button" aria-label="Rate 2 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('SampleStore', 3)" role="button" aria-label="Rate 3 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('SampleStore', 4)" role="button" aria-label="Rate 4 stars"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('SampleStore', 5)" role="button" aria-label="Rate 5 stars"></i>
-                  </div>
-                  <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-SampleStore" aria-hidden="true">(0.0)</span>
                 </div>
-              </div>
-              <div class="flex items-center gap-3">
-                <button onclick="addToCart('SampleStore', 35, 'public/samplestore.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
-                  <i class="fa-solid fa-cart-shopping"></i>
-                </button>
-                <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
-              </div>
+                <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-SampleStore" aria-hidden="true">(0.0)</span>
             </div>
-          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <button onclick="addToCart('SampleStore', 35, 'public/samplestore.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+            <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
+        </div>
+    </div>
+</div>
 
         </div>
       </div>
