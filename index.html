@@ -56,22 +56,38 @@
   }
 }
 
-    html, body {
-      height: 100%;
-      overflow-x: hidden !important;
-      scroll-behavior: smooth;
-      -webkit-text-size-adjust: 100%;
-      width: 100%;
-      margin: 0;
-      padding: 0;
+    /* BUG FIX #040: Fix duplicate scrollbars and header overlap */
+html {
+    overflow-y: auto !important; /* Changed from 'scroll' to 'auto' */
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden !important;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body { 
+    font-family: Arial, Helvetica, sans-serif; 
+    min-height: 100%; 
+    position: relative;
+    overflow-y: auto !important; /* Single scrollbar on body only */
+    overflow-x: hidden !important;
+}
+
+/* Remove the conflicting scrollbar rule */
+@media screen and (min-width: 1024px) {
+    html {
+        overflow-y: auto !important; /* Override the forced scrollbar */
     }
-    
-    body { 
-      font-family: Arial, Helvetica, sans-serif; 
-      min-height: 100%; 
-      position: relative;
-      overflow-y: auto; /* BUG FIX #2: Ensure scrolling works */
-    }
+}
 
     /* ========================================
        2. TYPOGRAPHY & UTILITY CLASSES
@@ -125,15 +141,32 @@
       overflow: visible !important;
     }
 
-    nav.sticky {
-      position: fixed !important;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 10000 !important;
-      height: auto !important;
-      min-height: 60px;
-    }
+    /* BUG FIX #040b: Fix header overlap at 125%+ zoom */
+nav.sticky {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0; /* Add this */
+    width: 100%;
+    z-index: 5000 !important;
+    height: auto !important;
+    min-height: 60px;
+    background-color: #06224C; /* Ensure background covers */
+}
+
+/* Add scroll padding to prevent content from hiding under header */
+#homePage {
+    background-color: #FFF1F2;
+    width: 100%;
+    overflow-x: hidden;
+    scroll-padding-top: 80px; /* Adds space when scrolling to anchors */
+}
+
+/* For all anchor targets */
+*:target {
+    scroll-margin-top: 80px; /* Prevents content from hiding under sticky header */
+}
+
 
     .nav-container {
       display: flex !important;
@@ -190,6 +223,7 @@
   visibility: visible !important;
 }
 
+
     /* ========================================
        5. MOBILE MENU & SEARCH BAR
        ======================================== */
@@ -198,10 +232,32 @@
       top: 60px;
       width: 100%;
       left: 0;
-      z-index: 9999;
+      z-index: 999;
       background: white;
       transition: all 0.3s ease-in-out;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
     }
+
+    /* FIX: Responsive Search Bar for high zoom levels */
+#searchBarContainer {
+    height: auto !important; /* Allow it to expand vertically */
+    max-height: none !important; /* Remove the 160px limit */
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* Ensure the form doesn't get squashed */
+#searchBarContainer form {
+    min-height: 50px;
+}
+
+/* Adjust padding for zoom accessibility */
+@media (min-resolution: 192dpi) {
+    #searchBarContainer .max-w-7xl {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+}
 
     /* ========================================
        6. HOME PAGE & HERO SECTION
@@ -212,9 +268,9 @@
       overflow-x: hidden; 
     }
 
-    #homePage .w-full.max-w-7xl {
+     #homePage .w-full.max-w-7xl {
       margin-top: 80px;
-    }
+    } 
 
     .hero-container {
       background-color: #FDE2E4;
@@ -629,19 +685,27 @@
     }
 
     // ===== UI TOGGLES =====
-    function toggleSearchBar() {
-      const searchBar = document.getElementById('searchBarContainer');
-      const input = searchBar.querySelector('input');
-      
-      if (searchBar.classList.contains('max-h-0')) {
+   function toggleSearchBar() {
+    const searchBar = document.getElementById('searchBarContainer');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const input = searchBar.querySelector('input');
+    
+    // Close mobile menu if it's open to prevent overlap
+    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+        toggleMobileMenu();
+    }
+
+    if (searchBar.classList.contains('max-h-0')) {
+        // OPENING
         searchBar.classList.remove('max-h-0', 'opacity-0', 'invisible');
         searchBar.classList.add('max-h-40', 'opacity-100');
         setTimeout(() => input.focus(), 300);
-      } else {
+    } else {
+        // CLOSING
         searchBar.classList.remove('max-h-40', 'opacity-100');
         searchBar.classList.add('max-h-0', 'opacity-0', 'invisible');
-      }
     }
+}
  
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
@@ -1026,7 +1090,7 @@ function deleteFromCart(index) {
     </div>
 
     <!-- SEARCH BAR -->
-    <div id="searchBarContainer" class="invisible overflow-hidden max-h-0 opacity-0 transition-all duration-300 bg-white border-b border-gray-200">
+    <div id="searchBarContainer" class="invisible opacity-0 transition-all duration-300 bg-white border-b border-gray-200">
       <div class="max-w-7xl mx-auto px-4 md:px-8 py-6">
         <form onsubmit="handleSearch(event)" class="flex items-center border border-gray-300 rounded-lg bg-gray-50 overflow-hidden">
   <input type="text" id="searchInput" placeholder="What are you looking for?" class="flex-grow px-5 py-3 bg-transparent outline-none text-gray-700 text-sm">
@@ -1087,9 +1151,9 @@ function deleteFromCart(index) {
           
           <!-- Portfolio Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-600 hover:text-red-500 transition-colors cursor-pointer">
+            <!-- <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-600 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
-            </div>
+            </div>  -->
             <div class="h-40 md:h-48 overflow-hidden">
               <img src="public/port.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Portfolio Website Preview">
             </div>
@@ -1104,9 +1168,9 @@ function deleteFromCart(index) {
 
           <!-- E-Commerce Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-600 hover:text-red-500 transition-colors cursor-pointer">
+            <!-- <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-600 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
-            </div>
+            </div> -->
             <div class="h-40 md:h-48 overflow-hidden">
               <img src="public/ecommerce.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="E-Commerce Template Preview">
             </div>
@@ -1121,9 +1185,9 @@ function deleteFromCart(index) {
 
           <!-- Digital Marketing Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-600 hover:text-red-500 transition-colors cursor-pointer">
+            <!-- <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-600 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
-            </div>
+            </div> -->
             <div class="h-40 md:h-48 overflow-hidden">
               <img src="public/digital01.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Digital Marketing Website Template Preview">
             </div>
@@ -1138,9 +1202,9 @@ function deleteFromCart(index) {
 
           <!-- Blogging Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-600 hover:text-red-500 transition-colors cursor-pointer">
+            <!-- <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-600 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
-            </div>
+            </div> -->
             <div class="h-40 md:h-48 overflow-hidden">
               <img src="public/bloggg.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Blogging Website Preview">
             </div>
@@ -1155,9 +1219,9 @@ function deleteFromCart(index) {
 
           <!-- Construction Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
+            <!-- <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
-            </div>
+            </div> -->
             <div class="h-40 md:h-48 overflow-hidden">
               <img src="public/construction02.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Construction Website Preview">
             </div>
@@ -1174,9 +1238,9 @@ function deleteFromCart(index) {
 
           <!-- Food Restaurant Card -->
           <div class="bg-white rounded-3xl shadow-sm border border-gray-50 overflow-hidden hover:shadow-xl transition-all group cursor-pointer relative category-card">
-            <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
+            <!-- <div onclick="toggleHeart(this)" class="absolute top-4 right-4 z-10 text-gray-300 hover:text-red-500 transition-colors cursor-pointer">
               <i class="fa-regular fa-heart text-lg"></i>
-            </div>
+            </div> -->
             <div class="h-40 md:h-48 overflow-hidden">
               <img src="public/foodd03.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Food Restaurant Website Preview">
             </div>
@@ -1417,27 +1481,25 @@ function deleteFromCart(index) {
 
           <!-- SampleStore Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
-    <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
-        <img src="public/samplestore.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Samplestore Website Preview">
-    </div>
-
-    <div class="px-2 flex-grow flex flex-col">
-        <div class="flex justify-between items-start mb-1 gap-2">
-            <h4 class="product-card-title text-xl font-bold text-[#06224C]">SampleStore</h4>
+            <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
+            <img src="public/samplestore.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Samplestore Website Preview">
+           </div>
+             <div class="px-2 flex-grow flex flex-col">
+             <div class="flex justify-between items-start mb-1 gap-2">
+             <h4 class="product-card-title text-xl font-bold text-[#06224C]">SampleStore</h4>
             
             <div onclick="toggleHeart(this)" class="wishlist-btn text-gray-300 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
                 <i class="fa-regular fa-heart text-2xl"></i>
             </div>
-        </div>
+            </div>
 
-        <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
-
-        <div class="price-rating-row mb-6 mt-auto">
-            <div class="flex items-center gap-2">
+               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
+                <div class="price-rating-row mb-6 mt-auto">
+               <div class="flex items-center gap-2">
                 <span class="text-2xl font-black text-[#06224C]">$ 35</span>
                 <span class="text-[10px] font-bold text-gray-400">(5.0K Sales)</span>
-            </div>
-            <div class="flex items-center gap-1 text-yellow-400" id="rating-container-SampleStore" role="img" aria-label="Rating: 0 out of 5 stars">
+               </div>
+               <div class="flex items-center gap-1 text-yellow-400" id="rating-container-SampleStore" role="img" aria-label="Rating: 0 out of 5 stars">
                 <div class="flex cursor-pointer group/stars">
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('SampleStore', 1)" role="button" aria-label="Rate 1 star"></i>
                     <i class="fa-regular fa-star hover:scale-110 transition" onclick="submitRating('SampleStore', 2)" role="button" aria-label="Rate 2 stars"></i>
@@ -1447,20 +1509,22 @@ function deleteFromCart(index) {
                 </div>
                 <span class="text-gray-400 font-bold ml-1 text-xs" id="user-rating-val-SampleStore" aria-hidden="true">(0.0)</span>
             </div>
-        </div>
+            </div>
 
-        <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3">
             <button onclick="addToCart('SampleStore', 35, 'public/samplestore.webp')" class="w-12 h-10 border-2 border-dashed border-blue-400 rounded-xl flex items-center justify-center text-blue-500 hover:bg-blue-50 transition active:scale-95">
                 <i class="fa-solid fa-cart-shopping"></i>
             </button>
             <button class="flex-grow h-10 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold hover:bg-blue-50 transition active:scale-95">View Template</button>
-        </div>
-    </div>
+            </div>  
+          </div>
+          
 </div>
 
         </div>
       </div>
     </div>
+    
 
     <!-- FOOTER -->
     <footer class="bg-[#051129] py-12 md:py-16 w-full mt-auto">
