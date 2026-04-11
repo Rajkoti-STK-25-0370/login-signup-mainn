@@ -16,6 +16,56 @@
     }
 } */
  
+ /* Filtering Tabs Styling for all Templates */
+.filter-tab {
+    background: white;
+    border: 1px solid #e5e7eb;
+    color: #6b7280;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.filter-tab.active {
+    border-color: #3b82f6;
+    color: #3b82f6;
+}
+
+/* Template Category Card Styling */
+.template-category-card h3 {
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+/* The Underline Effect from Image */
+.template-category-card h3::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #06224C;
+    transition: width 0.3s ease;
+}
+
+.template-category-card:hover h3::after {
+    width: 100%;
+}
+
+/* Arrow Hover Animation */
+.template-category-card .fa-arrow-right {
+    transition: transform 0.3s ease;
+}
+.template-category-card:hover .fa-arrow-right {
+    transform: translateX(5px);
+}
+
+/* Zoom Support for High DPI */
+@media screen and (min-resolution: 192dpi) {
+    .template-grid-container {
+        gap: 2rem !important;
+    }
+}
  
     /* Styling for Category Filter Buttons */
 .category-btn {
@@ -1030,6 +1080,40 @@ function deleteFromCart(index) {
         }
       });
     });
+    function filterTemplates(category, btn) {
+    // 1. Tab visuals
+    document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+    btn.classList.add('active');
+
+    // 2. Hide/Show logic
+    const cards = document.querySelectorAll('.template-category-card');
+    cards.forEach(card => {
+        const cat = card.getAttribute('data-cat');
+        if (category === 'all' || cat === category) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+function openPortfolioModal() {
+    const modal = document.getElementById('portfolioModal');
+    modal.classList.remove('hidden');
+    // Prevent background scrolling when modal is open
+    document.body.style.overflow = 'hidden';
+}
+
+function closePortfolioModal() {
+    const modal = document.getElementById('portfolioModal');
+    modal.classList.add('hidden');
+    // Restore scrolling
+    document.body.style.overflow = 'auto';
+}
+
+// Close modal if user presses 'Escape' key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePortfolioModal();
+});
   </script>
 
   <!-- ========================================
@@ -1556,53 +1640,116 @@ function deleteFromCart(index) {
 </div>
 
         </div>
-        <section id="all-templates" class="mt-16 md:mt-24 px-4 max-w-7xl mx-auto">
+        <section id="all-templates-wrapper" class="mt-16 md:mt-24 px-4 max-w-7xl mx-auto">
     <h2 class="text-xs font-black text-[#0A2357] mb-10 uppercase tracking-[0.3em] border-l-4 border-blue-600 pl-3">All Templates</h2>
 
-    <div class="flex flex-wrap gap-2 md:gap-4 mb-10 overflow-x-auto pb-2 scrollbar-hide">
-        <button onclick="filterTemplates('all', this)" class="category-btn active px-6 py-2 rounded-full border border-gray-200 text-sm font-bold whitespace-nowrap">All Templates</button>
-        <button onclick="filterTemplates('portfolio', this)" class="category-btn px-6 py-2 rounded-full border border-gray-200 text-sm font-bold whitespace-nowrap">Portfolio</button>
-        <button onclick="filterTemplates('blog', this)" class="category-btn px-6 py-2 rounded-full border border-gray-200 text-sm font-bold whitespace-nowrap">Blog</button>
-        <button onclick="filterTemplates('e-commerce', this)" class="category-btn px-6 py-2 rounded-full border border-gray-200 text-sm font-bold whitespace-nowrap">E-Commerce</button>
-        <button onclick="filterTemplates('business', this)" class="category-btn px-6 py-2 rounded-full border border-gray-200 text-sm font-bold whitespace-nowrap">Business</button>
-    </div>
+    <div class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-sm border border-gray-100">
+        
+        <div class="flex flex-wrap gap-3 md:gap-4 mb-16 justify-center">
+            <button onclick="filterTemplates('all', this)" class="filter-tab active px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-2">
+                All Templates <i class="fa-solid fa-chevron-down text-[10px]"></i>
+            </button>
+            <button onclick="filterTemplates('portfolio', this)" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm">Portfolio</button>
+            <button onclick="filterTemplates('blog', this)" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm">Blog</button>
+            <button onclick="filterTemplates('ecommerce', this)" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm">E-commerce</button>
+            <button onclick="filterTemplates('business', this)" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-2">
+                Business <i class="fa-solid fa-chevron-down text-[10px]"></i>
+            </button>
+        </div>
 
-    <div id="template-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group" data-category="portfolio">
-            <div class="h-48 overflow-hidden"><img src="public/port.webp" class="w-full h-full object-cover"></div>
-            <div class="p-6 text-center">
-                <h3 class="font-bold text-gray-800 uppercase tracking-tight">Portfolio Site</h3>
-                <p onclick="location.hash='404'" class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
-            </div>
+        <div id="template-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
+            
+            <div onclick="openPortfolioModal()" class="template-category-card group block cursor-pointer" data-cat="portfolio">
+    <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
+        <img src="public/port.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+    </div>
+    <div class="flex justify-between items-center px-1">
+        <h3 class="text-2xl font-black text-[#06224C]">Portfolio</h3>
+        <i class="fa-solid fa-arrow-right text-lg text-[#06224C]"></i>
+    </div>
+</div>
+
+            <a href="https://your-store-link.com" target="_blank" class="template-category-card group block" data-cat="ecommerce">
+                <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
+                    <img src="public/ecommerce.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="flex justify-between items-center px-1">
+                    <h3 class="text-2xl font-black text-[#06224C]">Store</h3>
+                    <i class="fa-solid fa-arrow-right text-lg text-[#06224C]"></i>
+                </div>
+            </a>
+
+            <a href="https://your-business-link.com" target="_blank" class="template-category-card group block" data-cat="business">
+                <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
+                    <img src="public/digital01.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="flex justify-between items-center px-1">
+                    <h3 class="text-2xl font-black text-[#06224C]">Business</h3>
+                    <i class="fa-solid fa-arrow-right text-lg text-[#06224C]"></i>
+                </div>
+            </a>
+
+            <a href="https://your-construction-link.com" target="_blank" class="template-category-card group block" data-cat="business">
+                <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
+                    <img src="public/construction02.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="flex justify-between items-center px-1">
+                    <h3 class="text-2xl font-black text-[#06224C]">Construction</h3>
+                    <i class="fa-solid fa-arrow-right text-lg text-[#06224C]"></i>
+                </div>
+            </a>
+
+            <a href="https://your-fashion-link.com" target="_blank" class="template-category-card group block" data-cat="ecommerce">
+                <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
+                    <img src="public/bloggg.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="flex justify-between items-center px-1">
+                    <h3 class="text-2xl font-black text-[#06224C]">Fashion</h3>
+                    <i class="fa-solid fa-arrow-right text-lg text-[#06224C]"></i>
+                </div>
+            </a>
+
+            <a href="https://your-jewelry-link.com" target="_blank" class="template-category-card group block" data-cat="ecommerce">
+                <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
+                    <img src="public/foodd03.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="flex justify-between items-center px-1">
+                    <h3 class="text-2xl font-black text-[#06224C]">Jewelry</h3>
+                    <i class="fa-solid fa-arrow-right text-lg text-[#06224C]"></i>
+                </div>
+            </a>
+
         </div>
-        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group" data-category="e-commerce">
-            <div class="h-48 overflow-hidden"><img src="public/ecommerce.webp" class="w-full h-full object-cover"></div>
-            <div class="p-6 text-center">
-                <h3 class="font-bold text-gray-800 uppercase tracking-tight">Modern Store</h3>
-                <p onclick="location.hash='404'" class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
-            </div>
-        </div>
-        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group" data-category="business">
-            <div class="h-48 overflow-hidden"><img src="public/digital01.webp" class="w-full h-full object-cover"></div>
-            <div class="p-6 text-center">
-                <h3 class="font-bold text-gray-800 uppercase tracking-tight">Corporate Business</h3>
-                <p onclick="location.hash='404'" class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
-            </div>
-        </div>
-        </div>
+    </div>
 </section>
 <section class="mt-20 mb-20 px-4 max-w-7xl mx-auto">
-    <div class="vibrant-cta-container bg-gradient-to-b from-[#005BC5] to-[#002B5C] rounded-[1rem] p-10 md:p-20 text-center text-white shadow-2xl">
+    <div class="bg-gradient-to-b from-[#005BC5] to-[#002B5C] rounded-[1rem] p-10 md:p-20 text-center text-white shadow-2xl">
+        
         <div class="mb-16">
-            <h2 class="text-2xl md:text-4xl font-medium mb-4 italic" style="font-family: Georgia, serif;">Step into the digital world with confidence</h2>
-            <p class="text-lg md:text-xl opacity-90 italic" style="font-family: Georgia, serif;">Join millions turning ideas into reality.</p>
+            <h2 class="text-2xl md:text-4xl font-medium mb-4 italic" style="font-family: Georgia, serif;">
+                Step into the digital world with confidence
+            </h2>
+            <p class="text-lg md:text-xl opacity-90 italic" style="font-family: Georgia, serif;">
+                Join millions turning ideas into reality—and start building your own success story today.
+            </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-             <div class="bg-white rounded-lg p-6 shadow-lg text-gray-800">500K+ Users</div>
-             <div class="bg-white rounded-lg p-6 shadow-lg text-gray-800">12+ Countries</div>
-             <div class="bg-white rounded-lg p-6 shadow-lg text-gray-800">10+ Daily Sites</div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-16 max-w-5xl mx-auto">
+            <div class="bg-white rounded-lg p-6 shadow-lg transform transition hover:scale-105">
+                <p class="text-2xl font-bold text-gray-800" style="font-family: Georgia, serif;">500K +</p>
+                <p class="text-sm text-gray-600 italic" style="font-family: Georgia, serif;">users</p>
+            </div>
+            <div class="bg-white rounded-lg p-6 shadow-lg transform transition hover:scale-105">
+                <p class="text-2xl font-bold text-gray-800" style="font-family: Georgia, serif;">12 +</p>
+                <p class="text-sm text-gray-600 italic" style="font-family: Georgia, serif;">countries</p>
+            </div>
+            <div class="bg-white rounded-lg p-6 shadow-lg transform transition hover:scale-105">
+                <p class="text-2xl font-bold text-gray-800" style="font-family: Georgia, serif;">10 +</p>
+                <p class="text-sm text-gray-600 italic" style="font-family: Georgia, serif;">sites created daily</p>
+            </div>
         </div>
-        <button onclick="location.hash='404'" class="inline-block bg-white text-gray-800 px-12 py-4 rounded-full font-bold shadow-2xl transition hover:bg-gray-100">
+
+        <button onclick="location.hash='404'" class="bg-white text-gray-800 px-12 py-3 rounded-full font-semibold text-sm shadow-xl hover:bg-gray-100 transition active:scale-95 border border-gray-200">
             Get Started
         </button>
     </div>
@@ -1756,6 +1903,84 @@ function deleteFromCart(index) {
   
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toast-container" class="fixed bottom-5 right-5 z-[10000] flex flex-col gap-3"></div>
+  <!-- for portfolio modal -->
+  <div id="portfolioModal" class="fixed inset-0 z-[10000] hidden flex items-center justify-center p-4 md:p-10">
+    <div onclick="closePortfolioModal()" class="absolute inset-0 bg-[#06224C]/95 backdrop-blur-md"></div>
+    
+    <div class="bg-white w-full max-w-6xl max-h-[90vh] rounded-[2.5rem] relative z-10 overflow-hidden flex flex-col shadow-2xl transition-all duration-500">
+        
+        <div class="p-6 border-b flex justify-between items-center bg-gray-50 px-8">
+            <div>
+                <h2 class="text-xl font-black text-[#06224C] uppercase tracking-widest">Portfolio Showcase</h2>
+                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-tight">View Project Images & Download Documentation</p>
+            </div>
+            <button onclick="closePortfolioModal()" class="w-12 h-12 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-red-500 hover:text-white transition-all group">
+                <i class="fa-solid fa-xmark text-xl transition-transform group-hover:rotate-90"></i>
+            </button>
+        </div>
+
+        <div class="flex-grow overflow-y-auto p-6 md:p-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                
+                <div class="space-y-6">
+                    <h3 class="text-xs font-black text-blue-600 uppercase tracking-[0.2em] mb-4">Project Screenshots</h3>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="rounded-2xl overflow-hidden shadow-lg border border-gray-100 group">
+                            <img src="public/portfolio03.webp" alt="Full Preview" class="w-full h-auto object-cover group-hover:scale-105 transition duration-700">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                             <div class="rounded-xl overflow-hidden border border-gray-100 shadow-sm">
+                                <img src="public/portfolio04.webp" class="w-full h-32 object-cover">
+                            </div>
+                             <div class="rounded-xl overflow-hidden border border-gray-100 shadow-sm">
+                                <img src="public/portfolio05.webp" class="w-full h-32 object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-8">
+                    <h3 class="text-xs font-black text-blue-600 uppercase tracking-[0.2em]">Available Downloads</h3>
+                    
+                    <div class="flex items-center gap-5 p-5 border-2 border-dashed border-gray-100 rounded-[1.5rem] hover:border-blue-400 hover:bg-blue-50/50 transition-all group">
+                        <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center text-red-500 shadow-sm">
+                            <i class="fa-solid fa-file-pdf text-2xl"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <p class="font-black text-[#06224C]">Project_Case_Study.pdf</p>
+                            <p class="text-[10px] text-gray-400 font-bold uppercase">Size: 4.8 MB • PDF Format</p>
+                        </div>
+                        <a href="public/docs/case-study.pdf" download class="bg-[#06224C] text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase hover:scale-105 transition active:scale-95 shadow-md">
+                            Download
+                        </a>
+                    </div>
+
+                    <div class="flex items-center gap-5 p-5 border-2 border-dashed border-gray-100 rounded-[1.5rem] hover:border-blue-400 hover:bg-blue-50/50 transition-all group">
+                        <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-500 shadow-sm">
+                            <i class="fa-solid fa-file-invoice text-2xl"></i>
+                        </div>
+                        <div class="flex-grow">
+                            <p class="font-black text-[#06224C]">Design_Assets_Guide.pdf</p>
+                            <p class="text-[10px] text-gray-400 font-bold uppercase">Size: 1.2 MB • PDF Format</p>
+                        </div>
+                        <a href="public/docs/assets-guide.pdf" download class="bg-[#06224C] text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase hover:scale-105 transition active:scale-95 shadow-md">
+                            Download
+                        </a>
+                    </div>
+
+                    <div class="mt-4 p-6 bg-blue-600 rounded-[1.5rem] text-white shadow-xl flex items-center justify-between group cursor-pointer" onclick="window.open('https://behance.net', '_blank')">
+                        <div>
+                            <p class="font-black uppercase tracking-widest text-xs opacity-70">External Portfolio</p>
+                            <p class="text-xl font-bold mt-1">View on Behance</p>
+                        </div>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-2xl transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
