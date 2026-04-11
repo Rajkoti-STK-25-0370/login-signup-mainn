@@ -16,6 +16,7 @@
     }
 } */
  
+ 
     /* Styling for Category Filter Buttons */
 .category-btn {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1566,85 +1567,42 @@ function deleteFromCart(index) {
         <button onclick="filterTemplates('business', this)" class="category-btn px-6 py-2 rounded-full border border-gray-200 text-sm font-bold whitespace-nowrap">Business</button>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group">
+    <div id="template-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group" data-category="portfolio">
             <div class="h-48 overflow-hidden"><img src="public/port.webp" class="w-full h-full object-cover"></div>
             <div class="p-6 text-center">
-                <h3 class="font-bold text-gray-800 uppercase tracking-tight">Creative Portfolio</h3>
-                <p class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
+                <h3 class="font-bold text-gray-800 uppercase tracking-tight">Portfolio Site</h3>
+                <p onclick="location.hash='404'" class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
             </div>
         </div>
-
-        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group">
+        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group" data-category="e-commerce">
             <div class="h-48 overflow-hidden"><img src="public/ecommerce.webp" class="w-full h-full object-cover"></div>
             <div class="p-6 text-center">
                 <h3 class="font-bold text-gray-800 uppercase tracking-tight">Modern Store</h3>
-                <p class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
+                <p onclick="location.hash='404'" class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
             </div>
         </div>
-
-        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group">
+        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group" data-category="business">
             <div class="h-48 overflow-hidden"><img src="public/digital01.webp" class="w-full h-full object-cover"></div>
             <div class="p-6 text-center">
                 <h3 class="font-bold text-gray-800 uppercase tracking-tight">Corporate Business</h3>
-                <p class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
+                <p onclick="location.hash='404'" class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
             </div>
         </div>
-
-        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group">
-            <div class="h-48 overflow-hidden"><img src="public/construction02.webp" class="w-full h-full object-cover"></div>
-            <div class="p-6 text-center">
-                <h3 class="font-bold text-gray-800 uppercase tracking-tight">Industrial Build</h3>
-                <p class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
-            </div>
         </div>
-
-        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group">
-            <div class="h-48 overflow-hidden"><img src="public/bloggg.webp" class="w-full h-full object-cover"></div>
-            <div class="p-6 text-center">
-                <h3 class="font-bold text-gray-800 uppercase tracking-tight">Fashion Blog</h3>
-                <p class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
-            </div>
-        </div>
-
-        <div class="template-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-50 group">
-            <div class="h-48 overflow-hidden"><img src="public/foodd03.webp" class="w-full h-full object-cover"></div>
-            <div class="p-6 text-center">
-                <h3 class="font-bold text-gray-800 uppercase tracking-tight">Luxury Jewelry</h3>
-                <p class="text-[10px] font-black text-blue-600 uppercase underline mt-2 cursor-pointer">Preview Theme</p>
-            </div>
-        </div>
-    </div>
 </section>
-
 <section class="mt-20 mb-20 px-4 max-w-7xl mx-auto">
-    <div class="bg-gradient-to-b from-[#005BC5] to-[#002B5C] rounded-[1rem] p-10 md:p-20 text-center text-white shadow-2xl">
-        
+    <div class="vibrant-cta-container bg-gradient-to-b from-[#005BC5] to-[#002B5C] rounded-[1rem] p-10 md:p-20 text-center text-white shadow-2xl">
         <div class="mb-16">
-            <h2 class="text-2xl md:text-4xl font-medium mb-4 italic" style="font-family: Georgia, serif;">
-                Step into the digital world with confidence
-            </h2>
-            <p class="text-lg md:text-xl opacity-90 italic" style="font-family: Georgia, serif;">
-                Join millions turning ideas into reality—and start building your own success story today.
-            </p>
+            <h2 class="text-2xl md:text-4xl font-medium mb-4 italic" style="font-family: Georgia, serif;">Step into the digital world with confidence</h2>
+            <p class="text-lg md:text-xl opacity-90 italic" style="font-family: Georgia, serif;">Join millions turning ideas into reality.</p>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-16 max-w-5xl mx-auto">
-            <div class="bg-white rounded-lg p-6 shadow-lg transform transition hover:scale-105">
-                <p class="text-2xl font-bold text-gray-800" style="font-family: Georgia, serif;">500K +</p>
-                <p class="text-sm text-gray-600 italic" style="font-family: Georgia, serif;">users</p>
-            </div>
-            <div class="bg-white rounded-lg p-6 shadow-lg transform transition hover:scale-105">
-                <p class="text-2xl font-bold text-gray-800" style="font-family: Georgia, serif;">12 +</p>
-                <p class="text-sm text-gray-600 italic" style="font-family: Georgia, serif;">countries</p>
-            </div>
-            <div class="bg-white rounded-lg p-6 shadow-lg transform transition hover:scale-105">
-                <p class="text-2xl font-bold text-gray-800" style="font-family: Georgia, serif;">10 +</p>
-                <p class="text-sm text-gray-600 italic" style="font-family: Georgia, serif;">sites created daily</p>
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+             <div class="bg-white rounded-lg p-6 shadow-lg text-gray-800">500K+ Users</div>
+             <div class="bg-white rounded-lg p-6 shadow-lg text-gray-800">12+ Countries</div>
+             <div class="bg-white rounded-lg p-6 shadow-lg text-gray-800">10+ Daily Sites</div>
         </div>
-
-        <button onclick="location.hash='404'" class="bg-white text-gray-800 px-12 py-3 rounded-full font-semibold text-sm shadow-xl hover:bg-gray-100 transition active:scale-95 border border-gray-200">
+        <button onclick="location.hash='404'" class="inline-block bg-white text-gray-800 px-12 py-4 rounded-full font-bold shadow-2xl transition hover:bg-gray-100">
             Get Started
         </button>
     </div>
