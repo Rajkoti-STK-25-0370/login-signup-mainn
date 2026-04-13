@@ -15,6 +15,9 @@
         gap: 1.5rem !important;
     }
 } */
+ #searchBarContainer:not(.invisible) {
+    display: block !important;
+}
  /* Fix mobile menu layering and visibility */
 #mobileMenu {
     z-index: 9999 !important;
@@ -786,15 +789,18 @@ nav.sticky {
         toggleMobileMenu();
     }
 
-    if (searchBar.classList.contains('max-h-0')) {
+    // FIX: Check for 'invisible' instead of 'max-h-0'
+    if (searchBar.classList.contains('invisible')) {
         // OPENING
-        searchBar.classList.remove('max-h-0', 'opacity-0', 'invisible');
-        searchBar.classList.add('max-h-40', 'opacity-100');
+        searchBar.classList.remove('invisible', 'opacity-0');
+        searchBar.classList.add('opacity-100');
+        // Ensure it has height to show at high zoom
+        searchBar.style.display = 'block'; 
         setTimeout(() => input.focus(), 300);
     } else {
         // CLOSING
-        searchBar.classList.remove('max-h-40', 'opacity-100');
-        searchBar.classList.add('max-h-0', 'opacity-0', 'invisible');
+        searchBar.classList.add('invisible', 'opacity-0');
+        searchBar.classList.remove('opacity-100');
     }
 }
  
@@ -1224,7 +1230,7 @@ document.addEventListener('keydown', (e) => {
     </div>
 
     <!-- SEARCH BAR -->
-    <div id="searchBarContainer" class="invisible opacity-0 transition-all duration-300 bg-white border-b border-gray-200">
+    <div id="searchBarContainer" class="invisible opacity-0 transition-all duration-300 bg-white border-b border-gray-200 fixed top-[60px] left-0 w-full z-[9999]">
       <div class="max-w-7xl mx-auto px-4 md:px-8 py-6">
         <form onsubmit="handleSearch(event)" class="flex items-center border border-gray-300 rounded-lg bg-gray-50 overflow-hidden">
   <input type="text" id="searchInput" placeholder="What are you looking for?" class="flex-grow px-5 py-3 bg-transparent outline-none text-gray-700 text-sm">
