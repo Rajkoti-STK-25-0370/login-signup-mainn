@@ -1280,22 +1280,24 @@ document.addEventListener('keydown', (e) => {
         </div>
 
         <div class="nav-actions-group flex-shrink-0">
-          <button class="relative flex items-center gap-1 border border-white/30 rounded-full px-2 md:px-4 py-1.5 text-white text-[10px] md:text-xs font-semibold hover:bg-white/10 transition">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span class="hidden sm:inline">Cart</span>
-            <span id="cartBadge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-          </button>
+    <button onclick="toggleCart()" class="relative flex items-center gap-1 border border-white/30 rounded-full px-2 md:px-4 py-1.5 text-white text-[10px] md:text-xs font-semibold hover:bg-white/10 transition">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="hidden sm:inline">Cart</span>
+        <span id="cartBadge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+    </button>
           
-          <button onclick="toggleSearchBar()" class="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-white rounded-full text-[#06224C] hover:bg-gray-200 transition shadow-sm flex-shrink-0">
-            <i class="fa-solid fa-magnifying-glass text-xs md:text-sm"></i>
-          </button>
+    <button onclick="toggleWishlist()" class="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-white rounded-full text-red-500 hover:bg-gray-100 transition shadow-sm flex-shrink-0">
+        <i class="fa-solid fa-heart text-xs md:text-sm"></i>
+    </button>
           
-          <!-- BUG FIX #5: Remove tabindex=-1 to allow proper tab navigation -->
-          <button type="button" aria-label="User Profile" class="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-white/40 overflow-hidden cursor-pointer flex-shrink-0 relative focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#06224C] transition-all">
-            <img src="public/profile.webp" alt="User Profile Picture" class="w-full h-full object-cover block" />
-          </button>
-        </div>
-      </div>
+    <button onclick="toggleSearchBar()" class="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-white rounded-full text-[#06224C] hover:bg-gray-200 transition shadow-sm flex-shrink-0">
+        <i class="fa-solid fa-magnifying-glass text-xs md:text-sm"></i>
+    </button>
+          
+    <button type="button" aria-label="User Profile" class="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-white/40 overflow-hidden cursor-pointer flex-shrink-0 relative focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#06224C] transition-all">
+        <img src="public/profile.webp" alt="User Profile Picture" class="w-full h-full object-cover block" />
+    </button>
+</div>
     </nav>
 
     <!-- MOBILE MENU -->
@@ -1491,9 +1493,9 @@ document.addEventListener('keydown', (e) => {
         <div class="flex justify-between items-start mb-1 gap-2">
             <h4 class="product-card-title text-xl font-bold text-[#06224C]">ShopNest</h4>
             
-            <div onclick="toggleHeart(this)" class="wishlist-btn text-gray-300 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
-                <i class="fa-regular fa-heart text-2xl"></i>
-            </div>
+            <div onclick="toggleHeart(this, 'ShopNest', 29, 'public/shopnest.webp')" class="wishlist-btn text-red-500 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
+    <i class="fa-regular fa-heart text-2xl"></i>
+</div>
         </div>
 
         <p class="text-xs italic text-gray-500 mb-4">E-commerce Website</p>
@@ -1534,9 +1536,9 @@ document.addEventListener('keydown', (e) => {
         <div class="flex justify-between items-start mb-1 gap-2">
             <h4 class="product-card-title text-xl font-bold text-[#06224C]">BuySphere</h4>
             
-            <div onclick="toggleHeart(this)" class="wishlist-btn text-gray-300 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
-                <i class="fa-regular fa-heart text-2xl"></i>
-            </div>
+            <div onclick="toggleHeart(this, 'BuySphere', 10, 'public/buysphere.webp')" class="wishlist-btn text-red-500 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
+    <i class="fa-regular fa-heart text-2xl"></i>
+</div>
         </div>
 
         <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
@@ -1577,9 +1579,9 @@ document.addEventListener('keydown', (e) => {
         <div class="flex justify-between items-start mb-1 gap-2">
             <h4 class="product-card-title text-xl font-bold text-[#06224C]">TurboCart</h4>
             
-            <div onclick="toggleHeart(this)" class="wishlist-btn text-gray-300 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
-                <i class="fa-regular fa-heart text-2xl"></i>
-            </div>
+            <div onclick="toggleHeart(this, 'TurboCart', 35, 'public/turbocart.webp')" class="wishlist-btn text-red-500 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
+    <i class="fa-regular fa-heart text-2xl"></i>
+</div>
         </div>
 
         <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
@@ -1621,9 +1623,9 @@ document.addEventListener('keydown', (e) => {
         <div class="flex justify-between items-start mb-1">
             <h4 class="text-xl font-bold text-[#06224C]">MegaBasket</h4>
             
-            <div onclick="toggleHeart(this)" class="wishlist-btn text-gray-300 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
-                <i class="fa-regular fa-heart text-2xl"></i>
-            </div>
+            <div onclick="toggleHeart(this, 'MegaBasket', 29, 'public/megabasket.webp')" class="wishlist-btn text-red-500 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
+    <i class="fa-regular fa-heart text-2xl"></i>
+</div>
         </div>
 
         <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
@@ -1664,9 +1666,9 @@ document.addEventListener('keydown', (e) => {
         <div class="flex justify-between items-start mb-1 gap-2">
             <h4 class="product-card-title text-xl font-bold text-[#06224C]">NexaStore</h4>
             
-            <div onclick="toggleHeart(this)" class="wishlist-btn text-gray-300 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
-                <i class="fa-regular fa-heart text-2xl"></i>
-            </div>
+            <div onclick="toggleHeart(this, 'NexaStore', 10, 'public/nexastore1.webp')" class="wishlist-btn text-red-500 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
+    <i class="fa-regular fa-heart text-2xl"></i>
+</div>
         </div>
 
         <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
@@ -1706,9 +1708,9 @@ document.addEventListener('keydown', (e) => {
              <div class="flex justify-between items-start mb-1 gap-2">
              <h4 class="product-card-title text-xl font-bold text-[#06224C]">SampleStore</h4>
             
-            <div onclick="toggleHeart(this)" class="wishlist-btn text-gray-300 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
-                <i class="fa-regular fa-heart text-2xl"></i>
-            </div>
+            <div onclick="toggleHeart(this, 'SampleStore', 35, 'public/samplestore.webp')" class="wishlist-btn text-red-500 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
+    <i class="fa-regular fa-heart text-2xl"></i>
+</div>
             </div>
 
                <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
@@ -2078,6 +2080,25 @@ document.addEventListener('keydown', (e) => {
 
             </div>
         </div>
+    </div>
+</div>
+<div id="wishlistSidebar" class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white shadow-2xl z-[9999] transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+    <div class="p-6 border-b flex justify-between items-center bg-white text-[#06224C]">
+        <h2 class="text-lg font-black uppercase tracking-widest flex items-center gap-3">
+            <i class="fa-solid fa-heart text-red-500"></i> My Wishlist
+        </h2>
+        <button onclick="toggleWishlist()" class="hover:rotate-90 transition-transform duration-200">
+            <i class="fa-solid fa-xmark text-2xl text-gray-400"></i>
+        </button>
+    </div>
+
+    <div id="wishlistItemsList" class="flex-grow overflow-y-auto p-6 space-y-6">
+        </div>
+
+    <div class="p-6 border-t bg-gray-50">
+        <p class="text-[10px] text-gray-400 font-bold uppercase text-center tracking-widest">
+            Items saved in wishlist are not reserved.
+        </p>
     </div>
 </div>
 
