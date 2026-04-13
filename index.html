@@ -342,8 +342,8 @@ nav.sticky {
 #searchBarContainer {
     height: auto !important; /* Allow it to expand vertically */
     max-height: none !important; /* Remove the 160px limit */
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 
 /* Ensure the form doesn't get squashed */
@@ -359,7 +359,7 @@ nav.sticky {
 }
 
 #searchBarContainer .max-w-7xl {
-    max-width: 1700px !important; /* Smaller width */
+    max-width: 1245px !important; /* Smaller width */
     margin: 10px auto;
     pointer-events: auto; /* Re-enables clicking for the actual bar */
 }
@@ -1084,7 +1084,8 @@ function deleteFromCart(index) {
     }
 
     // ===== RATING SYSTEM =====
-   function submitRating(productId, rating, isInitialLoad = false) {
+   // BUG FIX: ARIA label now announces correctly to screen readers
+function submitRating(productId, rating, isInitialLoad = false) {
     const container = document.getElementById(`rating-container-${productId}`);
     if (!container) return;
 
@@ -1104,8 +1105,17 @@ function deleteFromCart(index) {
     ratingText.innerText = `(${rating}.0)`;
     ratingText.classList.replace('text-gray-400', 'text-blue-600');
 
-    // ACCESSIBILITY FIX: Update the ARIA label so screen readers announce the new value
+    // FIX 1: Update aria-label on the container
     container.setAttribute('aria-label', `Rating: ${rating} out of 5 stars`);
+
+    // FIX 2: Announce the new rating LIVE to screen readers via the live region
+    const liveRegion = document.getElementById('rating-live-region');
+    if (liveRegion && !isInitialLoad) {
+        liveRegion.textContent = ''; // Clear first to force re-announcement
+        setTimeout(() => {
+            liveRegion.textContent = `You rated ${productId} ${rating} out of 5 stars`;
+        }, 50);
+    }
 
     if (!isInitialLoad) {
         showNotification(`You rated ${productId} ${rating} stars!`);
@@ -2106,6 +2116,8 @@ document.addEventListener('keydown', (e) => {
   
   <!-- TOAST NOTIFICATION CONTAINER -->
   <div id="toast-container" class="fixed bottom-5 right-5 z-[10000] flex flex-col gap-3"></div>
+  <!-- ACCESSIBILITY: Live region for screen reader rating announcements -->
+<div id="rating-live-region" aria-live="assertive" aria-atomic="true" class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;"></div>
   <!-- for portfolio modal -->
   <div id="portfolioModal" class="fixed inset-0 z-[10000] hidden flex items-center justify-center p-4 md:p-10">
     <div onclick="closePortfolioModal()" class="absolute inset-0 bg-[#06224C]/95 backdrop-blur-md"></div>
