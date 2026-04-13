@@ -357,6 +357,32 @@ nav.sticky {
 #searchBarContainer form {
     min-height: 50px;
 }
+/* Compact Floating Search Bar */
+#searchBarContainer {
+    background: transparent !important; /* Removes the white wall */
+    box-shadow: none !important;
+    border: none !important;
+    pointer-events: none; /* Allows clicking banner behind the empty space */
+}
+
+#searchBarContainer .max-w-7xl {
+    max-width: 1700px !important; /* Smaller width */
+    margin: 20px auto;
+    pointer-events: auto; /* Re-enables clicking for the actual bar */
+}
+
+#searchBarContainer form {
+    background: white;
+    border-radius: 99px;
+    height: 45px; /* Reduced Height */
+    border: 2px solid #3b82f6;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+#searchBarContainer input {
+    font-size: 14px;
+    padding-left: 20px;
+}
 
 /* Adjust padding for zoom accessibility */
 @media (min-resolution: 192dpi) {
@@ -1311,7 +1337,7 @@ document.addEventListener('keydown', (e) => {
 
     <!-- SEARCH BAR -->
     <div id="searchBarContainer" class="invisible opacity-0 transition-all duration-300 bg-white border-b border-gray-200 fixed top-[60px] left-0 w-full z-[9999]">
-      <div class="max-w-7xl mx-auto px-4 md:px-8 py-6">
+      <div class="max-w-7xl mx-auto px-4 md:px-8 py-2">
         <form onsubmit="handleSearch(event)" class="flex items-center border border-gray-300 rounded-lg bg-gray-50 overflow-hidden">
   <input type="text" id="searchInput" placeholder="What are you looking for?" class="flex-grow px-5 py-3 bg-transparent outline-none text-gray-700 text-sm">
   <button type="submit" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 border-l border-gray-300 transition">
