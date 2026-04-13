@@ -1143,49 +1143,117 @@ function deleteFromCart(index) {
       });
 
       // Dropdown Menus - SINGLE UNIFIED HANDLER
-      const productsBtn = document.getElementById('products-dropdown-btn');
-      const productsMenu = document.getElementById('products-menu');
-      const categoryBtn = document.getElementById('category-dropdown-btn');
-      const categoryMenu = document.getElementById('category-menu');
+      // ===== DROPDOWN FIX: Bug_DB_035 =====
+const productsBtn = document.getElementById('products-dropdown-btn');
+const productsMenu = document.getElementById('products-menu');
+const categoryBtn = document.getElementById('category-dropdown-btn');
+const categoryMenu = document.getElementById('category-menu');
 
-      if (productsBtn) {
-        productsBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          const isOpen = productsMenu.classList.contains('opacity-100');
-          
-          if (isOpen) {
-            productsMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
-          } else {
-            productsMenu.classList.add('opacity-100', 'visible', 'translate-y-0');
-            categoryMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
-          }
-        });
-      }
+function openMenu(menu, btn) {
+  menu.classList.add('opacity-100', 'visible', 'translate-y-0');
+  btn.setAttribute('aria-expanded', 'true');
+}
 
-      if (categoryBtn) {
-        categoryBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          const isOpen = categoryMenu.classList.contains('opacity-100');
-          
-          if (isOpen) {
-            categoryMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
-          } else {
-            categoryMenu.classList.add('opacity-100', 'visible', 'translate-y-0');
-            productsMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
-          }
-        });
-      }
+function closeMenu(menu, btn) {
+  menu.classList.remove('opacity-100', 'visible', 'translate-y-0');
+  btn.setAttribute('aria-expanded', 'false');
+}
 
-      // Close dropdowns when clicking outside - SINGLE LISTENER
-      document.addEventListener('click', function(e) {
-    if (!productsBtn || !categoryBtn) return;
-    
-    if (!productsBtn.contains(e.target) && !productsMenu.contains(e.target)) {
-        productsMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
+function closeAllMenus() {
+  closeMenu(productsMenu, productsBtn);
+  closeMenu(categoryMenu, categoryBtn);
+}
+
+function isMenuOpen(menu) {
+  return menu.classList.contains('opacity-100');
+}
+
+// --- Products Button Click (toggle) ---
+if (productsBtn) {
+  productsBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (isMenuOpen(productsMenu)) {
+      closeMenu(productsMenu, productsBtn);  // FIX: now properly closes on second click
+    } else {
+      closeMenu(categoryMenu, categoryBtn);
+      openMenu(productsMenu, productsBtn);
     }
-    if (!categoryBtn.contains(e.target) && !categoryMenu.contains(e.target)) {
-        categoryMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
+  });
+
+  // --- Keyboard: Arrow keys navigate menu items ---
+  productsBtn.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (!isMenuOpen(productsMenu)) openMenu(productsMenu, productsBtn);
+      const firstItem = productsMenu.querySelector('[role="menuitem"]');
+      if (firstItem) firstItem.focus();
     }
+    if (e.key === 'Escape') closeAllMenus();
+  });
+}
+
+// --- Category Button Click (toggle) ---
+if (categoryBtn) {
+  categoryBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (isMenuOpen(categoryMenu)) {
+      closeMenu(categoryMenu, categoryBtn);  // FIX: now properly closes on second click
+    } else {
+      closeMenu(productsMenu, productsBtn);
+      openMenu(categoryMenu, categoryBtn);
+    }
+  });
+
+  // --- Keyboard: Arrow keys navigate menu items ---
+  categoryBtn.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (!isMenuOpen(categoryMenu)) openMenu(categoryMenu, categoryBtn);
+      const firstItem = categoryMenu.querySelector('[role="menuitem"]');
+      if (firstItem) firstItem.focus();
+    }
+    if (e.key === 'Escape') closeAllMenus();
+  });
+}
+
+// --- Keyboard navigation INSIDE menu items (Arrow Up/Down + Escape) ---
+[productsMenu, categoryMenu].forEach(function(menu) {
+  menu.addEventListener('keydown', function(e) {
+    const items = Array.from(menu.querySelectorAll('[role="menuitem"]'));
+    const current = document.activeElement;
+    const idx = items.indexOf(current);
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const next = items[idx + 1] || items[0]; // wraps to top
+      next.focus();
+    }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const prev = items[idx - 1] || items[items.length - 1]; // wraps to bottom
+      prev.focus();
+    }
+    if (e.key === 'Escape') {
+      closeAllMenus();
+      // Return focus to the button that opened this menu
+      if (menu === productsMenu) productsBtn.focus();
+      if (menu === categoryMenu) categoryBtn.focus();
+    }
+    if (e.key === 'Tab') {
+      closeAllMenus(); // Close when tabbing away
+    }
+  });
+});
+
+// --- Click outside to close ---
+document.addEventListener('click', function(e) {
+  if (!productsBtn || !categoryBtn) return;
+  if (!productsBtn.contains(e.target) && !productsMenu.contains(e.target)) {
+    closeMenu(productsMenu, productsBtn);
+  }
+  if (!categoryBtn.contains(e.target) && !categoryMenu.contains(e.target)) {
+    closeMenu(categoryMenu, categoryBtn);
+  }
 }, { passive: true });
     });
     function filterTemplates(category, btn) {
