@@ -1325,6 +1325,31 @@ function closePortfolioModal() {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closePortfolioModal();
 });
+// FAQ Accordion Toggle
+function toggleFAQ(button) {
+    const faqItem = button.parentElement;
+    const answer = faqItem.querySelector('.faq-answer');
+    const icon = button.querySelector('i');
+    
+    // Check if this FAQ is currently open
+    const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+    
+    // Close all other FAQs
+    document.querySelectorAll('.faq-answer').forEach(item => {
+        item.style.maxHeight = '0px';
+    });
+    document.querySelectorAll('.faq-item i').forEach(i => {
+        i.classList.remove('fa-minus', 'rotate-180');
+        i.classList.add('fa-plus');
+    });
+    
+    // If it wasn't open, open it
+    if (!isOpen) {
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        icon.classList.remove('fa-plus');
+        icon.classList.add('fa-minus', 'rotate-180');
+    }
+}
   </script>
 
   <!-- ========================================
@@ -1969,21 +1994,17 @@ document.addEventListener('keydown', (e) => {
 </section>
 <section class="mt-20 mb-20 px-4 max-w-7xl mx-auto">
     <div class="bg-[#E6EFF1] rounded-[3rem] p-10 md:p-16 flex flex-col md:flex-row gap-10 md:gap-16 border-l-4 border-blue-600">
-        
         <div class="w-full md:w-1/2 flex flex-col items-start gap-6">
             <h2 class="text-4xl md:text-5xl font-black text-gray-900 leading-tight">
                 How to use a drag & drop website builder
-            </h2>
-            
+            </h2>           
             <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mt-2">
                 Create your site with our drag & drop builder in 3 simple steps:
-            </p>
-            
+            </p>            
             <button onclick="location.hash='404'" class="mt-6 bg-[#2B2B2B] text-white px-8 py-3 rounded-full font-bold text-xs uppercase tracking-widest hover:bg-gray-800 transition shadow-lg active:scale-95">
                 Get Started
             </button>
         </div>
-        
         <div class="w-full md:w-1/2 flex flex-col gap-10 text-left">
             <div class="flex flex-col gap-2">
                 <p class="text-lg md:text-xl font-black text-gray-900 leading-snug">
@@ -1992,8 +2013,7 @@ document.addEventListener('keydown', (e) => {
                 <p class="text-xs font-semibold text-gray-600 pl-6">
                     Pick your site type and start shaping your online presence.
                 </p>
-            </div>
-            
+            </div>            
             <div class="flex flex-col gap-2">
                 <p class="text-lg md:text-xl font-black text-gray-900 leading-snug">
                     <span class="text-blue-600">2.</span> Customize a template or have a website tailored for you.
@@ -2066,6 +2086,102 @@ document.addEventListener('keydown', (e) => {
             </div>
 
         </div>
+    </div>
+</section>
+<section id="faq-section" class="mt-20 mb-20 px-4 max-w-7xl mx-auto">
+  <h2 class="text-xs font-black text-[#0A2357] mb-10 uppercase tracking-[0.3em] border-l-4 border-blue-600 pl-3">Drag & drop website builder FAQ</h2>
+    
+    <div class="bg-[#E6EFF1] rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-16 flex flex-col lg:flex-row items-start gap-10 lg:gap-16 shadow-sm">
+      
+      <!-- Left Side: Illustration -->
+      <div class="w-full lg:w-2/5 flex items-center justify-center">
+        <div class="w-full max-w-md">
+          <img src="public/faqq.webp" alt="FAQ Illustration" class="w-full h-auto object-contain">
+        </div>
+      </div>
+
+      <!-- Right Side: FAQ Accordion -->
+      <div class="w-full lg:w-3/5 flex flex-col gap-4">
+        
+        <!-- FAQ Item 1 -->
+        <div class="faq-item bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <button onclick="toggleFAQ(this)" class="w-full flex justify-between items-center p-5 md:p-6 text-left hover:bg-gray-50 transition-colors">
+            <h3 class="text-sm md:text-base font-bold text-[#06224C] pr-4">What is a drag & drop website builder?</h3>
+            <i class="fa-solid fa-plus text-[#06224C] text-lg flex-shrink-0 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="p-5 md:p-6 pt-0 text-sm text-gray-700 leading-relaxed">
+              A drag & drop website builder is a user-friendly tool that lets you design and customize your website by dragging and dropping elements onto your page. It simplifies the website creation, so you don't need coding skills.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="faq-item bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <button onclick="toggleFAQ(this)" class="w-full flex justify-between items-center p-5 md:p-6 text-left hover:bg-gray-50 transition-colors">
+            <h3 class="text-sm md:text-base font-bold text-[#06224C] pr-4">What is the best drag & drop website builder?</h3>
+            <i class="fa-solid fa-plus text-[#06224C] text-lg flex-shrink-0 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="p-5 md:p-6 pt-0 text-sm text-gray-700 leading-relaxed">
+              The best drag-and-drop website builder depends on your needs. Stackly is widely considered the top choice due to its ease of use, design flexibility, and wide range of features. For users who prioritize design and aesthetics, Squarespace is an excellent option. Overall, the best builder is one that combines simplicity, customization, and the tools you need to grow your website.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="faq-item bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <button onclick="toggleFAQ(this)" class="w-full flex justify-between items-center p-5 md:p-6 text-left hover:bg-gray-50 transition-colors">
+            <h3 class="text-sm md:text-base font-bold text-[#06224C] pr-4">How much does Stackly drag & drop website Builder Cost?</h3>
+            <i class="fa-solid fa-plus text-[#06224C] text-lg flex-shrink-0 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="p-5 md:p-6 pt-0 text-sm text-gray-700 leading-relaxed">
+              Stackly offers flexible pricing designed to suit different needs and budgets. It typically includes a free plan to get started, along with affordable paid plans that scale as your requirements grow, with more advanced plans available at $150/month, $180/month, and higher tiers for larger businesses or enterprise use.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="faq-item bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <button onclick="toggleFAQ(this)" class="w-full flex justify-between items-center p-5 md:p-6 text-left hover:bg-gray-50 transition-colors">
+            <h3 class="text-sm md:text-base font-bold text-[#06224C] pr-4">What kind of websites can I build with the drag & drop website builder?</h3>
+            <i class="fa-solid fa-plus text-[#06224C] text-lg flex-shrink-0 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="p-5 md:p-6 pt-0 text-sm text-gray-700 leading-relaxed">
+              With a drag-and-drop website builder like Stackly, you can create a wide variety of websites without any coding. This includes business websites, portfolios, blogs, landing pages, eCommerce stores, service-based websites, and even event or educational sites. The flexibility of the builder allows you to customize layouts, add features, and design pages to match your specific goals, making it suitable for individuals, startups, and growing businesses alike.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="faq-item bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <button onclick="toggleFAQ(this)" class="w-full flex justify-between items-center p-5 md:p-6 text-left hover:bg-gray-50 transition-colors">
+            <h3 class="text-sm md:text-base font-bold text-[#06224C] pr-4">What are the advantages of a drag & drop website builder?</h3>
+            <i class="fa-solid fa-plus text-[#06224C] text-lg flex-shrink-0 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="p-5 md:p-6 pt-0 text-sm text-gray-700 leading-relaxed">
+              A drag-and-drop website builder offers several key advantages, including ease of use, speed, and flexibility. You can quickly design pages, move elements, and see changes in real time. It also provides ready-made templates, built-in features like SEO and mobile responsiveness, and the ability to update your site anytime, making it an ideal solution for individuals, startups, and businesses looking to build a professional online presence efficiently.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ Item 6 -->
+        <div class="faq-item bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <button onclick="toggleFAQ(this)" class="w-full flex justify-between items-center p-5 md:p-6 text-left hover:bg-gray-50 transition-colors">
+            <h3 class="text-sm md:text-base font-bold text-[#06224C] pr-4">How long does it take to build a website on a drag & drop website builder?</h3>
+            <i class="fa-solid fa-plus text-[#06224C] text-lg flex-shrink-0 transition-transform duration-300"></i>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="p-5 md:p-6 pt-0 text-sm text-gray-700 leading-relaxed">
+              Building a website with a drag-and-drop builder is quick and efficient. A basic website can be created in just a few hours, while a more detailed and fully customized site may take a few days depending on the content, design, and features required. Overall, it significantly reduces development time compared to traditional coding, allowing you to launch your website much faster.
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
 </section>
       </div>
