@@ -6,8 +6,8 @@
   <title>Stackly | Market</title>
  
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
- 
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
   <style>
     /* BUG FIX: Showcase zoom alignment */
 /* @media screen and (min-resolution: 192dpi) {
@@ -165,37 +165,23 @@
 
     /* BUG FIX #040: Fix duplicate scrollbars and header overlap */
 html {
-    overflow-y: auto !important; /* Changed from 'scroll' to 'auto' */
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
+    scroll-behavior: smooth;
 }
 
-html, body {
-    height: 100%;
-    overflow: hidden !important;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100%;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
     width: 100%;
     margin: 0;
     padding: 0;
 }
-
-body { 
-    font-family: Arial, Helvetica, sans-serif; 
-    min-height: 100%; 
-    position: relative;
-    overflow-y: auto !important; /* Single scrollbar on body only */
-    overflow-x: hidden !important;
-}
-
-/* Remove the conflicting scrollbar rule */
-@media screen and (min-width: 1024px) {
-    html {
-        overflow-y: auto !important; /* Override the forced scrollbar */
-    }
-}
-
     /* ========================================
        2. TYPOGRAPHY & UTILITY CLASSES
        ======================================== */
@@ -367,7 +353,7 @@ nav.sticky {
 
 #searchBarContainer .max-w-7xl {
     max-width: 1700px !important; /* Smaller width */
-    margin: 20px auto;
+    margin: 10px auto;
     pointer-events: auto; /* Re-enables clicking for the actual bar */
 }
 
@@ -410,8 +396,7 @@ nav.sticky {
       position: relative;
       overflow: hidden !important;
       min-height: 500px;
-      /* BUG FIX #3: Remove lazy loading delay */
-      will-change: auto;
+      
     }
 
     .hero-illustration {
@@ -1130,7 +1115,7 @@ function deleteFromCart(index) {
     }
 
     // ===== EVENT LISTENERS - BUG FIX #2: CLEANED UP =====
-    window.addEventListener("hashchange", router);
+    window.addEventListener("hashchange", router, { passive: true });
     
     document.addEventListener("DOMContentLoaded", function() {
       router();
@@ -1193,17 +1178,15 @@ function deleteFromCart(index) {
 
       // Close dropdowns when clicking outside - SINGLE LISTENER
       document.addEventListener('click', function(e) {
-        const isProductsClick = productsBtn && (productsBtn.contains(e.target) || productsMenu.contains(e.target));
-        const isCategoryClick = categoryBtn && (categoryBtn.contains(e.target) || categoryMenu.contains(e.target));
-        
-        if (!isProductsClick) {
-          productsMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
-        }
-        
-        if (!isCategoryClick) {
-          categoryMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
-        }
-      });
+    if (!productsBtn || !categoryBtn) return;
+    
+    if (!productsBtn.contains(e.target) && !productsMenu.contains(e.target)) {
+        productsMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
+    }
+    if (!categoryBtn.contains(e.target) && !categoryMenu.contains(e.target)) {
+        categoryMenu.classList.remove('opacity-100', 'visible', 'translate-y-0');
+    }
+}, { passive: true });
     });
     function filterTemplates(category, btn) {
     // 1. Tab visuals
@@ -1401,7 +1384,7 @@ document.addEventListener('keydown', (e) => {
               <i class="fa-regular fa-heart text-lg"></i>
             </div>  -->
             <div class="h-40 md:h-48 overflow-hidden">
-              <img src="public/port.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Portfolio Website Preview">
+              <img src="public/port.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Portfolio Website Preview">
             </div>
             <div class="p-6 text-center">
               <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Portfolio</h3>
@@ -1418,7 +1401,7 @@ document.addEventListener('keydown', (e) => {
               <i class="fa-regular fa-heart text-lg"></i>
             </div> -->
             <div class="h-40 md:h-48 overflow-hidden">
-              <img src="public/ecommerce.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="E-Commerce Template Preview">
+              <img src="public/ecommerce.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="E-Commerce Template Preview">
             </div>
             <div class="p-6 text-center">
               <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">E-Commerce Templates</h3>
@@ -1435,7 +1418,7 @@ document.addEventListener('keydown', (e) => {
               <i class="fa-regular fa-heart text-lg"></i>
             </div> -->
             <div class="h-40 md:h-48 overflow-hidden">
-              <img src="public/digital01.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Digital Marketing Website Template Preview">
+              <img src="public/digital01.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Digital Marketing Website Template Preview">
             </div>
             <div class="p-6 text-center">
               <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Digital Marketing Templates</h3>
@@ -1452,7 +1435,7 @@ document.addEventListener('keydown', (e) => {
               <i class="fa-regular fa-heart text-lg"></i>
             </div> -->
             <div class="h-40 md:h-48 overflow-hidden">
-              <img src="public/bloggg.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Blogging Website Preview">
+              <img src="public/bloggg.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Blogging Website Preview">
             </div>
             <div class="p-6 text-center">
               <h3 class="font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">Blogging</h3>
@@ -1469,7 +1452,7 @@ document.addEventListener('keydown', (e) => {
               <i class="fa-regular fa-heart text-lg"></i>
             </div> -->
             <div class="h-40 md:h-48 overflow-hidden">
-              <img src="public/construction02.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Construction Website Preview">
+              <img src="public/construction02.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Construction Website Preview">
             </div>
             <div class="p-6 text-center">
   <h3 class="category-card-title font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">
@@ -1488,7 +1471,7 @@ document.addEventListener('keydown', (e) => {
               <i class="fa-regular fa-heart text-lg"></i>
             </div> -->
             <div class="h-40 md:h-48 overflow-hidden">
-              <img src="public/foodd03.webp" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Food Restaurant Website Preview">
+              <img src="public/foodd03.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Food Restaurant Website Preview">
             </div>
             <div class="p-6 text-center">
   <h3 class="category-card-title font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">
@@ -1512,7 +1495,7 @@ document.addEventListener('keydown', (e) => {
           <!-- ShopNest Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
     <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
-        <img src="public/shopnest.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="ShopNest Website Preview">
+        <img src="public/shopnest.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="ShopNest Website Preview">
     </div>
 
     <div class="px-2 flex-grow flex flex-col">
@@ -1555,7 +1538,7 @@ document.addEventListener('keydown', (e) => {
           <!-- BuySphere Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
     <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
-        <img src="public/buysphere.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="BuySphere Website Preview">
+        <img src="public/buysphere.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="BuySphere Website Preview">
     </div>
 
     <div class="px-2 flex-grow flex flex-col">
@@ -1598,7 +1581,7 @@ document.addEventListener('keydown', (e) => {
           <!-- TurboCart Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
     <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
-        <img src="public/turbocart.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="TurboCart Website Preview">
+        <img src="public/turbocart.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="TurboCart Website Preview">
     </div>
 
     <div class="px-2 flex-grow flex flex-col">
@@ -1642,7 +1625,7 @@ document.addEventListener('keydown', (e) => {
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
     
     <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
-        <img src="public/megabasket.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="MegaBasket Website Preview">
+        <img src="public/megabasket.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="MegaBasket Website Preview">
     </div>
 
     <div class="px-2">
@@ -1685,7 +1668,7 @@ document.addEventListener('keydown', (e) => {
           <!-- NexaStore Product Card -->
          <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
     <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
-        <img src="public/nexastore1.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="NexaStore Website Preview">
+        <img src="public/nexastore1.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="NexaStore Website Preview">
     </div>
 
     <div class="px-2 flex-grow flex flex-col">
@@ -1728,7 +1711,7 @@ document.addEventListener('keydown', (e) => {
           <!-- SampleStore Product Card -->
           <div class="bg-white p-5 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 group relative flex flex-col">
             <div class="h-52 bg-gray-50 rounded-[1.5rem] mb-5 overflow-hidden">
-            <img src="public/samplestore.webp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Samplestore Website Preview">
+            <img src="public/samplestore.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="Samplestore Website Preview">
            </div>
              <div class="px-2 flex-grow flex flex-col">
              <div class="flex justify-between items-start mb-1 gap-2">
@@ -1788,7 +1771,7 @@ document.addEventListener('keydown', (e) => {
             
             <div onclick="openPortfolioModal()" class="template-category-card group block cursor-pointer" data-cat="portfolio">
     <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
-        <img src="public/port.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <img src="public/port.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
     </div>
     <div class="flex justify-between items-center px-1">
         <h3 class="text-2xl font-black text-[#06224C]">Portfolio</h3>
@@ -1798,7 +1781,7 @@ document.addEventListener('keydown', (e) => {
 
             <a href="https://your-store-link.com" target="_blank" class="template-category-card group block" data-cat="ecommerce">
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
-                    <img src="public/ecommerce.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <img src="public/ecommerce.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 </div>
                 <div class="flex justify-between items-center px-1">
                     <h3 class="text-2xl font-black text-[#06224C]">Store</h3>
@@ -1808,7 +1791,7 @@ document.addEventListener('keydown', (e) => {
 
             <a href="https://your-business-link.com" target="_blank" class="template-category-card group block" data-cat="business">
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
-                    <img src="public/digital01.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <img src="public/digital01.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 </div>
                 <div class="flex justify-between items-center px-1">
                     <h3 class="text-2xl font-black text-[#06224C]">Business</h3>
@@ -1818,7 +1801,7 @@ document.addEventListener('keydown', (e) => {
 
             <a href="https://your-construction-link.com" target="_blank" class="template-category-card group block" data-cat="business">
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
-                    <img src="public/construction02.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <img src="public/construction02.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 </div>
                 <div class="flex justify-between items-center px-1">
                     <h3 class="text-2xl font-black text-[#06224C]">Construction</h3>
@@ -1828,7 +1811,7 @@ document.addEventListener('keydown', (e) => {
 
             <a href="https://your-fashion-link.com" target="_blank" class="template-category-card group block" data-cat="ecommerce">
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
-                    <img src="public/bloggg.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <img src="public/bloggg.webp" loading="lazy"  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 </div>
                 <div class="flex justify-between items-center px-1">
                     <h3 class="text-2xl font-black text-[#06224C]">Fashion</h3>
@@ -1838,7 +1821,7 @@ document.addEventListener('keydown', (e) => {
 
             <a href="https://your-jewelry-link.com" target="_blank" class="template-category-card group block" data-cat="ecommerce">
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
-                    <img src="public/foodd03.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <img src="public/foodd03.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 </div>
                 <div class="flex justify-between items-center px-1">
                     <h3 class="text-2xl font-black text-[#06224C]">Jewelry</h3>
