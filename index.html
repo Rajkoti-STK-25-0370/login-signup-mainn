@@ -321,15 +321,22 @@ nav.sticky {
        5. MOBILE MENU & SEARCH BAR
        ======================================== */
     #mobileMenu, #searchBarContainer {
-      position: fixed;
-      top: 60px;
-      width: 100%;
-      left: 0;
-      z-index: 999;
-      background: white;
-      transition: all 0.3s ease-in-out;
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    }
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  left: 0;
+  z-index: 999;
+  background: white;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+/* BUG FIX: Search bar follows actual navbar height at any zoom level */
+@supports (top: env(safe-area-inset-top)) {
+  #searchBarContainer {
+    top: 60px;
+  }
+}
 
     /* FIX: Responsive Search Bar for high zoom levels */
 #searchBarContainer {
@@ -1116,7 +1123,25 @@ function deleteFromCart(index) {
 
     // ===== EVENT LISTENERS - BUG FIX #2: CLEANED UP =====
     window.addEventListener("hashchange", router, { passive: true });
-    
+    // BUG FIX: Search bar top position tracks real navbar height at any zoom
+function updateSearchBarTop() {
+  const nav = document.querySelector('nav.sticky');
+  const searchBar = document.getElementById('searchBarContainer');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (nav && searchBar) {
+    const navHeight = nav.getBoundingClientRect().height;
+    searchBar.style.top = navHeight + 'px';
+    if (mobileMenu) mobileMenu.style.top = navHeight + 'px';
+  }
+}
+
+// Run on load, resize, and zoom (resize fires on zoom too)
+window.addEventListener('resize', updateSearchBarTop, { passive: true });
+document.addEventListener('DOMContentLoaded', function() {
+  updateSearchBarTop();
+  // Small delay to catch late-rendered navbar
+  setTimeout(updateSearchBarTop, 300);
+});
     document.addEventListener("DOMContentLoaded", function() {
       router();
       updateCartBadge();
