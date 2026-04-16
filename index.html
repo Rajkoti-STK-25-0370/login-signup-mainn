@@ -15,6 +15,14 @@
         gap: 1.5rem !important;
     }
 } */
+ #whatsapp-chat {
+    position: fixed;
+    bottom: 20px;
+    left: 20px; /* Opposite of Back-to-Top */
+    z-index: 9000;
+    transition: transform 0.3s ease;
+}
+#whatsapp-chat:hover { transform: scale(1.1); }
  /* Back to Top Button */
 #backToTop {
     position: fixed;
@@ -442,8 +450,7 @@ nav.sticky {
       object-fit: cover;
       object-position: right center;
       pointer-events: none;
-      /* BUG FIX #3: Immediate rendering */
-      
+    
     }
 
     /* ========================================
@@ -1649,9 +1656,11 @@ function scrollToTemplate(category) {
         <span class="bg-white text-[#0A2357] rounded-full w-5 h-5 flex items-center justify-center text-[10px]" aria-hidden="true">
             <i class="fa-solid fa-play"></i>
         </span>
+      </button>
     </button>
-    </button>
+
       </section>
+      
 
       <!-- POPULAR SEARCHES - BUG FIX #4 APPLIED -->
       <div id="popular-searches" class="mt-8 md:mt-12 text-center px-4">
@@ -1772,7 +1781,7 @@ function scrollToTemplate(category) {
               <i class="fa-regular fa-heart text-lg"></i>
             </div> -->
             <div class="h-40 md:h-48 overflow-hidden">
-              <img src="public/foodd03.webp" loading="eager" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Food Restaurant Website Preview">
+              <img src="public/foodd03.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Food Restaurant Website Preview">
             </div>
             <div class="p-6 text-center">
   <h3 class="category-card-title font-bold text-base md:text-lg text-gray-800 uppercase tracking-tight">
@@ -2609,6 +2618,11 @@ function scrollToTemplate(category) {
 <button id="backToTop" onclick="scrollToTop()" aria-label="Back to top">
     <i class="fa-solid fa-arrow-up"></i>
 </button>
+<a href="https://wa.me/yournumber" target="_blank" id="whatsapp-chat" aria-label="Chat on WhatsApp">
+    <div class="bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+    </div>
+</a>
 
 </body>
 </html>
