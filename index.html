@@ -2407,38 +2407,39 @@ function scrollToTemplate(category) {
    <!-- FOOTER -->
 <footer class="bg-[#0A1E3D] py-16 w-full mt-auto">
     <div class="max-w-7xl mx-auto px-4 md:px-8">
-        <div class="mb-12">
-            <form class="max-w-sm flex items-center gap-2">
-                <div class="flex-grow relative">
-                    <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                    <input 
-                        type="email" 
-                        placeholder="Your email" 
-                        class="w-full pl-11 pr-4 py-3 rounded-full bg-white text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    >
-                </div>
-                <button type="submit" class="text-white hover:text-blue-300 transition">
-                    <i class="fa-solid fa-microphone text-xl"></i>
-                </button>
-            </form>
-        </div>
-
-        <!-- Headquarters -->
-        <div class="mb-12">
-            <h3 class="text-white font-black text-sm mb-2 uppercase tracking-wider">Headquarters</h3>
-            <p class="text-white/70 text-sm">
-                MMR COMPLEX, SALEM,<br>
-                Tamil Nadu 636008
-            </p>
-        </div>
-
-        <!-- Footer Columns -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+        
+        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-12 mb-12 border-b border-white/10 pb-12">
             
-            <!-- Product Column -->
+            <div class="w-full md:w-1/2">
+                <h3 class="text-white font-black text-sm mb-4 uppercase tracking-wider">Subscribe to our Updates</h3>
+                <form class="max-w-md flex items-center gap-2">
+                    <div class="flex-grow relative">
+                        <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <input 
+                            type="email" 
+                            placeholder="Your email" 
+                            class="w-full pl-11 pr-4 py-3 rounded-full bg-white text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        >
+                    </div>
+                    <button type="submit" class="text-white hover:text-blue-300 transition group">
+                        <i class="fa-solid fa-paper-plane text-xl transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
+                    </button>
+                </form>
+            </div>
+
+            <div class="w-full md:w-auto md:text-right">
+                <h3 class="text-white font-black text-sm mb-2 uppercase tracking-wider">Headquarters</h3>
+                <p class="text-white/70 text-sm leading-relaxed">
+                    MMR COMPLEX, SALEM,<br>
+                    Tamil Nadu 636008
+                </p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
             <div>
                 <h4 class="text-white font-black text-sm mb-4 uppercase tracking-wider">Product</h4>
-                <ul class="space-y-2 text-sm text-white/70">
+                <ul class="space-y-2 text-sm text-white/70 font-medium">
                     <li><a href="#" class="hover:text-white transition">Features</a></li>
                     <li><a href="#" class="hover:text-white transition">Templates</a></li>
                     <li><a href="#" class="hover:text-white transition">Pricing</a></li>
@@ -2446,10 +2447,9 @@ function scrollToTemplate(category) {
                 </ul>
             </div>
 
-            <!-- Resources Column -->
             <div>
                 <h4 class="text-white font-black text-sm mb-4 uppercase tracking-wider">Resources</h4>
-                <ul class="space-y-2 text-sm text-white/70">
+                <ul class="space-y-2 text-sm text-white/70 font-medium">
                     <li><a href="#" class="hover:text-white transition">Documentation</a></li>
                     <li><a href="#" class="hover:text-white transition">API Reference</a></li>
                     <li><a href="#" class="hover:text-white transition">Blog</a></li>
@@ -2457,10 +2457,9 @@ function scrollToTemplate(category) {
                 </ul>
             </div>
 
-            <!-- Company Column -->
             <div>
                 <h4 class="text-white font-black text-sm mb-4 uppercase tracking-wider">Company</h4>
-                <ul class="space-y-2 text-sm text-white/70">
+                <ul class="space-y-2 text-sm text-white/70 font-medium">
                     <li><a href="#" class="hover:text-white transition">About</a></li>
                     <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
                     <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
@@ -2468,51 +2467,44 @@ function scrollToTemplate(category) {
                 </ul>
             </div>
 
-            <!-- Stackly Logo & Description -->
-            <div>
+            <div class="col-span-2 md:col-span-1">
                 <div class="bg-white px-4 py-2 rounded-full inline-flex items-center justify-center mb-4">
                     <img src="public/stackly-logo.webp" alt="Stackly Logo" class="h-5 w-auto object-contain">
                 </div>
-                <p class="text-xs text-white/70 leading-relaxed mb-2">
-                    The <span class="font-bold">NO-CODE</span> website builder for everyone. Powered by AWS.
-                </p>
-                <p class="text-xs text-white/50">
-                    Infrastructure built by the <span class="font-bold text-white/70">Stackly</span> team.
+                <p class="text-[11px] text-white/70 leading-relaxed uppercase font-bold tracking-tight">
+                    The <span class="text-blue-400">NO-CODE</span> website builder for everyone. Powered by AWS.
                 </p>
             </div>
         </div>
 
-        <!-- Bottom Footer -->
         <div class="pt-8 border-t border-white/10">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
                 
-                <!-- Social Icons -->
-                <div class="flex items-center gap-4 order-1 md:order-1">
-                    <a href="#" class="w-8 h-8 bg-white rounded flex items-center justify-center hover:bg-blue-50 transition">
-                        <i class="fa-brands fa-facebook-f text-[#0A1E3D] text-sm"></i>
+                <div class="flex items-center gap-3">
+                    <a href="https://facebook.com" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all duration-300">
+                        <i class="fa-brands fa-facebook-f text-sm"></i>
                     </a>
-                    <a href="#" class="w-8 h-8 bg-white rounded flex items-center justify-center hover:bg-blue-50 transition">
-                        <i class="fa-brands fa-youtube text-[#0A1E3D] text-sm"></i>
+                    <a href="https://youtube.com" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-red-600 hover:text-white transition-all duration-300">
+                        <i class="fa-brands fa-youtube text-sm"></i>
                     </a>
-                    <a href="#" class="w-8 h-8 bg-white rounded flex items-center justify-center hover:bg-blue-50 transition">
-                        <i class="fa-brands fa-instagram text-[#0A1E3D] text-sm"></i>
+                    <a href="https://instagram.com" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 hover:text-white transition-all duration-300">
+                        <i class="fa-brands fa-instagram text-sm"></i>
                     </a>
-                    <a href="#" class="w-8 h-8 bg-white rounded flex items-center justify-center hover:bg-blue-50 transition">
-                        <i class="fa-brands fa-pinterest text-[#0A1E3D] text-sm"></i>
+                    <a href="https://pinterest.com" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-red-700 hover:text-white transition-all duration-300">
+                        <i class="fa-brands fa-pinterest text-sm"></i>
                     </a>
-                    <a href="#" class="w-8 h-8 bg-white rounded flex items-center justify-center hover:bg-blue-50 transition">
-                        <i class="fa-brands fa-twitter text-[#0A1E3D] text-sm"></i>
+                    <a href="https://twitter.com" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300">
+                        <i class="fa-brands fa-x-twitter text-sm"></i>
                     </a>
-                    <a href="#" class="w-8 h-8 bg-white rounded flex items-center justify-center hover:bg-blue-50 transition">
-                        <i class="fa-brands fa-linkedin-in text-[#0A1E3D] text-sm"></i>
+                    <a href="https://linkedin.com" target="_blank" class="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-blue-700 hover:text-white transition-all duration-300">
+                        <i class="fa-brands fa-linkedin-in text-sm"></i>
                     </a>
                 </div>
 
-                <!-- Footer Links -->
-                <div class="flex items-center gap-6 text-xs text-white/70 order-2 md:order-2">
+                <div class="flex flex-wrap justify-center items-center gap-6 text-[10px] font-bold text-white/50 uppercase tracking-widest">
                     <a href="#" class="hover:text-white transition">Terms of Use</a>
                     <a href="#" class="hover:text-white transition">Privacy Policy</a>
-                    <span>© 2018-2026 Stackly.com Inc</span>
+                    <span class="whitespace-nowrap">© 2018-2026 Stackly.com Inc</span>
                 </div>
             </div>
         </div>
@@ -2690,11 +2682,7 @@ function scrollToTemplate(category) {
 <button id="backToTop" onclick="scrollToTop()" aria-label="Back to top">
     <i class="fa-solid fa-arrow-up"></i>
 </button>
-<a href="https://wa.me/yournumber" target="_blank" id="whatsapp-chat" aria-label="Chat on WhatsApp">
-    <div class="bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl">
-        <i class="fa-brands fa-whatsapp text-3xl"></i>
-    </div>
-</a>
+
 
 </body>
 </html>
