@@ -750,6 +750,16 @@ nav.sticky {
     justify-content: space-between;
     width: 100%;
 }
+@media (max-width: 400px) {
+    .price-rating-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+/* Color for the half-star */
+.fa-star-half-stroke {
+    color: #fbbf24 !important; /* Tailwind yellow-400 */
+}
 /* Ensure consistent Heart Icon colors */
 .wishlist-btn {
     transition: all 0.3s ease;
@@ -1167,15 +1177,16 @@ function submitRating(productId, rating, isInitialLoad = false) {
 
     // Update the visual stars based on decimal value
     stars.forEach((star, index) => {
-        const starValue = index + 1;
+        const starLevel = index + 1;
         
+        // Reset classes first
         star.classList.remove('fa-solid', 'fa-regular', 'fa-star-half-stroke');
         
-        if (rating >= starValue) {
-            // Full Star
+        if (rating >= starLevel) {
+            // Full Star (e.g., Level 1, 2, 3, 4)
             star.classList.add('fa-solid', 'fa-star');
-        } else if (rating > index && rating < starValue) {
-            // Half Star
+        } else if (rating > index && rating < starLevel) {
+            // Half Star (e.g., Level 4.5)
             star.classList.add('fa-solid', 'fa-star-half-stroke');
         } else {
             // Empty Star
@@ -1183,15 +1194,18 @@ function submitRating(productId, rating, isInitialLoad = false) {
         }
     });
 
-    // Update the text display (e.g., 4.5)
-    ratingText.innerText = `(${rating.toFixed(1)})`;
-    ratingText.classList.replace('text-gray-400', 'text-blue-600');
+    // Update the text to show .0 or .5
+    if (ratingText) {
+        ratingText.innerText = `(${parseFloat(rating).toFixed(1)})`;
+        ratingText.classList.replace('text-gray-400', 'text-blue-600');
+    }
 
     if (!isInitialLoad) {
         showNotification(`You rated ${productId} ${rating} stars!`);
         localStorage.setItem(`rating-${productId}`, rating);
     }
-}    // ===== VALIDATION HELPERS =====
+} 
+ // ===== VALIDATION HELPERS =====
     function validateEmail(email) { 
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); 
     }
@@ -1218,6 +1232,12 @@ function updateSearchBarTop() {
 window.addEventListener('resize', updateSearchBarTop, { passive: true });
 document.addEventListener('DOMContentLoaded', function() {
   updateSearchBarTop();
+  submitRating('ShopNest', 4.5, true); 
+    submitRating('TurboCart', 3.5, true);
+    submitRating('SampleStore', 4.5, true);
+    submitRating('MegaBasket', 5.0, true);
+    submitRating('BuySphere', 4.0, true);
+    submitRating('NexaStore', 4.5, true);
   // Small delay to catch late-rendered navbar
   setTimeout(updateSearchBarTop, 300);
 });
@@ -1647,7 +1667,7 @@ function scrollToTemplate(category) {
             <i class="fa-solid fa-play"></i>
         </span>
       </button>
-    
+    </div>
 
       </section>
       
