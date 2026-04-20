@@ -1165,37 +1165,33 @@ function submitRating(productId, rating, isInitialLoad = false) {
     const stars = container.querySelectorAll('i');
     const ratingText = document.getElementById(`user-rating-val-${productId}`);
 
-    // Update the visual stars
+    // Update the visual stars based on decimal value
     stars.forEach((star, index) => {
-        if (index < rating) {
-            star.classList.replace('fa-regular', 'fa-solid');
+        const starValue = index + 1;
+        
+        star.classList.remove('fa-solid', 'fa-regular', 'fa-star-half-stroke');
+        
+        if (rating >= starValue) {
+            // Full Star
+            star.classList.add('fa-solid', 'fa-star');
+        } else if (rating > index && rating < starValue) {
+            // Half Star
+            star.classList.add('fa-solid', 'fa-star-half-stroke');
         } else {
-            star.classList.replace('fa-solid', 'fa-regular');
+            // Empty Star
+            star.classList.add('fa-regular', 'fa-star');
         }
     });
 
-    // Update the visual text
-    ratingText.innerText = `(${rating}.0)`;
+    // Update the text display (e.g., 4.5)
+    ratingText.innerText = `(${rating.toFixed(1)})`;
     ratingText.classList.replace('text-gray-400', 'text-blue-600');
-
-    // FIX 1: Update aria-label on the container
-    container.setAttribute('aria-label', `Rating: ${rating} out of 5 stars`);
-
-    // FIX 2: Announce the new rating LIVE to screen readers via the live region
-    const liveRegion = document.getElementById('rating-live-region');
-    if (liveRegion && !isInitialLoad) {
-        liveRegion.textContent = ''; // Clear first to force re-announcement
-        setTimeout(() => {
-            liveRegion.textContent = `You rated ${productId} ${rating} out of 5 stars`;
-        }, 50);
-    }
 
     if (!isInitialLoad) {
         showNotification(`You rated ${productId} ${rating} stars!`);
         localStorage.setItem(`rating-${productId}`, rating);
     }
-}
-    // ===== VALIDATION HELPERS =====
+}    // ===== VALIDATION HELPERS =====
     function validateEmail(email) { 
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); 
     }
@@ -1932,9 +1928,9 @@ function scrollToTemplate(category) {
         <img src="public/megabasket.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="MegaBasket Website Preview">
     </div>
 
-    <div class="px-2">
-        <div class="flex justify-between items-start mb-1">
-            <h4 class="text-xl font-bold text-[#06224C]">MegaBasket</h4>
+    <div class="px-2 flex-grow flex flex-col">  
+        <div class="flex justify-between items-start mb-1 gap-2">
+            <h4 class="product-card-title text-xl font-bold text-[#06224C]">MegaBasket</h4>
             
             <div onclick="toggleHeart(this, 'MegaBasket', 29, 'public/megabasket.webp')" class="wishlist-btn text-red-500 hover:text-red-500 p-1 cursor-pointer flex-shrink-0">
     <i class="fa-regular fa-heart text-2xl"></i>
