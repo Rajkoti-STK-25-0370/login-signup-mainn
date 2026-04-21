@@ -726,7 +726,23 @@
   .feature-image-quote {
     background: linear-gradient(to top, rgba(6, 34, 76, 0.72), rgba(6, 34, 76, 0));
   }
+/* Mobile Accordion Styles */
+.mobile-accordion-item button {
+    transition: background 0.2s ease;
+}
 
+.mobile-accordion-item button:active {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+#mobileMenu::-webkit-scrollbar {
+    width: 4px;
+}
+
+#mobileMenu::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+}
 
   </style>
 </head>
@@ -1002,13 +1018,66 @@
         </div>
       </nav>
 
-      <div id="mobileMenu" class="hidden lg:hidden text-black border-b border-white/10 py-5 px-6 flex flex-col gap-4 uppercase font-bold text-xs tracking-widest">
-        <a href="#home" onclick="toggleMobileMenu()" class="text-white">Home</a>
-        <a href="#404" onclick="toggleMobileMenu()" class="text-white">About Us</a>
-        <a href="#404" onclick="toggleMobileMenu()" class="text-white">Our Products</a>
-        <a href="#all-templates-wrapper" onclick="toggleMobileMenu(); setTimeout(() => scrollToTemplate('all'), 300);" class="text-white">Categories</a>
-        <a href="javascript:void(0)" onclick="toggleMobileMenu(); setTimeout(openContactModal, 300);" class="text-white">Contact</a>
-      </div>
+      <div id="mobileMenu" class="hidden lg:hidden bg-[#06224C] text-white w-full border-b border-white/10 py-4 flex flex-col uppercase font-bold text-[11px] tracking-widest z-[9999] overflow-y-auto max-h-[85vh]">
+    <a href="#home" onclick="toggleMobileMenu()" class="px-6 py-4 border-b border-white/5">Home</a>
+    <a href="#404" onclick="toggleMobileMenu()" class="px-6 py-4 border-b border-white/5">About Us</a>
+    
+    <div class="px-0">
+        <p class="px-6 py-4 text-[9px] text-blue-400 opacity-80">Categories</p>
+        
+        <div class="mobile-accordion-item">
+            <button onclick="toggleMobileSub('mob-landing')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
+                <span><i class="fa-solid fa-pager mr-3 opacity-70"></i> Landing Page</span>
+                <i class="fa-solid fa-plus text-[8px]" id="icon-mob-landing"></i>
+            </button>
+            <div id="mob-landing" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
+                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Lead Generating</a>
+                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Click-through</a>
+                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Sales Page</a>
+                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Product Page</a>
+            </div>
+        </div>
+
+        <div class="mobile-accordion-item">
+            <button onclick="toggleMobileSub('mob-food')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
+                <span><i class="fa-solid fa-utensils mr-3 opacity-70"></i> Food</span>
+                <i class="fa-solid fa-plus text-[8px]" id="icon-mob-food"></i>
+            </button>
+            <div id="mob-food" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
+                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Burger House</a>
+                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Pizza Corner</a>
+                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Fresh & Natural</a>
+            </div>
+        </div>
+
+        <div class="mobile-accordion-item">
+            <button onclick="toggleMobileSub('mob-travel')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
+                <span><i class="fa-solid fa-plane mr-3 opacity-70"></i> Travel</span>
+                <i class="fa-solid fa-plus text-[8px]" id="icon-mob-travel"></i>
+            </button>
+            <div id="mob-travel" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
+                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Adventure</a>
+                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Luxury</a>
+                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Solo Trip</a>
+            </div>
+        </div>
+
+        <div class="mobile-accordion-item">
+            <button onclick="toggleMobileSub('mob-realestate')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
+                <span><i class="fa-solid fa-house-chimney mr-3 opacity-70"></i> Real Estate</span>
+                <i class="fa-solid fa-plus text-[8px]" id="icon-mob-realestate"></i>
+            </button>
+            <div id="mob-realestate" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
+                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Luxury & Premium</a>
+                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Commercial</a>
+                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Residential</a>
+            </div>
+        </div>
+
+        </div>
+
+    <a href="javascript:void(0)" onclick="toggleMobileMenu(); openContactModal();" class="px-6 py-6 border-t border-white/10">Contact</a>
+</div>
 
     <div id="searchBarContainer" class="invisible opacity-0 fixed left-0 w-full">
       <div class="max-w-7xl mx-auto px-4 md:px-8 py-2">
@@ -2083,6 +2152,29 @@
   </button>
 
   <script>
+    function toggleMobileSub(id) {
+    const subMenu = document.getElementById(id);
+    const icon = document.getElementById('icon-' + id);
+    
+    // Check if it's already open
+    const isOpen = !subMenu.classList.contains('hidden');
+    
+    // Close ALL mobile sub-menus and reset icons (Accordion behavior)
+    document.querySelectorAll('[id^="mob-"]').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('[id^="icon-mob-"]').forEach(el => {
+        el.classList.remove('fa-minus');
+        el.classList.add('fa-plus');
+    });
+
+    // If the clicked one wasn't open, open it now
+    if (!isOpen) {
+        subMenu.classList.remove('hidden');
+        if (icon) {
+            icon.classList.remove('fa-plus');
+            icon.classList.add('fa-minus');
+        }
+    }
+}
     function setActiveFeature(button) {
     const item = button.closest(".feature-accordion-item");
     const accordion = document.getElementById("featureAccordion");
