@@ -1011,9 +1011,32 @@
               <i class="fa-solid fa-magnifying-glass text-xs md:text-sm"></i>
             </button>
 
-            <button type="button" aria-label="User Profile" class="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-white/40 overflow-hidden cursor-pointer flex-shrink-0 relative focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#06224C] transition-all">
-              <img src="public/profile.webp" alt="User Profile Picture" class="w-full h-full object-cover block" decoding="async">
-            </button>
+            <div class="relative">
+    <button type="button" 
+            onclick="toggleProfileMenu(event)" 
+            id="profile-dropdown-btn" 
+            aria-label="User Profile" 
+            class="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-white/40 overflow-hidden cursor-pointer flex-shrink-0 relative focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all">
+        <img src="public/profile.webp" alt="User Profile Picture" class="w-full h-full object-cover block">
+    </button>
+
+    <div id="profile-menu" class="hidden absolute right-0 top-full mt-3 w-48 bg-white rounded-xl shadow-2xl z-[100] py-2 border border-gray-100 text-left">
+        <div class="px-4 py-2 border-b border-gray-50 mb-1">
+            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">User Menu</p>
+        </div>
+        <a href="#404" class="flex items-center gap-3 px-4 py-2.5 text-gray-700 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 transition-colors">
+            <i class="fa-solid fa-circle-user opacity-50 w-4 text-center"></i> ACCOUNT
+        </a>
+        <a href="#404" class="flex items-center gap-3 px-4 py-2.5 text-gray-700 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 transition-colors">
+            <i class="fa-solid fa-gear opacity-50 w-4 text-center"></i> SETTINGS
+        </a>
+        <div class="border-t border-gray-50 mt-1">
+            <a href="#login" class="flex items-center gap-3 px-4 py-2.5 text-red-500 text-[11px] font-black hover:bg-red-50 transition-colors">
+                <i class="fa-solid fa-right-from-bracket w-4 text-center"></i> LOGOUT
+            </a>
+        </div>
+    </div>
+</div>
           </div>
         </div>
       </nav>
@@ -2269,6 +2292,32 @@
   </button>
 
   <script>
+    function toggleProfileMenu(event) {
+    // Prevent the click from bubbling up to the window listener
+    event.stopPropagation();
+    
+    const menu = document.getElementById('profile-menu');
+    const isHidden = menu.classList.contains('hidden');
+    
+    // Close other menus if open (Optional)
+    toggleSearchBar(false);
+    
+    if (isHidden) {
+        menu.classList.remove('hidden');
+    } else {
+        menu.classList.add('hidden');
+    }
+}
+
+// Close the profile menu if the user clicks anywhere else on the page
+window.addEventListener('click', function(e) {
+    const menu = document.getElementById('profile-menu');
+    const btn = document.getElementById('profile-dropdown-btn');
+    
+    if (menu && !menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.add('hidden');
+    }
+});
     function toggleMobileSub(id) {
     const subMenu = document.getElementById(id);
     const icon = document.getElementById('icon-' + id);
