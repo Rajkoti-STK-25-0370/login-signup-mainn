@@ -17,6 +17,66 @@
   </noscript>
 
   <style>
+    /* MEGA MENU LOGIC */
+.submenu-parent {
+    position: static;
+}
+
+/* Hide sub-menu by default */
+.flyout-menu {
+    display: none;
+    position: absolute;
+    left: 100%; /* Push to the right of the first menu */
+    top: 0;
+    width: 200px;
+    background: #f8fafc;
+    border-left: 1px solid #f3f4f6;
+    border-radius: 0 0.75rem 0.75rem 0;
+    box-shadow: 15px 0 30px -3px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    min-height: 480px;
+    z-index: 110;
+}
+
+/* Show flyout when hovering over the parent item */
+.submenu-parent:hover .flyout-menu {
+    display: block !important;
+}
+.flyout-item {
+    display: block;
+    padding: 10px 20px;
+    color: #334155; /* Dark slate text for high visibility */
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    border-bottom: 1px solid rgba(0,0,0,0.03);
+}
+.flyout-item:hover {
+    background-color: #eff6ff;
+    color: #2563eb;
+    padding-left: 25px;
+}
+/* 200% Zoom & Mobile fix */
+@media screen and (max-width: 1024px) {
+    #category-menu { flex-direction: column; width: 100% !important; }
+    .flyout-menu { position: relative; left: 0; width: 100%; display: none !important; }
+}
+
+/* Adjust main category menu to accommodate the flyout width */
+#category-menu {
+    width: auto !important; /* Fixed width for the first column */
+    display: flex !important; /* Use flex to allow flyout to sit next to it */
+    flex-direction: row !important; /* Ensure items are in a row */
+    overflow: visible !important; /* Allow flyout to be seen */
+    /* background:  */
+}
+
+/* Right Arrow Icon */
+.submenu-parent i.fa-chevron-right {
+    font-size: 8px;
+    opacity: 0.5;
+}
     html {
       -webkit-text-size-adjust: 100%;
       scroll-behavior: smooth;
@@ -683,82 +743,272 @@
   </div>
 
   <div id="homePage" class="hidden min-h-screen flex flex-col">
-    <nav class="sticky top-0 z-50 bg-[#06224C] border-b border-white/10 px-2 md:px-12 py-3 shadow-sm">
-      <div class="nav-container">
-        <div class="flex items-center gap-1 md:gap-8">
-          <button onclick="toggleMobileMenu()" class="lg:hidden text-white focus:outline-none p-1" type="button" aria-label="Open mobile menu">
-            <i class="fa-solid fa-bars text-xl"></i>
-          </button>
+      <nav class="sticky top-0 z-50 bg-[#06224C] border-b border-white/10 px-2 md:px-12 py-3 shadow-sm">
+        <div class="nav-container">
+          <div class="flex items-center gap-1 md:gap-8">
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-white focus:outline-none p-1" type="button" aria-label="Open mobile menu">
+              <i class="fa-solid fa-bars text-xl"></i>
+            </button>
 
-          <div class="flex-shrink">
-            <a href="#home" tabindex="-1" class="bg-white px-2 md:px-4 py-2 md:py-3 rounded-[60%] flex items-center justify-center shadow-md transition hover:scale-80 min-w-[75px] md:min-w-[90px] aspect-[2/1]">
-              <img src="public/stackly-logo.webp" alt="Stackly Logo" class="h-3 md:h-5 w-auto object-contain" decoding="async">
+            <div class="flex-shrink">
+              <a href="#home" tabindex="-1" class="bg-white px-2 md:px-4 py-2 md:py-3 rounded-[60%] flex items-center justify-center shadow-md transition hover:scale-80 min-w-[75px] md:min-w-[90px] aspect-[2/1]">
+                <img src="public/stackly-logo.webp" alt="Stackly Logo" class="h-3 md:h-5 w-auto object-contain" decoding="async">
+              </a>
+            </div>
+
+            <div class="hidden lg:flex gap-x-4 xl:gap-x-8 text-[13px] font-bold text-white uppercase tracking-wide items-center flex-wrap justify-center">
+              <a href="#home" class="hover:text-blue-300 transition whitespace-nowrap">Home</a>
+              <a href="#404" class="hover:text-blue-300 transition whitespace-nowrap">About Us</a>
+
+              <div class="relative dropdown-group flex items-center">
+                <button type="button" id="products-dropdown-btn" aria-haspopup="true" aria-expanded="false" class="flex items-center gap-1.5 hover:text-blue-300 transition whitespace-nowrap text-[13px] font-bold text-white uppercase tracking-wide focus:outline-none focus:ring-2 focus:ring-blue-400 rounded-md px-1">
+                  Our Products <i class="fa-solid fa-chevron-down text-[10px] transition-transform"></i>
+                </button>
+                <div id="products-menu" role="menu" class="absolute left-0 top-full mt-2 w-64 bg-white rounded-xl shadow-2xl opacity-0 invisible transition-all duration-300 z-[100] py-3 border border-gray-100 translate-y-2">
+                  <a href="#404" role="menuitem" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">PREMIUM TEMPLATES</a>
+                  <a href="#404" role="menuitem" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">UI KITS</a>
+                  <a href="#404" role="menuitem" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">WORDPRESS THEMES</a>
+                  <a href="#404" role="menuitem" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600">FREE ASSETS</a>
+                </div>
+              </div>
+
+              <div class="relative dropdown-group flex items-center">
+                <button type="button" id="category-dropdown-btn" aria-haspopup="true" aria-expanded="false" class="flex items-center gap-1.5 hover:text-blue-300 transition whitespace-nowrap text-[13px] font-bold text-white uppercase tracking-wide focus:outline-none focus:ring-2 focus:ring-blue-400 rounded-md px-1">
+                  Categories <i class="fa-solid fa-chevron-down text-[10px] transition-transform"></i>
+                </button>
+                <div id="category-menu" role="menu" class="absolute left-0 top-full mt-2 bg-white rounded-xl shadow-2xl opacity-0 invisible transition-all duration-300 z-[100] border border-gray-100 translate-y-2 flex">
+    
+    <div class="w-[200px] py-2">
+        
+        <div class="submenu-parent group/item">
+            <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+                <span class="flex items-center gap-2"><i class="fa-solid fa-pager opacity-50"></i> LANDING PAGE</span>
+                <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
             </a>
-          </div>
-
-          <div class="hidden lg:flex gap-x-4 xl:gap-x-8 text-[13px] font-bold text-white uppercase tracking-wide items-center flex-wrap justify-center">
-            <a href="#home" class="hover:text-blue-300 transition whitespace-nowrap">Home</a>
-            <a href="#404" class="hover:text-blue-300 transition whitespace-nowrap">About Us</a>
-
-            <div class="relative dropdown-group flex items-center">
-              <button type="button" id="products-dropdown-btn" aria-haspopup="true" aria-expanded="false" class="flex items-center gap-1.5 hover:text-blue-300 transition whitespace-nowrap text-[13px] font-bold text-white uppercase tracking-wide focus:outline-none focus:ring-2 focus:ring-blue-400 rounded-md px-1">
-                Our Products <i class="fa-solid fa-chevron-down text-[10px] transition-transform"></i>
-              </button>
-              <div id="products-menu" role="menu" class="absolute left-0 top-full mt-2 w-64 bg-white rounded-xl shadow-2xl opacity-0 invisible transition-all duration-300 z-[100] py-3 border border-gray-100 translate-y-2">
-                <a href="#404" role="menuitem" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">PREMIUM TEMPLATES</a>
-                <a href="#404" role="menuitem" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">UI KITS</a>
-                <a href="#404" role="menuitem" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">WORDPRESS THEMES</a>
-                <a href="#404" role="menuitem" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600">FREE ASSETS</a>
-              </div>
+            
+            <div class="flyout-menu">
+                <div class="px-5 py-3 text-[11px] font-black text-blue-600 border-b border-gray-200 bg-white">TYPES</div>
+                <a href="#404" class="flyout-item">Lead Generating Page</a>
+                <a href="#404" class="flyout-item">Click-through Page</a>
+                <a href="#404" class="flyout-item">Sales Page</a>
+                <a href="#404" class="flyout-item">Product Page</a>
+                <a href="#404" class="flyout-item">App Page</a>
+                <a href="#404" class="flyout-item">Pre-launch Page</a>
+                <a href="#404" class="flyout-item">Event Page</a>
+                <a href="#404" class="flyout-item">Splash Page</a>
+                <a href="#404" class="flyout-item text-gray-400">Others...</a>
             </div>
-
-            <div class="relative dropdown-group flex items-center">
-              <button type="button" id="category-dropdown-btn" aria-haspopup="true" aria-expanded="false" class="flex items-center gap-1.5 hover:text-blue-300 transition whitespace-nowrap text-[13px] font-bold text-white uppercase tracking-wide focus:outline-none focus:ring-2 focus:ring-blue-400 rounded-md px-1">
-                Categories <i class="fa-solid fa-chevron-down text-[10px] transition-transform"></i>
-              </button>
-              <div id="category-menu" role="menu" class="absolute left-0 top-full mt-2 w-64 bg-white rounded-xl shadow-2xl opacity-0 invisible transition-all duration-300 z-[100] py-3 border border-gray-100 translate-y-2">
-                <a href="#all-templates-wrapper" onclick="scrollToTemplate('portfolio')" role="menuitem" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">PORTFOLIO</a>
-                <a href="#all-templates-wrapper" onclick="scrollToTemplate('ecommerce')" role="menuitem" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">STORE</a>
-                <a href="#all-templates-wrapper" onclick="scrollToTemplate('business')" role="menuitem" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">BUSINESS</a>
-                <a href="#all-templates-wrapper" onclick="scrollToTemplate('business')" role="menuitem" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">CONSTRUCTION</a>
-                <a href="#all-templates-wrapper" onclick="scrollToTemplate('ecommerce')" role="menuitem" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600 border-b border-gray-50">FASHION</a>
-                <a href="#all-templates-wrapper" onclick="scrollToTemplate('ecommerce')" role="menuitem" class="block px-5 py-2.5 text-gray-800 text-[11px] font-black hover:bg-blue-50 hover:text-blue-600">JEWELRY</a>
-              </div>
-            </div>
-
-            <a href="javascript:void(0)" onclick="openContactModal()" class="hover:text-blue-300 transition whitespace-nowrap">Contact</a>
-          </div>
         </div>
 
-        <div class="nav-actions-group flex-shrink-0">
-          <button onclick="toggleCart()" class="relative flex items-center gap-1 border border-white/30 rounded-full px-2 md:px-4 py-1.5 text-white text-[10px] md:text-xs font-semibold hover:bg-white/10 transition" type="button">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span class="hidden sm:inline">Cart</span>
-            <span id="cartBadge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-          </button>
-
-          <button onclick="toggleWishlist()" class="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-white rounded-full text-red-500 hover:bg-gray-100 transition shadow-sm flex-shrink-0" type="button" aria-label="Open wishlist">
-            <i class="fa-solid fa-heart text-xs md:text-sm"></i>
-          </button>
-
-          <button onclick="toggleSearchBar()" class="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-white rounded-full text-[#06224C] hover:bg-gray-200 transition shadow-sm flex-shrink-0" type="button" aria-label="Open search">
-            <i class="fa-solid fa-magnifying-glass text-xs md:text-sm"></i>
-          </button>
-
-          <button type="button" aria-label="User Profile" class="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-white/40 overflow-hidden cursor-pointer flex-shrink-0 relative focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#06224C] transition-all">
-            <img src="public/profile.webp" alt="User Profile Picture" class="w-full h-full object-cover block" decoding="async">
-          </button>
+        <div class="submenu-parent group/item">
+            <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+                <span class="flex items-center gap-2"><i class="fa-solid fa-chart-line opacity-50"></i> DASHBOARD</span>
+                <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
+            </a>
+            <div class="flyout-menu">
+                <div class="px-5 py-3 text-[11px] font-black text-blue-600 border-b border-gray-200 bg-white">STYLES</div>
+                <a href="#404" class="flyout-item">Admin Analytics</a>
+                <a href="#404" class="flyout-item">Overview</a>
+                <a href="#404" class="flyout-item">User Profile</a>
+                <a href="#404" class="flyout-item">Sales</a>
+                <a href="#404" class="flyout-item">Marketing</a>
+                <a href="#404" class="flyout-item">Finance</a>
+            </div>
         </div>
-      </div>
-    </nav>
 
-    <div id="mobileMenu" class="hidden lg:hidden text-black border-b border-white/10 py-5 px-6 flex flex-col gap-4 uppercase font-bold text-xs tracking-widest">
-      <a href="#home" onclick="toggleMobileMenu()" class="text-white">Home</a>
-      <a href="#404" onclick="toggleMobileMenu()" class="text-white">About Us</a>
-      <a href="#404" onclick="toggleMobileMenu()" class="text-white">Our Products</a>
-      <a href="#all-templates-wrapper" onclick="toggleMobileMenu(); setTimeout(() => scrollToTemplate('all'), 300);" class="text-white">Categories</a>
-      <a href="javascript:void(0)" onclick="toggleMobileMenu(); setTimeout(openContactModal, 300);" class="text-white">Contact</a>
+        <div class="submenu-parent group/item">
+            <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+                <span class="flex items-center gap-2"><i class="fa-solid fa-briefcase opacity-50"></i> PORTFOLIO</span>
+                <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
+            </a>
+            <div class="flyout-menu">
+                <div class="px-5 py-3 text-[11px] font-black text-blue-600 border-b border-gray-200 bg-white">CREATIVES</div>
+                <a href="#404" class="flyout-item">Designer</a>
+                <a href="#404" class="flyout-item">Developer</a>
+                <a href="#404" class="flyout-item">Agency</a>
+                <a href="#404" class="flyout-item">Minimal</a>
+                <a href="#404" class="flyout-item">Personal</a>
+                <a href="#404" class="flyout-item">Freelancer</a>
+                <a href="#404" class="flyout-item">Others</a>
+            </div>
+        </div>
+        <div class="submenu-parent group/item">
+    <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+        <span class="flex items-center gap-2"><i class="fa-solid fa-utensils opacity-50 w-4"></i> FOOD</span>
+        <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
+    </a>
+    <div class="flyout-menu">
+        <div class="px-5 py-3 text-[11px] font-black text-blue-600 border-b border-gray-200 bg-white">RESTAURANTS</div>
+        <a href="#404" class="flyout-item">Burger House</a>
+        <a href="#404" class="flyout-item">Pizza Corner</a>
+        <a href="#404" class="flyout-item">Fresh & Natural</a>
+        <a href="#404" class="flyout-item">Food Stories</a>
+        <a href="#404" class="flyout-item">Others</a>
     </div>
+</div>
+
+<div class="submenu-parent group/item">
+    <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+        <span class="flex items-center gap-2"><i class="fa-solid fa-plane opacity-50 w-4"></i> TRAVEL</span>
+        <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
+    </a>
+    <div class="flyout-menu">
+        <div class="px-5 py-3 text-[11px] font-black text-blue-600 border-b border-gray-200 bg-white">DESTINATIONS</div>
+        <a href="#404" class="flyout-item">Adventure</a>
+        <a href="#404" class="flyout-item">Luxury</a>
+        <a href="#404" class="flyout-item">Leisure</a>
+        <a href="#404" class="flyout-item">Solo Trip</a>
+        <a href="#404" class="flyout-item">Family</a>
+        <a href="#404" class="flyout-item">Group</a>
+        <a href="#404" class="flyout-item">Others</a>
+
+    </div>
+</div>
+
+<div class="submenu-parent group/item">
+    <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+        <span class="flex items-center gap-2"><i class="fa-solid fa-house-chimney opacity-50 w-4"></i> REAL ESTATE</span>
+        <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
+    </a>
+    <div class="flyout-menu">
+        <div class="px-5 py-3 text-[11px] font-black text-blue-600 border-b border-gray-200 bg-white">PROPERTIES</div>
+        <a href="#404" class="flyout-item">Luxury & Premium</a>
+        <a href="#404" class="flyout-item">General</a>
+        <a href="#404" class="flyout-item">Commercial</a>
+        <a href="#404" class="flyout-item">Residential</a>
+        <a href="#404" class="flyout-item">Vacation/Rental</a>
+        <a href="#404" class="flyout-item">Modern & Startup</a>
+        <a href="#404" class="flyout-item">Portal</a>
+        <a href="#404" class="flyout-item">Others</a>
+    </div>
+</div>
+
+<div class="submenu-parent group/item">
+    <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+        <span class="flex items-center gap-2"><i class="fa-solid fa-bed opacity-50 w-4"></i> HOTEL</span>
+        <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
+    </a>
+    <div class="flyout-menu">
+        <div class="px-5 py-3 text-[11px] font-black text-blue-600 border-b border-gray-200 bg-white">STAY</div>
+        <a href="#404" class="flyout-item">Resort & Vacation</a>
+        <a href="#404" class="flyout-item">Luxury & Premium Style</a>
+        <a href="#404" class="flyout-item">Nature & Eco</a>
+        <a href="#404" class="flyout-item">Modern & Business</a>
+        <a href="#404" class="flyout-item">Boutique & Unique</a>
+        <a href="#404" class="flyout-item">Budget & Simple</a>
+        <a href="#404" class="flyout-item">Others</a>
+    </div>
+</div>
+
+<div class="submenu-parent group/item">
+    <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+        <span class="flex items-center gap-2"><i class="fa-solid fa-pen-nib opacity-50 w-4"></i> BLOG</span>
+        <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
+    </a>
+    <div class="flyout-menu">
+        <div class="px-5 py-3 text-[11px] font-black text-blue-600 border-b border-gray-200 bg-white">TOPICS</div>
+        <a href="#404" class="flyout-item">Corporate</a>
+        <a href="#404" class="flyout-item">Travel & Life</a>
+        <a href="#404" class="flyout-item">Food & Health</a>
+        <a href="#404" class="flyout-item">Modern News</a>
+        <a href="#404" class="flyout-item">Finance</a>
+        <a href="#404" class="flyout-item">Education</a>
+        <a href="#404" class="flyout-item">Portfolio</a>
+        <a href="#404" class="flyout-item">Mininmal</a>
+        <a href="#404" class="flyout-item">Others</a>
+    </div>
+</div>
+
+<div class="submenu-parent group/item">
+    <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+        <span class="flex items-center gap-2"><i class="fa-solid fa-graduation-cap opacity-50 w-4"></i> EDUCATION</span>
+        <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
+    </a>
+    <div class="flyout-menu">
+        <div class="px-5 py-3 text-[11px] font-black text-blue-600 border-b border-gray-200 bg-white">LEARNING</div>
+        <a href="#404" class="flyout-item">EduSpark</a>
+        <a href="#404" class="flyout-item">LearnSphere</a>
+        <a href="#404" class="flyout-item">Bright Future</a>
+        <a href="#404" class="flyout-item">Skillbridge</a>
+        <a href="#404" class="flyout-item">NextGen</a>
+        <a href="#404" class="flyout-item">Others</a>
+    </div>
+</div>
+
+<div class="submenu-parent group/item">
+    <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+        <span class="flex items-center gap-2"><i class="fa-solid fa-newspaper opacity-50 w-4"></i> NEWSPAPER</span>
+        <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
+    </a>
+    <div class="flyout-menu">
+        <div class="px-5 py-3 text-[11px] font-black text-blue-600 border-b border-gray-200 bg-white">NEWS DESK</div>
+        <a href="#404" class="flyout-item">Daily Pulse</a>
+        <a href="#404" class="flyout-item">Global Times</a>
+        <a href="#404" class="flyout-item">NextWave</a>
+        <a href="#404" class="flyout-item">The Update Hub</a>
+        <a href="#404" class="flyout-item">Prime Report</a>
+        <a href="#404" class="flyout-item">Headline Express</a>
+        <a href="#404" class="flyout-item">Insight News</a>
+        <a href="#404" class="flyout-item">Others</a>
+    </div>
+</div>
+
+<div class="submenu-parent group/item">
+    <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+        <span class="flex items-center gap-2"><i class="fa-solid fa-camera opacity-50 w-4"></i> PHOTOGRAPHY</span>
+        <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
+    </a>
+    <div class="flyout-menu">
+        <div class="px-5 py-3 text-[11px] font-black text-blue-600 border-b border-gray-200 bg-white">GALLERY</div>
+        <a href="#404" class="flyout-item">Wedding</a>
+        <a href="#404" class="flyout-item">Baby & Kids</a>
+        <a href="#404" class="flyout-item">Fashion</a>
+        <a href="#404" class="flyout-item">Studio Personal</a>
+        <a href="#404" class="flyout-item">General/Portfolio</a>
+        <a href="#404" class="flyout-item">Travel</a>
+        <a href="#404" class="flyout-item">Event</a>
+        <a href="#404" class="flyout-item">Food</a>
+        <a href="#404" class="flyout-item">Studio/Personal</a>
+        <a href="#404" class="flyout-item">Others</a>
+    </div>
+</div>
+     </div>
+</div>
+              </div>
+
+              <a href="javascript:void(0)" onclick="openContactModal()" class="hover:text-blue-300 transition whitespace-nowrap">Contact</a>
+            </div>
+          </div>
+
+          <div class="nav-actions-group flex-shrink-0">
+            <button onclick="toggleCart()" class="relative flex items-center gap-1 border border-white/30 rounded-full px-2 md:px-4 py-1.5 text-white text-[10px] md:text-xs font-semibold hover:bg-white/10 transition" type="button">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span class="hidden sm:inline">Cart</span>
+              <span id="cartBadge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+            </button>
+
+            <button onclick="toggleWishlist()" class="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-white rounded-full text-red-500 hover:bg-gray-100 transition shadow-sm flex-shrink-0" type="button" aria-label="Open wishlist">
+              <i class="fa-solid fa-heart text-xs md:text-sm"></i>
+            </button>
+
+            <button onclick="toggleSearchBar()" class="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-white rounded-full text-[#06224C] hover:bg-gray-200 transition shadow-sm flex-shrink-0" type="button" aria-label="Open search">
+              <i class="fa-solid fa-magnifying-glass text-xs md:text-sm"></i>
+            </button>
+
+            <button type="button" aria-label="User Profile" class="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-white/40 overflow-hidden cursor-pointer flex-shrink-0 relative focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-[#06224C] transition-all">
+              <img src="public/profile.webp" alt="User Profile Picture" class="w-full h-full object-cover block" decoding="async">
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <div id="mobileMenu" class="hidden lg:hidden text-black border-b border-white/10 py-5 px-6 flex flex-col gap-4 uppercase font-bold text-xs tracking-widest">
+        <a href="#home" onclick="toggleMobileMenu()" class="text-white">Home</a>
+        <a href="#404" onclick="toggleMobileMenu()" class="text-white">About Us</a>
+        <a href="#404" onclick="toggleMobileMenu()" class="text-white">Our Products</a>
+        <a href="#all-templates-wrapper" onclick="toggleMobileMenu(); setTimeout(() => scrollToTemplate('all'), 300);" class="text-white">Categories</a>
+        <a href="javascript:void(0)" onclick="toggleMobileMenu(); setTimeout(openContactModal, 300);" class="text-white">Contact</a>
+      </div>
 
     <div id="searchBarContainer" class="invisible opacity-0 fixed left-0 w-full">
       <div class="max-w-7xl mx-auto px-4 md:px-8 py-2">
@@ -1925,13 +2175,17 @@
     }
 
     function router() {
-      const hash = window.location.hash.replace("#", "");
-      if (hash === "signup") showPage("signup");
-      else if (hash === "login") showPage("login");
-      else if (hash === "forgot") showPage("forgot");
-      else if (hash === "404") showPage("notFound");
-      else showPage("home");
+    const hash = window.location.hash.replace("#", "");
+    if (hash === "404") {
+        showPage("notFound"); // This will show your 404 error page
+    } else if (hash === "signup") {
+        showPage("signup");
+    } else if (hash === "login") {
+        showPage("login");
+    } else {
+        showPage("home");
     }
+}
 
     function updateSearchBarTop() {
       const nav = document.querySelector("nav.sticky");
