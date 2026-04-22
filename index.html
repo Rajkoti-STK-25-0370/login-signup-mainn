@@ -1586,9 +1586,15 @@
               <button onclick="filterTemplates('all', this)" class="filter-tab active px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-2" type="button">
                 All Templates <i class="fa-solid fa-chevron-down text-[10px]"></i>
               </button>
-              <button onclick="filterTemplates('portfolio', this)" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm" type="button">Portfolio</button>
-              <button onclick="filterTemplates('blog', this)" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm" type="button">Blog</button>
-              <button onclick="filterTemplates('ecommerce', this)" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm" type="button">E-commerce</button>
+              <button onclick="filterTemplates('portfolio', this)" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm" type="button">
+                Portfolio <i class="fa-solid fa-chevron-down text-[10px]"></i>
+              </button>
+              <button onclick="filterTemplates('blog', this)" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm" type="button">
+                Blog <i class="fa-solid fa-chevron-down text-[10px]"></i>
+              </button>
+              <button onclick="filterTemplates('ecommerce', this)" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm" type="button">
+                E-commerce <i class="fa-solid fa-chevron-down text-[10px]"></i>
+              </button>
               <button onclick="filterTemplates('business', this)" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-2" type="button">
                 Business <i class="fa-solid fa-chevron-down text-[10px]"></i>
               </button>
@@ -1705,7 +1711,7 @@
 </div>
               
               
-              <div onclick="openPortfolioModal()" class="template-category-card group block cursor-pointer" data-cat="portfolio">
+              <div onclick="openPortfolioModal()" class="template-category-card group block cursor-pointer" data-cat="portfolio" style="display: none;">
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
                   <img src="public/port.webp" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Portfolio">
                 </div>
@@ -1715,7 +1721,7 @@
                 </div>
               </div>
 
-              <a href="https://your-store-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="ecommerce">
+              <a href="https://your-store-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="ecommerce" style="display: none;">
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
                   <img src="public/store11.webp" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Store">
                 </div>
@@ -1725,7 +1731,7 @@
                 </div>
               </a>
 
-              <a href="https://your-business-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="business">
+              <a href="https://your-business-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="business" style="display: none;">
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
                   <img src="public/business09.webp" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Business">
                 </div>
@@ -1735,7 +1741,7 @@
                 </div>
               </a>
 
-              <a href="https://your-construction-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="business">
+              <a href="https://your-construction-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="business" style="display: none;">
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
                   <img src="public/constrctio10.webp" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Construction">
                 </div>
@@ -1745,7 +1751,7 @@
                 </div>
               </a>
 
-              <a href="https://your-fashion-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="ecommerce">
+              <a href="https://your-fashion-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="ecommerce" style="display: none;">
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
                   <img src="public/fashion06.webp" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Fashion">
                 </div>
@@ -1755,7 +1761,7 @@
                 </div>
               </a>
 
-              <a href="https://your-jewelry-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="ecommerce">
+              <a href="https://your-jewelry-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="ecommerce" style="display: none;">
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
                   <img src="public/jewellery07.webp" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Jewelry">
                 </div>
