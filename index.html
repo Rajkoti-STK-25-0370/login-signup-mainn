@@ -1600,7 +1600,7 @@
               </button>
             </div>
 
-            <div id="template-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16"><div class="template-category-card group block" data-cat="portfolio" style="display: none;">
+            <div id="template-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16"><div class="template-category-card group block" data-cat="portfolio" >
     <div class="rounded-2xl overflow-hidden shadow-md mb-4 aspect-[4/3] bg-gray-50 relative">
         <img src="public/port.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         <div class="absolute top-4 left-4">
@@ -1711,7 +1711,7 @@
 </div>
               
               
-              <div onclick="openPortfolioModal()" class="template-category-card group block cursor-pointer" data-cat="portfolio" style="display: none;">
+              <div onclick="openPortfolioModal()" class="template-category-card group block cursor-pointer" data-cat="portfolio">
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
                   <img src="public/port.webp" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Portfolio">
                 </div>
@@ -1721,7 +1721,7 @@
                 </div>
               </div>
 
-              <a href="https://your-store-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="ecommerce" style="display: none;">
+              <a href="https://your-store-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="ecommerce">
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
                   <img src="public/store11.webp" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Store">
                 </div>
@@ -1731,7 +1731,7 @@
                 </div>
               </a>
 
-              <a href="https://your-business-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="business" style="display: none;">
+              <a href="https://your-business-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="business">
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
                   <img src="public/business09.webp" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Business">
                 </div>
@@ -1741,7 +1741,7 @@
                 </div>
               </a>
 
-              <a href="https://your-construction-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="business" style="display: none;">
+              <a href="https://your-construction-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="business" >
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
                   <img src="public/constrctio10.webp" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Construction">
                 </div>
@@ -1751,7 +1751,7 @@
                 </div>
               </a>
 
-              <a href="https://your-fashion-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="ecommerce" style="display: none;">
+              <a href="https://your-fashion-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="ecommerce" >
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
                   <img src="public/fashion06.webp" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Fashion">
                 </div>
@@ -1761,7 +1761,7 @@
                 </div>
               </a>
 
-              <a href="https://your-jewelry-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="ecommerce" style="display: none;">
+              <a href="https://your-jewelry-link.com" target="_blank" rel="noreferrer" class="template-category-card group block" data-cat="ecommerce" >
                 <div class="rounded-2xl overflow-hidden shadow-md mb-6 aspect-[4/3] bg-gray-50 flex items-center justify-center relative">
                   <img src="public/jewellery07.webp" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Jewelry">
                 </div>
@@ -2825,9 +2825,11 @@ window.addEventListener('click', function(e) {
       return /^[0-9]{10}$/.test(value.trim());
     }
 
-   function filterTemplates(category, btn) {
+  function filterTemplates(category, btn) {
     // 1. Update tab UI colors
-    document.querySelectorAll(".filter-tab").forEach((tab) => tab.classList.remove("active", "border-blue-600", "text-blue-600"));
+    document.querySelectorAll(".filter-tab").forEach((tab) => {
+        tab.classList.remove("active", "border-blue-600", "text-blue-600");
+    });
     if (btn) btn.classList.add("active", "border-blue-600", "text-blue-600");
 
     // 2. Filter logic
@@ -2835,14 +2837,14 @@ window.addEventListener('click', function(e) {
     cards.forEach((card) => {
         const cardCategory = card.getAttribute("data-cat");
         
-        // Use flex/block to show and none to hide
         if (category === "all") {
-            // Logic: Decide if 'All' should show portfolios or hide them
-            // Usually, 'All' hides specific sub-categories like hidden portfolios
-            card.style.display = "none"; 
+            // SHOW EVERYTHING when 'All Templates' is clicked
+            card.style.display = "block"; 
         } else if (cardCategory === category) {
+            // Show only matched category
             card.style.display = "block";
         } else {
+            // Hide others
             card.style.display = "none";
         }
     });
