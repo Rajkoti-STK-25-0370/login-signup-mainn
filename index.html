@@ -854,7 +854,7 @@
             </button>
 
             <div class="flex-shrink">
-              <a href="#home" tabindex="-1" class="bg-white px-2 md:px-4 py-2 md:py-3 rounded-[60%] flex items-center justify-center shadow-md transition hover:scale-80 min-w-[75px] md:min-w-[90px] aspect-[2/1]">
+              <a href="#home" onclick="showPage('home')" tabindex="-1" class="bg-white px-2 md:px-4 py-2 md:py-3 rounded-[60%] flex items-center justify-center shadow-md transition hover:scale-80 min-w-[75px] md:min-w-[90px] aspect-[2/1]">
                 <img src="public/stackly-logo.webp" alt="Stackly Logo" class="h-3 md:h-5 w-auto object-contain" decoding="async">
               </a>
             </div>
@@ -2134,7 +2134,7 @@
             <form class="max-w-md flex items-center gap-2">
               <div class="flex-grow relative">
                 <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input type="email" placeholder="Your email" class="w-full pl-11 pr-4 py-3 rounded-full bg-white text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <input type="email" id="footerEmailInput" placeholder="Your email" required class="w-full pl-11 pr-4 py-3 rounded-full bg-white text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
               </div>
               <button type="submit" class="text-white hover:text-blue-300 transition group">
                 <i class="fa-solid fa-paper-plane text-xl transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"></i>
@@ -2184,9 +2184,9 @@
           
 
           <div class="col-span-2 md:col-span-1">
-            <div class="bg-white px-4 py-3 rounded-[60%] inline-flex items-center justify-center shadow-md transition hover:scale-105 min-w-[90px] aspect-[2/1] mb-6">
-              <img src="public/stackly-logo.webp" alt="Stackly Logo" class="h-5 w-auto object-contain" decoding="async">
-            </div>
+          <a href="#home" onclick="showPage('home')" aria-label="Go to Stackly Home" class="bg-white px-4 py-3 rounded-[60%] inline-flex items-center justify-center shadow-md transition hover:scale-105 min-w-[90px] aspect-[2/1] mb-6 cursor-pointer">
+  <img src="public/stackly-logo.webp" alt="Stackly Logo" class="h-5 w-auto object-contain" decoding="async">
+</a>
             <p class="text-[11px] text-white/70 leading-relaxed uppercase font-bold tracking-tight mb-2">
               The <span class="text-blue-400">NO-CODE</span> website builder for everyone. Powered by AWS.
             </p>
@@ -3186,6 +3186,29 @@ window.addEventListener('click', function(e) {
     });
 
     document.addEventListener("DOMContentLoaded", initializePage);
+    // Add this inside your <script> tag
+document.querySelector('footer form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const emailInput = document.getElementById('footerEmailInput');
+    const emailValue = emailInput.value.trim();
+
+    // Regex for strict email validation (requires .extension)
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailValue) {
+        showNotification("Please enter an email address.", "Error");
+        return;
+    }
+
+    if (!emailPattern.test(emailValue)) {
+        showNotification("Please enter a valid email (e.g., test@gmail.com).", "Invalid Email");
+        return;
+    }
+
+    // If valid
+    showNotification("Subscribed successfully!", "Success");
+    emailInput.value = ""; // Clear the field
+});
   </script>
 </body>
 </html>
