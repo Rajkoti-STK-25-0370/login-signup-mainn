@@ -173,7 +173,7 @@
       justify-content: space-between !important;
       width: 100%;
       max-width: 100%;
-      flex-wrap: nowrap !important;
+      flex-wrap: wrap !important;
       gap: 12px;
       overflow: visible !important;
       padding: 0.5rem 1rem;
@@ -2665,7 +2665,7 @@ window.addEventListener('click', function(e) {
     function showNotification(message, label = "Notice") {
       const container = document.getElementById("toast-container");
       const toast = document.createElement("div");
-      toast.className = "toast-slide-in z-[20001] bg-[#06224C] text-white border-l-4 border-blue-500 px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 min-w-[300px]";
+      toast.className = "toast-slide-in bg-[#06224C] text-white border-l-4 border-blue-500 px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 min-w-[300px]";
       toast.innerHTML = `
         <div class="bg-blue-500/20 p-2 rounded-lg">
           <i class="fa-solid fa-circle-check text-blue-400"></i>
