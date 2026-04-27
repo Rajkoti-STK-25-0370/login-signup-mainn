@@ -17,6 +17,28 @@
   </noscript>
 
   <style>
+    /* ABOUT PAGE ANIMATIONS */
+#aboutPage {
+    font-family: 'Arial Black', sans-serif; /* For headers */
+}
+
+#aboutPage h3 {
+    letter-spacing: -1px;
+}
+
+#aboutPage p {
+    font-family: Arial, Helvetica, sans-serif; /* For readability */
+}
+
+/* Hover effect for the numbered cards */
+.group:hover img {
+    transform: scale(1.1);
+    transition: transform 0.8s ease;
+}
+
+.group img {
+    transition: transform 0.8s ease;
+}
     /* MEGA MENU LOGIC */
 .submenu-parent {
     position: static;
@@ -757,7 +779,72 @@
       <i class="fa-solid fa-arrow-left"></i> Go Back To Home
     </a>
   </div>
+ <div id="aboutPage" class="hidden min-h-screen bg-[#FFF1F2] text-[#06224C]">
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        <a href="#home" class="inline-flex items-center gap-2 text-[#06224C] hover:text-blue-600 transition uppercase text-[10px] font-black tracking-widest">
+            <i class="fa-solid fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
 
+    <section class="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row gap-12 items-center">
+        <div class="w-full lg:w-1/2 rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800" alt="Office" class="w-full h-auto object-cover transform hover:scale-105 transition duration-700">
+        </div>
+        <div class="w-full lg:w-1/2 space-y-6">
+            <h2 class="text-xs font-black uppercase tracking-[0.3em] text-blue-600 border-l-4 border-blue-600 pl-3">Who We Are</h2>
+            <p class="text-lg leading-relaxed font-bold text-[#0A2357] italic">
+                Stackly is a powerful platform that streamlines workflow, enhances efficiency, and drives digital success.
+            </p>
+            <p class="text-sm leading-relaxed text-gray-600">
+                Founded in 2015, Stackly has grown into one of the leading and most trusted companies in the industry. With a team of over 120 talented professionals, we specialize in delivering cutting-edge technology solutions that drive business success.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-20 bg-white/50 text-center border-y border-[#06224C]/5">
+        <h1 class="text-5xl md:text-8xl font-black text-[#06224C] opacity-5 tracking-tighter uppercase pointer-events-none">Innovation * Growth</h1>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-6 py-20">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            
+            <div class="bg-[#06224C] p-8 rounded-[2.5rem] shadow-lg group text-white">
+                <span class="text-5xl font-black text-blue-400/30 group-hover:text-blue-500 transition duration-500">01.</span>
+                <h3 class="text-2xl font-black uppercase tracking-tight mt-4 mb-4">Our Mission</h3>
+                <p class="text-xs text-gray-500 leading-relaxed mb-6">
+                    Our mission is simple—create tools that solve real problems. We aim to enhance your experience through innovation and reliability.
+                </p>
+                <div class="rounded-2xl overflow-hidden h-40">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
+                </div>
+            </div>
+
+            <div class="bg-[#06224C] p-8 rounded-[2.5rem] shadow-lg group text-white">
+                <span class="text-5xl font-black text-blue-400/30 group-hover:text-blue-500 transition duration-500">02.</span>
+                <h3 class="text-2xl font-black uppercase tracking-tight mt-4 mb-4">Our Vision</h3>
+                <p class="text-xs text-gray-500 leading-relaxed mb-6">
+                    We envision a future where technology serves as an enabler for creativity. Stackly strives to be a leader in scalable tools.
+                </p>
+                <div class="rounded-2xl overflow-hidden h-40">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=500" class="w-full h-full object-cover">
+                </div>
+            </div>
+
+            <div class="bg-[#06224C] p-8 rounded-[2.5rem] shadow-lg group text-white">
+                <span class="text-5xl font-black text-blue-400/30 group-hover:text-blue-500 transition duration-500">03.</span>
+                <h3 class="text-2xl font-black uppercase tracking-tight mt-4 mb-4">Why Us?</h3>
+                <p class="text-xs text-blue-100/70 leading-relaxed mb-6">
+                    Our team brings a wealth of knowledge to every project. We prioritize your needs to deliver solutions that truly add value.
+                </p>
+                <div class="rounded-2xl overflow-hidden h-40 grayscale group-hover:grayscale-0 transition duration-500">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=500" class="w-full h-full object-cover">
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+</div>
   <div id="homePage" class="hidden min-h-screen flex flex-col">
       <nav class="sticky top-0 z-50 bg-[#06224C] border-b border-white/10 px-2 md:px-12 py-3 shadow-sm">
         <div class="nav-container">
@@ -2037,6 +2124,7 @@
         </div>
       </div>
     </section>
+    
 
     <footer class="bg-[#0A1E3D] py-10 md:py-12 w-full mt-auto">
       <div class="max-w-7xl mx-auto px-4 md:px-8">
@@ -2087,12 +2175,13 @@
           <div>
             <h4 class="text-white font-black text-sm mb-4 uppercase tracking-wider">Company</h4>
             <ul class="space-y-2 text-sm text-white/70 font-medium">
-              <li><a href="#" class="hover:text-white transition">About</a></li>
+              <li><a href="#about" class="hover:text-white transition">About</a></li>
               <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
               <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
               <li><a href="javascript:void(0)" onclick="openContactModal()" class="hover:text-white transition">Contact</a></li>
             </ul>
           </div>
+          
 
           <div class="col-span-2 md:col-span-1">
             <div class="bg-white px-4 py-3 rounded-[60%] inline-flex items-center justify-center shadow-md transition hover:scale-105 min-w-[90px] aspect-[2/1] mb-6">
@@ -2133,7 +2222,7 @@
             <div class="flex flex-wrap justify-center items-center gap-6 text-[10px] font-bold text-white/50 uppercase tracking-widest">
               <a href="#" class="hover:text-white transition">Terms of Use</a>
               <a href="#" class="hover:text-white transition">Privacy Policy</a>
-              <span class="whitespace-nowrap">© 2018-2026 Stackly.com Inc</span>
+              <span class="whitespace-nowrap">© 2018-2026 TheStackly.com</span>
             </div>
           </div>
         </div>
@@ -2462,7 +2551,7 @@ window.addEventListener('click', function(e) {
     }
 
     function showPage(page) {
-      ["home", "signup", "login", "error", "forgot", "verifyEmail", "verifyMobile", "verified", "createNewPassword", "notFound"].forEach((key) => {
+      ["home","about", "signup", "login", "error", "forgot", "verifyEmail", "verifyMobile", "verified", "createNewPassword", "notFound"].forEach((key) => {
         const el = document.getElementById(key + "Page");
         if (el) el.classList.add("hidden");
       });
@@ -2474,14 +2563,19 @@ window.addEventListener('click', function(e) {
       document.body.style.overflow = isAuth && window.innerWidth >= 1024 ? "hidden" : "auto";
     }
 
-    function router() {
+   function router() {
     const hash = window.location.hash.replace("#", "");
-    if (hash === "404") {
-        showPage("notFound"); // This will show your 404 error page
+
+    if (hash === "about") {
+        showPage("about");
+    } else if (hash === "404") {
+        showPage("notFound");
     } else if (hash === "signup") {
         showPage("signup");
     } else if (hash === "login") {
         showPage("login");
+    } else if (hash === "forgot") {
+        showPage("forgot");
     } else {
         showPage("home");
     }
