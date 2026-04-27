@@ -1131,6 +1131,18 @@
       <div id="mobileMenu" class="hidden lg:hidden bg-[#06224C] text-white w-full border-b border-white/10 py-4 flex flex-col uppercase font-bold text-[11px] tracking-widest z-[9999] overflow-y-auto max-h-[85vh]">
     <a href="#home" onclick="toggleMobileMenu()" class="px-6 py-4 border-b border-white/5">Home</a>
     <a href="#404" onclick="toggleMobileMenu()" class="px-6 py-4 border-b border-white/5">About Us</a>
+    <div class="mobile-accordion-item">
+    <button onclick="toggleMobileSub('mob-products')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
+        <span><i class="fa-solid fa-box mr-3 opacity-70"></i> Our Products</span>
+        <i class="fa-solid fa-plus text-[8px]" id="icon-mob-products"></i>
+    </button>
+    <div id="mob-products" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
+        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Premium Templates</a>
+        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">UI Kits</a>
+        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">WordPress Themes</a>
+        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Free Assets</a>
+    </div>
+</div>
     
     <div class="px-0">
         <p class="px-6 py-4 text-[9px] text-blue-400 opacity-80">Categories</p>
@@ -1152,6 +1164,20 @@
                 <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
             </div>
         </div>
+        <div class="mobile-accordion-item">
+    <button onclick="toggleMobileSub('mob-portfolio')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
+        <span><i class="fa-solid fa-briefcase mr-3 opacity-70"></i> Portfolio</span>
+        <i class="fa-solid fa-plus text-[8px]" id="icon-mob-portfolio"></i>
+    </button>
+    <div id="mob-portfolio" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
+        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Designer</a>
+        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Developer</a>
+        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Agency</a>
+        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Minimal</a>
+        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Personal</a>
+        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Freelancer</a>
+    </div>
+</div>
          <div class="mobile-accordion-item">
           <button onclick="toggleMobileSub('mob-dashboard')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
     <span><i class="fa-solid fa-chart-line mr-3 opacity-70"></i> Dashboard</span>
