@@ -1964,11 +1964,11 @@
           </div>
         </section>
 
-        <section id="features-showcase" class="mt-20 mb-20 px-4 max-w-7xl mx-auto">
-  <div class="bg-[#E6EFF1] rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-16 flex flex-col lg:flex-row items-center gap-10 lg:gap-16 border-l-8 border-blue-500 shadow-sm">
+       <section id="features-showcase" class="mt-12 md:mt-20 px-4 max-w-7xl mx-auto overflow-hidden">
+  <div class="bg-[#E6EFF1] rounded-[2.5rem] md:rounded-[3.5rem] p-6 sm:p-10 md:p-16 flex flex-col lg:flex-row items-center lg:items-stretch gap-10 lg:gap-16 border-l-8 border-blue-500 shadow-sm">
     
-    <div class="w-full lg:w-1/2">
-      <div class="bg-white rounded-[2rem] aspect-video md:aspect-square lg:aspect-auto lg:h-[450px] flex items-center justify-center shadow-lg overflow-hidden relative group">
+    <div class="w-full lg:w-1/2 flex">
+      <div class="bg-white rounded-[2rem] w-full min-h-[250px] md:min-h-[400px] flex items-center justify-center shadow-lg overflow-hidden relative group">
         <img
           id="featureShowcaseImage"
           src="public/sections.webp"
@@ -1977,66 +1977,55 @@
           loading="lazy"
           decoding="async"
         >
-        <div class="feature-image-quote absolute inset-x-0 bottom-0 p-6 md:p-8 flex items-end pointer-events-none">
-          <p id="featureShowcaseQuote" class="text-lg md:text-2xl font-black text-white tracking-tight max-w-md">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#06224C]/80 via-transparent to-transparent pointer-events-none"></div>
+        <div class="absolute inset-x-0 bottom-0 p-6 md:p-8 flex items-end pointer-events-none">
+          <p id="featureShowcaseQuote" class="text-lg md:text-xl lg:text-2xl font-black text-white tracking-tight leading-tight max-w-md">
             "Present your work in a visually impressive and engaging way."
           </p>
         </div>
       </div>
     </div>
 
-    <div class="w-full lg:w-1/2 flex flex-col gap-8 md:gap-10" id="featureAccordion">
+    <div class="w-full lg:w-1/2 flex flex-col justify-center gap-4 sm:gap-6 md:gap-8" id="featureAccordion">
       
-      <div
-        class="feature-accordion-item active"
-        data-feature-image="public/sections.webp"
-        data-feature-quote="Present your work in a visually impressive and engaging way."
-      >
-        <button class="feature-toggle group" type="button" onclick="setActiveFeature(this)">
+      <div class="feature-accordion-item active" data-feature-image="public/sections.webp" data-feature-quote="Present your work in a visually impressive and engaging way.">
+        <button class="feature-toggle group w-full text-left focus:outline-none" type="button" onclick="setActiveFeature(this)">
           <h3 class="text-xl md:text-2xl font-black text-[#06224C] flex items-center gap-3">
             <span class="text-blue-600">1.</span> Sections
           </h3>
           <i class="feature-chevron fa-solid fa-chevron-down text-xs text-gray-400 group-hover:text-blue-600 transition-colors"></i>
         </button>
-        <div class="feature-content pl-8 pr-8 pt-4">
-          <p class="text-sm md:text-base text-gray-600 leading-relaxed">
-            Design your website content effortlessly using our ready-made layout options. With a collection of more than 100 professionally crafted designs, you can present your work in a visually impressive and engaging way.
+        <div class="feature-content overflow-hidden transition-all duration-300">
+          <p class="text-sm md:text-base text-gray-600 leading-relaxed pt-3">
+            Design your website content effortlessly using our ready-made layout options. With a collection of more than 100 professionally crafted designs.
           </p>
         </div>
       </div>
 
-      <div
-        class="feature-accordion-item"
-        data-feature-image="public/shapers.webp"
-        data-feature-quote="Shape-based layouts can make your site feel creative, polished, and professional."
-      >
-        <button class="feature-toggle group" type="button" onclick="setActiveFeature(this)">
+      <div class="feature-accordion-item" data-feature-image="public/shapers.webp" data-feature-quote="Shape-based layouts can make your site feel creative, polished, and professional.">
+        <button class="feature-toggle group w-full text-left focus:outline-none" type="button" onclick="setActiveFeature(this)">
           <h3 class="text-xl md:text-2xl font-black text-[#06224C] flex items-center gap-3">
             <span class="text-blue-600">2.</span> Shapers
           </h3>
           <i class="feature-chevron fa-solid fa-chevron-down text-xs text-gray-400 group-hover:text-blue-600 transition-colors"></i>
         </button>
-        <div class="feature-content pl-8 pr-8 pt-4">
-          <p class="text-sm md:text-base text-gray-600 leading-relaxed">
-            Enhance your website's look and feel with our collection of abstract-style layouts. Featuring 15+ unique shape-based designs, these options range from fun and creative to clean and professional.
+        <div class="feature-content overflow-hidden transition-all duration-300">
+          <p class="text-sm md:text-base text-gray-600 leading-relaxed pt-3">
+            Enhance your website's look and feel with our collection of abstract-style layouts. Featuring 15+ unique shape-based designs.
           </p>
         </div>
       </div>
 
-      <div
-        class="feature-accordion-item"
-        data-feature-image="public/dynamic.webp"
-        data-feature-quote="Interactive backgrounds help create a stylish and captivating browsing experience."
-      >
-        <button class="feature-toggle group" type="button" onclick="setActiveFeature(this)">
+      <div class="feature-accordion-item" data-feature-image="public/dynamic.webp" data-feature-quote="Interactive backgrounds help create a stylish and captivating browsing experience.">
+        <button class="feature-toggle group w-full text-left focus:outline-none" type="button" onclick="setActiveFeature(this)">
           <h3 class="text-xl md:text-2xl font-black text-[#06224C] flex items-center gap-3">
             <span class="text-blue-600">3.</span> Dynamic Backgrounds
           </h3>
           <i class="feature-chevron fa-solid fa-chevron-down text-xs text-gray-400 group-hover:text-blue-600 transition-colors"></i>
         </button>
-        <div class="feature-content pl-8 pr-8 pt-4">
-          <p class="text-sm md:text-base text-gray-600 leading-relaxed">
-            Deliver a more interactive and captivating browsing experience using fixed and scroll features. By keeping images stationary as users scroll, you can achieve a stylish parallax effect.
+        <div class="feature-content overflow-hidden transition-all duration-300">
+          <p class="text-sm md:text-base text-gray-600 leading-relaxed pt-3">
+            Deliver a more interactive and captivating browsing experience using fixed and scroll features.
           </p>
         </div>
       </div>
