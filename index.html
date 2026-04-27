@@ -17,6 +17,11 @@
   </noscript>
 
   <style>
+    /* Ensures touch targets are recognized as clickable */
+a[href^="#"], button {
+    touch-action: manipulation;
+    cursor: pointer;
+}
     /* ABOUT PAGE ANIMATIONS */
 #aboutPage {
     font-family: 'Arial Black', sans-serif; /* For headers */
@@ -2566,7 +2571,7 @@ window.addEventListener('click', function(e) {
     // Get the current hash and remove the '#'
     const hash = window.location.hash.replace("#", "") || "home";
     
-
+    if (hash === "contact") return;
     if (hash === "about") {
         showPage("about");
     } else if (hash === "404") {
