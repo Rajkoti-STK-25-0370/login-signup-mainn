@@ -1079,7 +1079,7 @@
 </div>
               </div>
 
-              <a href="javascript:void(0)" onclick="openContactModal()" class="hover:text-blue-300 transition whitespace-nowrap">Contact</a>
+              <a href="#contact" onclick="openContactModal()" class="hover:text-blue-300 transition whitespace-nowrap">Contact</a>
             </div>
           </div>
 
@@ -1302,7 +1302,7 @@
 
         </div>
 
-    <a href="javascript:void(0)" onclick="toggleMobileMenu(); openContactModal();" class="px-6 py-6 border-t border-white/10">Contact</a>
+   <a href="#contact" onclick="toggleMobileMenu(); openContactModal();" class="px-6 py-6 border-t border-white/10">Contact</a>
 </div>
 
     <div id="searchBarContainer" class="invisible opacity-0 fixed left-0 w-full">
@@ -2565,6 +2565,7 @@ window.addEventListener('click', function(e) {
    function router() {
     // Get the current hash and remove the '#'
     const hash = window.location.hash.replace("#", "") || "home";
+    
 
     if (hash === "about") {
         showPage("about");
