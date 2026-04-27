@@ -1153,11 +1153,11 @@
             </div>
         </div>
          <div class="mobile-accordion-item">
-            <button onclick="toggleMobileSub('mob-food')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
-                <span><i class="fa-solid fa-utensils mr-3 opacity-70"></i> Dashboard</span>
-                <i class="fa-solid fa-plus text-[8px]" id="icon-mob-food"></i>
-            </button>
-            <div id="mob-food" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
+          <button onclick="toggleMobileSub('mob-dashboard')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
+    <span><i class="fa-solid fa-chart-line mr-3 opacity-70"></i> Dashboard</span>
+    <i class="fa-solid fa-plus text-[8px]" id="icon-mob-dashboard"></i>
+</button>
+<div id="mob-dashboard" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
                 <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Admin Analytics</a>
                 <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Overview</a>
                 <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">User Profile</a>
@@ -1169,19 +1169,18 @@
         </div>
 
         <div class="mobile-accordion-item">
-            <button onclick="toggleMobileSub('mob-food')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
-                <span><i class="fa-solid fa-utensils mr-3 opacity-70"></i> Food</span>
-                <i class="fa-solid fa-plus text-[8px]" id="icon-mob-food"></i>
-            </button>
-            <div id="mob-food" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Burger House</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Pizza Corner</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Overview</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Fresh & Natural</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Food Stories</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
-            </div>
-        </div>
+    <button onclick="toggleMobileSub('mob-food')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
+        <span><i class="fa-solid fa-utensils mr-3 opacity-70"></i> Food</span>
+        <i class="fa-solid fa-plus text-[8px]" id="icon-mob-food"></i>
+    </button>
+    <div id="mob-food" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
+        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Burger House</a>
+        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Pizza Corner</a>
+        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Fresh & Natural</a>
+        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Food Stories</a>
+        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
+    </div>
+</div>
 
         <div class="mobile-accordion-item">
             <button onclick="toggleMobileSub('mob-travel')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
@@ -2184,7 +2183,7 @@
           
 
           <div class="col-span-2 md:col-span-1">
-          <a href="#home" onclick="showPage('home')" aria-label="Go to Stackly Home" class="bg-white px-4 py-3 rounded-[60%] inline-flex items-center justify-center shadow-md transition hover:scale-105 min-w-[90px] aspect-[2/1] mb-6 cursor-pointer">
+          <a href="#home" id="footerLogo" aria-label="Go to Stackly Home" class="bg-white px-4 py-3 rounded-[60%] inline-flex items-center justify-center shadow-md transition hover:scale-105 min-w-[90px] aspect-[2/1] mb-6 cursor-pointer">
   <img src="public/stackly-logo.webp" alt="Stackly Logo" class="h-5 w-auto object-contain" decoding="async">
 </a>
             <p class="text-[11px] text-white/70 leading-relaxed uppercase font-bold tracking-tight mb-2">
@@ -2564,7 +2563,8 @@ window.addEventListener('click', function(e) {
     }
 
    function router() {
-    const hash = window.location.hash.replace("#", "");
+    // Get the current hash and remove the '#'
+    const hash = window.location.hash.replace("#", "") || "home";
 
     if (hash === "about") {
         showPage("about");
@@ -2576,7 +2576,12 @@ window.addEventListener('click', function(e) {
         showPage("login");
     } else if (hash === "forgot") {
         showPage("forgot");
+    } else if (hash === "home") {
+        showPage("home");
+        // Optional: Scroll to top when going home
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
+        // Fallback for any unknown hash
         showPage("home");
     }
 }
@@ -3208,6 +3213,13 @@ document.querySelector('footer form').addEventListener('submit', function(event)
     // If valid
     showNotification("Subscribed successfully!", "Success");
     emailInput.value = ""; // Clear the field
+});
+// Add this at the bottom of your script
+document.getElementById('footerLogo').addEventListener('click', function(e) {
+    // Force the home page to show
+    showPage('home');
+    // Ensure we are at the top
+    window.scrollTo(0, 0);
 });
   </script>
 </body>
