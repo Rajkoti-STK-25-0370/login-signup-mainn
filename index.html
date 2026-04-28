@@ -163,7 +163,7 @@
       right: 0;
       width: 100%;
       z-index: 5000 !important;
-      min-height: 60px;
+      min-height: 70px;
       background-color: #06224c;
     }
 
@@ -316,7 +316,7 @@
     }
 
     #homePage .w-full.max-w-7xl {
-      margin-top: 80px;
+      margin-top: 100px;
     }
 
     *:target {
@@ -362,6 +362,9 @@
     }
 
     @media screen and (max-width: 767px) {
+      #homePage .w-full.max-w-7xl {
+        /* Increase margin specifically for mobile zoom scenarios */
+        margin-top: 120px !important;
       .hero-container {
         min-height: 480px !important;
       }
@@ -1380,7 +1383,7 @@
       </div>
     </div>
 
-    <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex-grow overflow-hidden">
+    <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex-grow overflow-hidden pt-4">
       <section class="hero-container mt-6 rounded-[2.5rem] md:rounded-[3.5rem] flex items-center relative" tabindex="-1">
         <picture tabindex="-1">
           <source media="(max-width: 768px)" srcset="public/landinmble3.webp">
