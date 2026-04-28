@@ -192,6 +192,42 @@
       box-shadow: 0 0 0 2px #06224c, 0 0 0 4px #60a5fa;
     }
 
+    .nav-primary-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 2rem;
+}
+
+.nav-primary-link,
+.nav-primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.nav-profile-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.nav-profile-btn img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
     @media (max-width: 768px) {
       .nav-container {
         padding: 0.5rem;
@@ -860,9 +896,11 @@
               </a>
             </div>
 
-            <div class="hidden lg:flex gap-x-4 xl:gap-x-8 text-[13px] font-bold text-white uppercase tracking-wide items-center flex-wrap justify-center">
-              <a href="#home" class="hover:text-blue-300 transition whitespace-nowrap">Home</a>
-              <a href="#404" class="hover:text-blue-300 transition whitespace-nowrap">About Us</a>
+           <div class="hidden lg:flex nav-primary-links text-[13px] font-bold text-white uppercase tracking-wide items-center">
+
+              <a href="#home" class="nav-primary-link hover:text-blue-300 transition">Home</a>
+<a href="#404" class="nav-primary-link hover:text-blue-300 transition">About Us</a>
+
 
               <div class="relative dropdown-group flex items-center">
                 <button type="button" id="products-dropdown-btn" aria-haspopup="true" aria-expanded="false" class="flex items-center gap-1.5 hover:text-blue-300 transition whitespace-nowrap text-[13px] font-bold text-white uppercase tracking-wide focus:outline-none focus:ring-2 focus:ring-blue-400 rounded-md px-1">
@@ -1080,7 +1118,8 @@
 </div>
               </div>
 
-              <a href="#contact" onclick="openContactModal()" class="hover:text-blue-300 transition whitespace-nowrap">Contact</a>
+             <a href="#contact" onclick="openContactModal()" class="nav-primary-link hover:text-blue-300 transition">Contact</a>
+
             </div>
           </div>
 
@@ -1100,11 +1139,8 @@
             </button>
 
             <div class="relative">
-    <button type="button" 
-            onclick="toggleProfileMenu(event)" 
-            id="profile-dropdown-btn" 
-            aria-label="User Profile" 
-            class="w-8 h-8 md:w-9 md:h-9 rounded-full border-2 border-white/40 overflow-hidden cursor-pointer flex-shrink-0 relative focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all">
+    <button type="button" onclick="toggleProfileMenu(event)" id="profile-dropdown-btn" aria-label="User Profile" class="nav-profile-btn rounded-full border-2 border-white/40 overflow-hidden cursor-pointer relative focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all">
+
         <img src="public/profile.webp" alt="User Profile Picture" class="w-full h-full object-cover block">
     </button>
 
