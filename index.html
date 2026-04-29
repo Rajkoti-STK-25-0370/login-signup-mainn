@@ -745,48 +745,186 @@
       display: flex;
     }
   
-  .feature-accordion-item {
-    border-bottom: 1px solid rgba(6, 34, 76, 0.08);
-    padding-bottom: 1.25rem;
-  }
+ /* ============================================
+   FEATURES SHOWCASE - RESPONSIVE FIXES
+   ============================================ */
 
-  .feature-accordion-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
+#features-showcase {
+  max-width: 100%;
+  overflow-x: hidden;
+}
 
-  .feature-toggle {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    text-align: left;
-  }
+.feature-accordion-item {
+  border-radius: 0.75rem;
+  background: transparent;
+  transition: all 0.3s ease;
+  padding-bottom: 0;
+  border-bottom: none;
+}
 
-  .feature-toggle .feature-chevron {
-    transition: transform 0.3s ease, color 0.3s ease;
-  }
+.feature-accordion-item:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
 
-  .feature-accordion-item.active .feature-chevron {
-    transform: rotate(180deg);
-    color: #2563eb;
-  }
+.feature-toggle {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  text-align: left;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
 
-  .feature-content {
-    max-height: 0;
+.feature-toggle .feature-chevron {
+  transition: transform 0.3s ease, color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.feature-accordion-item.active .feature-chevron {
+  transform: rotate(180deg);
+  color: #2563eb;
+}
+
+.feature-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.35s ease, opacity 0.25s ease;
+}
+
+.feature-accordion-item.active .feature-content {
+  opacity: 1;
+  max-height: 500px;
+}
+
+/* Quote Text Responsive */
+#featureShowcaseQuote {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  line-height: 1.3;
+}
+
+/* Mobile optimization (up to 640px) */
+@media (max-width: 640px) {
+  #features-showcase {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  #features-showcase > div {
+    padding: 1rem !important;
+    gap: 1.5rem !important;
+  }
+  
+  #featureShowcaseQuote {
+    font-size: 0.875rem !important;
+    line-height: 1.25;
+    padding: 1rem !important;
+  }
+  
+  .feature-accordion-item h3 {
+    font-size: 1rem !important;
+  }
+  
+  .feature-accordion-item p {
+    font-size: 0.8125rem !important;
+    line-height: 1.5;
+  }
+}
+
+/* Tablet optimization (641px to 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+  #featureShowcaseQuote {
+    font-size: 1rem !important;
+    line-height: 1.3;
+  }
+  
+  .feature-accordion-item h3 {
+    font-size: 1.125rem !important;
+  }
+}
+
+/* High Zoom Level Fixes (150%+ zoom ~= 640px viewport) */
+@media (max-width: 768px) {
+  /* Force single column layout at high zoom */
+  #features-showcase .flex-col {
+    flex-direction: column !important;
+  }
+  
+  #features-showcase .lg\\:flex-row {
+    flex-direction: column !important;
+  }
+  
+  /* Ensure image container doesn't overflow */
+  #features-showcase .bg-white {
+    max-width: 100%;
     overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.35s ease, opacity 0.25s ease;
   }
+  
+  /* Tighter spacing at high zoom */
+  .feature-accordion-item {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Reduce padding in content area */
+  .feature-content > div {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+}
 
-  .feature-accordion-item.active .feature-content {
-    opacity: 1;
+/* Extra high zoom (200%+ zoom ~= 480px viewport) */
+@media (max-width: 480px) {
+  #features-showcase > div {
+    border-left-width: 4px !important;
+    padding: 0.75rem !important;
+    gap: 1rem !important;
   }
+  
+  #featureShowcaseQuote {
+    font-size: 0.75rem !important;
+    padding: 0.75rem !important;
+  }
+  
+  .feature-toggle {
+    padding: 0.5rem !important;
+  }
+  
+  .feature-accordion-item h3 {
+    font-size: 0.875rem !important;
+    gap: 0.5rem !important;
+  }
+  
+  .feature-accordion-item p {
+    font-size: 0.75rem !important;
+    padding-top: 0.5rem !important;
+  }
+  
+  /* Reduce image min-height at extreme zoom */
+  #features-showcase .bg-white {
+    min-height: 200px !important;
+  }
+}
 
-  .feature-image-quote {
-    background: linear-gradient(to top, rgba(6, 34, 76, 0.72), rgba(6, 34, 76, 0));
-  }
+/* Ensure text never overflows */
+#features-showcase h3,
+#features-showcase p,
+#featureShowcaseQuote {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Prevent layout shift during accordion animation */
+.feature-accordion-item {
+  will-change: max-height;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
 /* Mobile Accordion Styles */
 .mobile-accordion-item button {
     transition: background 0.2s ease;
