@@ -15,6 +15,8 @@
   <noscript>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   </noscript>
+  <link rel="preload" as="image" href="public/landing22.webp" fetchpriority="high">
+<link rel="preload" as="image" href="public/landinmble3.webp">
 
   <style>
   /* ABOUT PAGE ANIMATIONS */
@@ -338,23 +340,28 @@
     scroll-margin-top: 80px;
   }
 
-  .hero-container {
-    background-color: #fde2e4;
-    position: relative;
-    overflow: hidden !important;
-    min-height: 500px;
-  }
+ .hero-container {
+  background-color: #fde2e4;
+  position: relative;
+  overflow: hidden !important;
+  min-height: 500px;
+  isolation: isolate;
+}
 
-  .hero-illustration {
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: right center;
-    pointer-events: none;
-  }
+.hero-illustration {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: right center;
+  pointer-events: none;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
 
   .hero-container > .relative.z-20 {
     display: flex;
@@ -1728,9 +1735,20 @@
     <div class="w-full max-w-7xl mx-auto px-4 md:px-8 flex-grow overflow-hidden pt-4">
       <section class="hero-container mt-6 rounded-[2.5rem] md:rounded-[3.5rem] flex items-center relative" tabindex="-1">
         <picture tabindex="-1">
-          <source media="(max-width: 768px)" srcset="public/landinmble3.webp">
-          <img src="public/landing22.webp" alt="Hero" class="hero-illustration" loading="eager" decoding="async" tabindex="-1">
-        </picture>
+  <source media="(max-width: 768px)" srcset="public/landinmble3.webp">
+  <img
+    src="public/landing22.webp"
+    alt="Hero"
+    class="hero-illustration"
+    loading="eager"
+    fetchpriority="high"
+    decoding="sync"
+    width="1600"
+    height="900"
+    tabindex="-1"
+  >
+</picture>
+
 
         <div class="relative z-20 w-full px-8 md:pl-20 pt-12 pb-4 md:pb-16 flex flex-col items-center md:items-start justify-end min-h-[400px] md:min-h-[500px]" tabindex="-1">
           <h1 class="text-4xl md:text-6xl font-black text-[#0A2357] leading-tight mb-auto" tabindex="-1"></h1>
@@ -2555,7 +2573,7 @@
           Get Started
         </button>
         <div class="mt-12 flex items-center justify-center gap-2 text-sm text-white/80">
-          <a href="#home" class="hover:text-white transition">Stackly.com</a>
+          <a href="#home" class="hover:text-white transition">TheStackly.com</a>
           <i class="fa-solid fa-chevron-right text-xs"></i>
           <span class="text-white">Drag and Drop Website Builder</span>
         </div>
@@ -2582,7 +2600,7 @@
           <div class="w-full md:w-auto md:text-right">
             <h3 class="text-white font-black text-sm mb-2 uppercase tracking-wider">Headquarters</h3>
             <p class="text-white/70 text-sm leading-relaxed">
-              MMR COMPLEX, SALEM,<br>
+              MMR Complex, Salem,<br>
               Tamil Nadu 636008
             </p>
           </div>
@@ -2677,7 +2695,7 @@
 
   <div id="cartSidebar" class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white shadow-2xl z-[9999] transform translate-x-full flex flex-col">
     <div class="p-6 border-b flex justify-between items-center bg-[#06224C] text-white">
-      <h2 class="text-lg font-black uppercase tracking-widest">Your Cart</h2>
+      <h2 class="text-lg font-black uppercase tracking-widest">My Cart</h2>
       <button onclick="toggleCart()" class="hover:rotate-90 transition-transform duration-200" type="button" aria-label="Close cart">
         <i class="fa-solid fa-xmark text-2xl"></i>
       </button>
@@ -3726,12 +3744,25 @@ function toggleMobileMenu(forceState) {
 
     window.addEventListener("hashchange", router, { passive: true });
     window.addEventListener("resize", updateSearchBarTop, { passive: true });
-    window.addEventListener("scroll", () => {
-      const backToTop = document.getElementById("backToTop");
-      if (window.pageYOffset > 300) backToTop.classList.add("show");
-      else backToTop.classList.remove("show");
-      revealOnScroll();
-    }, { passive: true });
+   let scrollTicking = false;
+
+function handleWindowScroll() {
+  const backToTop = document.getElementById("backToTop");
+  if (window.pageYOffset > 300) backToTop.classList.add("show");
+  else backToTop.classList.remove("show");
+  revealOnScroll();
+}
+
+window.addEventListener("scroll", () => {
+  if (scrollTicking) return;
+
+  scrollTicking = true;
+  requestAnimationFrame(() => {
+    handleWindowScroll();
+    scrollTicking = false;
+  });
+}, { passive: true });
+
 
     document.addEventListener("keydown", (e) => {
       if (e.key !== "Escape") return;
