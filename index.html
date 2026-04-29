@@ -259,19 +259,28 @@
     transform: translateY(0) !important;
   }
 
-  #mobileMenu {
-    position: fixed;
-    left: 0;
-    width: 100%;
-    z-index: 9999 !important;
-    background: #06224c;
-    display: none;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  }
+ #mobileMenu {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  z-index: 9999 !important;
+  background: #06224c;
+  display: none;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: 1rem;
+}
 
-  #mobileMenu:not(.hidden) {
-    display: flex !important;
-  }
+#mobileMenu:not(.hidden) {
+  display: flex !important;
+}
+
+.mobile-menu-panel {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+
 
   #searchBarContainer {
     position: fixed;
@@ -1494,209 +1503,216 @@
         </div>
       </nav>
 
-      <div id="mobileMenu" class="hidden lg:hidden bg-[#06224C] text-white w-full border-b border-white/10 py-4 flex flex-col uppercase font-bold text-[11px] tracking-widest z-[9999] overflow-y-auto max-h-[85vh]">
-    <a href="#home" onclick="toggleMobileMenu()" class="px-6 py-4 border-b border-white/5">Home</a>
-    <a href="#404" onclick="toggleMobileMenu()" class="px-6 py-4 border-b border-white/5">About Us</a>
-    <div class="mobile-accordion-item">
-    <button onclick="toggleMobileSub('mob-products')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
-        <span><i class="fa-solid fa-box mr-3 opacity-70"></i> Our Products</span>
-        <i class="fa-solid fa-plus text-[8px]" id="icon-mob-products"></i>
+      <div id="mobileMenu" class="hidden lg:hidden bg-[#06224C] text-white w-full border-b border-white/10 py-4 flex flex-col uppercase font-bold text-[11px] tracking-widest z-[9999] overflow-y-auto">
+  <a href="#home" onclick="toggleMobileMenu()" class="px-6 py-4 border-b border-white/5">Home</a>
+  <a href="#404" onclick="toggleMobileMenu()" class="px-6 py-4 border-b border-white/5">About Us</a>
+
+  <div class="mobile-accordion-item">
+    <button onclick="toggleMobileSection('mob-products')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5" type="button">
+      <span><i class="fa-solid fa-box mr-3 opacity-70"></i> Our Products</span>
+      <i class="fa-solid fa-plus text-[8px]" id="icon-mob-products" data-mobile-section-icon></i>
     </button>
-    <div id="mob-products" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
-        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Premium Templates</a>
-        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">UI Kits</a>
-        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">WordPress Themes</a>
-        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Free Assets</a>
+    <div id="mob-products" class="hidden bg-[#051a3d] py-2 border-b border-white/5 mobile-menu-panel" data-mobile-section-panel>
+      <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Premium Templates</a>
+      <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">UI Kits</a>
+      <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">WordPress Themes</a>
+      <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Free Assets</a>
     </div>
-</div>
-    
-    <div class="px-0">
-        <p class="px-6 py-4 text-[9px] text-blue-400 opacity-80">Categories</p>
-        
-        <div class="mobile-accordion-item">
-            <button onclick="toggleMobileSub('mob-landing')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
-                <span><i class="fa-solid fa-pager mr-3 opacity-70"></i> Landing Page</span>
-                <i class="fa-solid fa-plus text-[8px]" id="icon-mob-landing"></i>
-            </button>
-            <div id="mob-landing" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Lead Generating</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Click-through Page</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Sales Page</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Product Page</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">App Page</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Pre-Launch Page</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Event Page</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Splash Page</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
-            </div>
+  </div>
+
+  <div class="mobile-accordion-item">
+    <button onclick="toggleMobileSection('mob-categories')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5" type="button">
+      <span><i class="fa-solid fa-layer-group mr-3 opacity-70"></i> Categories</span>
+      <i class="fa-solid fa-plus text-[8px]" id="icon-mob-categories" data-mobile-section-icon></i>
+    </button>
+
+    <div id="mob-categories" class="hidden mobile-menu-panel bg-[#06224C]" data-mobile-section-panel>
+      <div class="mobile-accordion-item">
+        <button onclick="toggleMobileSub('mob-landing')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5" type="button">
+          <span><i class="fa-solid fa-pager mr-3 opacity-70"></i> Landing Page</span>
+          <i class="fa-solid fa-plus text-[8px]" id="icon-mob-landing" data-mobile-sub-icon></i>
+        </button>
+        <div id="mob-landing" class="hidden bg-[#051a3d] py-2 border-b border-white/5" data-mobile-sub-panel>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Lead Generating</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Click-through Page</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Sales Page</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Product Page</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">App Page</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Pre-Launch Page</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Event Page</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Splash Page</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
         </div>
-        
-         <div class="mobile-accordion-item">
-          <button onclick="toggleMobileSub('mob-dashboard')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
-    <span><i class="fa-solid fa-chart-line mr-3 opacity-70"></i> Dashboard</span>
-    <i class="fa-solid fa-plus text-[8px]" id="icon-mob-dashboard"></i>
-</button>
-<div id="mob-dashboard" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Admin Analytics</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Overview</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">User Profile</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Sales</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Marketing</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Finance</a>
+      </div>
 
-            </div>
+      <div class="mobile-accordion-item">
+        <button onclick="toggleMobileSub('mob-dashboard')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5" type="button">
+          <span><i class="fa-solid fa-chart-line mr-3 opacity-70"></i> Dashboard</span>
+          <i class="fa-solid fa-plus text-[8px]" id="icon-mob-dashboard" data-mobile-sub-icon></i>
+        </button>
+        <div id="mob-dashboard" class="hidden bg-[#051a3d] py-2 border-b border-white/5" data-mobile-sub-panel>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Admin Analytics</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Overview</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">User Profile</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Sales</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Marketing</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Finance</a>
         </div>
-        <div class="mobile-accordion-item">
-    <button onclick="toggleMobileSub('mob-portfolio')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
-        <span><i class="fa-solid fa-briefcase mr-3 opacity-70"></i> Portfolio</span>
-        <i class="fa-solid fa-plus text-[8px]" id="icon-mob-portfolio"></i>
-    </button>
-    <div id="mob-portfolio" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
-        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Designer</a>
-        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Developer</a>
-        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Agency</a>
-        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Minimal</a>
-        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Personal</a>
-        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Freelancer</a>
-    </div>
-</div>
+      </div>
 
-        <div class="mobile-accordion-item">
-    <button onclick="toggleMobileSub('mob-food')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
-        <span><i class="fa-solid fa-utensils mr-3 opacity-70"></i> Food</span>
-        <i class="fa-solid fa-plus text-[8px]" id="icon-mob-food"></i>
-    </button>
-    <div id="mob-food" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
-        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Burger House</a>
-        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Pizza Corner</a>
-        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Fresh & Natural</a>
-        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Food Stories</a>
-        <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
-    </div>
-</div>
-
-        <div class="mobile-accordion-item">
-            <button onclick="toggleMobileSub('mob-travel')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
-                <span><i class="fa-solid fa-plane mr-3 opacity-70"></i> Travel</span>
-                <i class="fa-solid fa-plus text-[8px]" id="icon-mob-travel"></i>
-            </button>
-            <div id="mob-travel" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Adventure</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Luxury</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Leisure</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Solo Trip</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Family</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Group</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
-            </div>
+      <div class="mobile-accordion-item">
+        <button onclick="toggleMobileSub('mob-portfolio')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5" type="button">
+          <span><i class="fa-solid fa-briefcase mr-3 opacity-70"></i> Portfolio</span>
+          <i class="fa-solid fa-plus text-[8px]" id="icon-mob-portfolio" data-mobile-sub-icon></i>
+        </button>
+        <div id="mob-portfolio" class="hidden bg-[#051a3d] py-2 border-b border-white/5" data-mobile-sub-panel>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Designer</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Developer</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Agency</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Minimal</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Personal</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Freelancer</a>
         </div>
+      </div>
 
-        <div class="mobile-accordion-item">
-            <button onclick="toggleMobileSub('mob-realestate')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
-                <span><i class="fa-solid fa-house-chimney mr-3 opacity-70"></i> Real Estate</span>
-                <i class="fa-solid fa-plus text-[8px]" id="icon-mob-realestate"></i>
-            </button>
-            <div id="mob-realestate" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
-                  <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Luxury & Premium</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">General</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Commercial</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Residential</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Vacation/Rental</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Modern & Startup</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Portal</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
-            </div>
+      <div class="mobile-accordion-item">
+        <button onclick="toggleMobileSub('mob-food')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5" type="button">
+          <span><i class="fa-solid fa-utensils mr-3 opacity-70"></i> Food</span>
+          <i class="fa-solid fa-plus text-[8px]" id="icon-mob-food" data-mobile-sub-icon></i>
+        </button>
+        <div id="mob-food" class="hidden bg-[#051a3d] py-2 border-b border-white/5" data-mobile-sub-panel>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Burger House</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Pizza Corner</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Fresh & Natural</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Food Stories</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
         </div>
-        <div class="mobile-accordion-item">
-    <button onclick="toggleMobileSub('mob-hotel')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
-        <span><i class="fa-solid fa-bed mr-3 opacity-70"></i> Hotel</span>
-        <i class="fa-solid fa-plus text-[8px]" id="icon-mob-hotel"></i>
-    </button>
-    <div id="mob-hotel" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Resort & Vacation</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Luxury & Premium Style</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Nature & Eco</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Modern & Business</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Boutique & Unique</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Budget & Simple</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
-    </div>
-</div>
+      </div>
 
-<div class="mobile-accordion-item">
-    <button onclick="toggleMobileSub('mob-blog')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
-        <span><i class="fa-solid fa-pen-nib mr-3 opacity-70"></i> Blog</span>
-        <i class="fa-solid fa-plus text-[8px]" id="icon-mob-blog"></i>
-    </button>
-    <div id="mob-blog" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
-      <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Corporate</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Travel & Life</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Food & Health</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Modern News</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Finance</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Education</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Portfolio</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Mininmal</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
-    </div>
-</div>
-
-<div class="mobile-accordion-item">
-    <button onclick="toggleMobileSub('mob-education')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
-        <span><i class="fa-solid fa-graduation-cap mr-3 opacity-70"></i> Education</span>
-        <i class="fa-solid fa-plus text-[8px]" id="icon-mob-education"></i>
-    </button>
-    <div id="mob-education" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
-         <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">EduSpark</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Learn Sphere</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Bright Future</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Skill Bridge</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">NextGen</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
-    </div>
-</div>
-
-<div class="mobile-accordion-item">
-    <button onclick="toggleMobileSub('mob-news')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
-        <span><i class="fa-solid fa-newspaper mr-3 opacity-70"></i> Newspaper</span>
-        <i class="fa-solid fa-plus text-[8px]" id="icon-mob-news"></i>
-    </button>
-    <div id="mob-news" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
-         <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Daily Pulse</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Global Times</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">NextWave</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">The Update Hub</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Prime Report</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Headline Express</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Insight News</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Minimal</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
-    </div>
-</div>
-
-<div class="mobile-accordion-item">
-    <button onclick="toggleMobileSub('mob-photo')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5">
-        <span><i class="fa-solid fa-camera mr-3 opacity-70"></i> Photography</span>
-        <i class="fa-solid fa-plus text-[8px]" id="icon-mob-photo"></i>
-    </button>
-    <div id="mob-photo" class="hidden bg-[#051a3d] py-2 border-b border-white/5">
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Wedding</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Baby & Kids</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Fashion</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Studio Personal</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">General/Portfolio</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Travel</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Event</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Food</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Studio/Personal</a>
-                <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
-    </div>
-</div>
-
+      <div class="mobile-accordion-item">
+        <button onclick="toggleMobileSub('mob-travel')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5" type="button">
+          <span><i class="fa-solid fa-plane mr-3 opacity-70"></i> Travel</span>
+          <i class="fa-solid fa-plus text-[8px]" id="icon-mob-travel" data-mobile-sub-icon></i>
+        </button>
+        <div id="mob-travel" class="hidden bg-[#051a3d] py-2 border-b border-white/5" data-mobile-sub-panel>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Adventure</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Luxury</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Leisure</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Solo Trip</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Family</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Group</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
         </div>
+      </div>
 
-   <a href="#contact" onclick="toggleMobileMenu(); openContactModal();" class="px-6 py-6 border-t border-white/10">Contact</a>
+      <div class="mobile-accordion-item">
+        <button onclick="toggleMobileSub('mob-realestate')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5" type="button">
+          <span><i class="fa-solid fa-house-chimney mr-3 opacity-70"></i> Real Estate</span>
+          <i class="fa-solid fa-plus text-[8px]" id="icon-mob-realestate" data-mobile-sub-icon></i>
+        </button>
+        <div id="mob-realestate" class="hidden bg-[#051a3d] py-2 border-b border-white/5" data-mobile-sub-panel>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Luxury & Premium</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">General</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Commercial</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Residential</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Vacation/Rental</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Modern & Startup</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Portal</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
+        </div>
+      </div>
+
+      <div class="mobile-accordion-item">
+        <button onclick="toggleMobileSub('mob-hotel')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5" type="button">
+          <span><i class="fa-solid fa-bed mr-3 opacity-70"></i> Hotel</span>
+          <i class="fa-solid fa-plus text-[8px]" id="icon-mob-hotel" data-mobile-sub-icon></i>
+        </button>
+        <div id="mob-hotel" class="hidden bg-[#051a3d] py-2 border-b border-white/5" data-mobile-sub-panel>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Resort & Vacation</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Luxury & Premium Style</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Nature & Eco</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Modern & Business</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Boutique & Unique</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Budget & Simple</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
+        </div>
+      </div>
+
+      <div class="mobile-accordion-item">
+        <button onclick="toggleMobileSub('mob-blog')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5" type="button">
+          <span><i class="fa-solid fa-pen-nib mr-3 opacity-70"></i> Blog</span>
+          <i class="fa-solid fa-plus text-[8px]" id="icon-mob-blog" data-mobile-sub-icon></i>
+        </button>
+        <div id="mob-blog" class="hidden bg-[#051a3d] py-2 border-b border-white/5" data-mobile-sub-panel>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Corporate</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Travel & Life</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Food & Health</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Modern News</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Finance</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Education</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Portfolio</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Mininmal</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
+        </div>
+      </div>
+
+      <div class="mobile-accordion-item">
+        <button onclick="toggleMobileSub('mob-education')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5" type="button">
+          <span><i class="fa-solid fa-graduation-cap mr-3 opacity-70"></i> Education</span>
+          <i class="fa-solid fa-plus text-[8px]" id="icon-mob-education" data-mobile-sub-icon></i>
+        </button>
+        <div id="mob-education" class="hidden bg-[#051a3d] py-2 border-b border-white/5" data-mobile-sub-panel>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">EduSpark</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Learn Sphere</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Bright Future</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Skill Bridge</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">NextGen</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
+        </div>
+      </div>
+
+      <div class="mobile-accordion-item">
+        <button onclick="toggleMobileSub('mob-news')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5" type="button">
+          <span><i class="fa-solid fa-newspaper mr-3 opacity-70"></i> Newspaper</span>
+          <i class="fa-solid fa-plus text-[8px]" id="icon-mob-news" data-mobile-sub-icon></i>
+        </button>
+        <div id="mob-news" class="hidden bg-[#051a3d] py-2 border-b border-white/5" data-mobile-sub-panel>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Daily Pulse</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Global Times</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">NextWave</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">The Update Hub</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Prime Report</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Headline Express</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Insight News</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Minimal</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
+        </div>
+      </div>
+
+      <div class="mobile-accordion-item">
+        <button onclick="toggleMobileSub('mob-photo')" class="w-full flex justify-between items-center px-6 py-4 border-b border-white/5 bg-white/5" type="button">
+          <span><i class="fa-solid fa-camera mr-3 opacity-70"></i> Photography</span>
+          <i class="fa-solid fa-plus text-[8px]" id="icon-mob-photo" data-mobile-sub-icon></i>
+        </button>
+        <div id="mob-photo" class="hidden bg-[#051a3d] py-2 border-b border-white/5" data-mobile-sub-panel>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Wedding</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Baby & Kids</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Fashion</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Studio Personal</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">General/Portfolio</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Travel</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Event</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Food</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Studio/Personal</a>
+          <a href="#404" class="block px-14 py-3 text-[10px] text-gray-300">Others</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#contact" onclick="toggleMobileMenu(); openContactModal();" class="px-6 py-6 border-t border-white/10">Contact</a>
 </div>
+
 
     <div id="searchBarContainer" class="invisible opacity-0 fixed left-0 w-full">
       <div class="max-w-7xl mx-auto px-4 md:px-8 py-2">
@@ -2845,20 +2861,124 @@
 
   <script>
     function toggleProfileMenu(event) {
-    // Prevent the click from bubbling up to the window listener
-    event.stopPropagation();
-    
-    const menu = document.getElementById('profile-menu');
-    const isHidden = menu.classList.contains('hidden');
-    
-    // Close other menus if open (Optional)
-    toggleSearchBar(false);
-    
-    if (isHidden) {
-        menu.classList.remove('hidden');
-    } else {
-        menu.classList.add('hidden');
+  event.stopPropagation();
+
+  const menu = document.getElementById('profile-menu');
+  const isHidden = menu.classList.contains('hidden');
+
+  toggleSearchBar(false);
+
+  if (isHidden) {
+    menu.classList.remove('hidden');
+  } else {
+    menu.classList.add('hidden');
+  }
+}
+
+window.addEventListener('click', function(e) {
+  const menu = document.getElementById('profile-menu');
+  const btn = document.getElementById('profile-dropdown-btn');
+
+  if (menu && !menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.classList.add('hidden');
+  }
+});
+
+function resetMobileAccordion() {
+  document.querySelectorAll('[data-mobile-section-panel]').forEach((el) => {
+    el.classList.add('hidden');
+  });
+
+  document.querySelectorAll('[data-mobile-sub-panel]').forEach((el) => {
+    el.classList.add('hidden');
+  });
+
+  document.querySelectorAll('[data-mobile-section-icon]').forEach((el) => {
+    el.classList.remove('fa-minus');
+    el.classList.add('fa-plus');
+  });
+
+  document.querySelectorAll('[data-mobile-sub-icon]').forEach((el) => {
+    el.classList.remove('fa-minus');
+    el.classList.add('fa-plus');
+  });
+}
+
+function toggleMobileSection(id) {
+  const panel = document.getElementById(id);
+  const icon = document.getElementById('icon-' + id);
+  if (!panel) return;
+
+  const isOpen = !panel.classList.contains('hidden');
+
+  resetMobileAccordion();
+
+  if (!isOpen) {
+    panel.classList.remove('hidden');
+    if (icon) {
+      icon.classList.remove('fa-plus');
+      icon.classList.add('fa-minus');
     }
+  }
+}
+
+function toggleMobileSub(id) {
+  const subMenu = document.getElementById(id);
+  const icon = document.getElementById('icon-' + id);
+  if (!subMenu) return;
+
+  const isOpen = !subMenu.classList.contains('hidden');
+
+  document.querySelectorAll('[data-mobile-sub-panel]').forEach((el) => {
+    el.classList.add('hidden');
+  });
+
+  document.querySelectorAll('[data-mobile-sub-icon]').forEach((el) => {
+    el.classList.remove('fa-minus');
+    el.classList.add('fa-plus');
+  });
+
+  if (!isOpen) {
+    subMenu.classList.remove('hidden');
+    if (icon) {
+      icon.classList.remove('fa-plus');
+      icon.classList.add('fa-minus');
+    }
+  }
+}
+
+function setActiveFeature(button) {
+  const item = button.closest(".feature-accordion-item");
+  const accordion = document.getElementById("featureAccordion");
+  const image = document.getElementById("featureShowcaseImage");
+  const quote = document.getElementById("featureShowcaseQuote");
+  if (!item || !accordion || !image || !quote) return;
+
+  accordion.querySelectorAll(".feature-accordion-item").forEach((featureItem) => {
+    const content = featureItem.querySelector(".feature-content");
+    featureItem.classList.remove("active");
+    if (content) {
+      content.style.maxHeight = "0px";
+      content.style.opacity = "0";
+    }
+  });
+
+  item.classList.add("active");
+  const activeContent = item.querySelector(".feature-content");
+  if (activeContent) {
+    activeContent.style.maxHeight = activeContent.scrollHeight + "px";
+    activeContent.style.opacity = "1";
+  }
+
+  image.src = item.dataset.featureImage || "public/showcase.webp";
+  quote.textContent = '"' + (item.dataset.featureQuote || "") + '"';
+}
+
+function initializeFeatureAccordion() {
+  const activeButton = document.querySelector("#featureAccordion .feature-accordion-item.active .feature-toggle");
+  if (activeButton) {
+    setActiveFeature(activeButton);
+  }
 }
 
 // Close the profile menu if the user clicks anywhere else on the page
@@ -3009,52 +3129,63 @@ window.addEventListener('click', function(e) {
 }
 
     function updateSearchBarTop() {
-      const nav = document.querySelector("nav.sticky");
-      const searchBar = document.getElementById("searchBarContainer");
-      const mobileMenu = document.getElementById("mobileMenu");
-      if (!nav) return;
+  const nav = document.querySelector("nav.sticky");
+  const searchBar = document.getElementById("searchBarContainer");
+  const mobileMenu = document.getElementById("mobileMenu");
+  if (!nav) return;
 
-      const navHeight = nav.getBoundingClientRect().height;
-      if (searchBar) searchBar.style.top = navHeight + "px";
-      if (mobileMenu) mobileMenu.style.top = navHeight + "px";
-    }
+  const navHeight = nav.getBoundingClientRect().height;
 
-    function toggleSearchBar(forceState) {
-      const searchBar = document.getElementById("searchBarContainer");
-      const mobileMenu = document.getElementById("mobileMenu");
-      const input = document.getElementById("searchInput");
+  if (searchBar) searchBar.style.top = navHeight + "px";
 
-      if (!searchBar) return;
+  if (mobileMenu) {
+    mobileMenu.style.top = navHeight + "px";
+    mobileMenu.style.maxHeight = Math.max(window.innerHeight - navHeight, 0) + "px";
+  }
+}
 
-      const shouldOpen = typeof forceState === "boolean" ? forceState : searchBar.classList.contains("invisible");
+function toggleSearchBar(forceState) {
+  const searchBar = document.getElementById("searchBarContainer");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const input = document.getElementById("searchInput");
 
-      if (shouldOpen && mobileMenu && !mobileMenu.classList.contains("hidden")) {
-        toggleMobileMenu(false);
-      }
+  if (!searchBar) return;
 
-      if (shouldOpen) {
-        searchBar.classList.remove("invisible", "opacity-0");
-        searchBar.classList.add("opacity-100");
-        setTimeout(() => input && input.focus(), 200);
-      } else {
-        searchBar.classList.add("invisible", "opacity-0");
-        searchBar.classList.remove("opacity-100");
-      }
-    }
+  const shouldOpen = typeof forceState === "boolean" ? forceState : searchBar.classList.contains("invisible");
 
-    function toggleMobileMenu(forceState) {
-      const menu = document.getElementById("mobileMenu");
-      const searchBar = document.getElementById("searchBarContainer");
-      if (!menu) return;
+  if (shouldOpen && mobileMenu && !mobileMenu.classList.contains("hidden")) {
+    toggleMobileMenu(false);
+  }
 
-      const shouldOpen = typeof forceState === "boolean" ? forceState : menu.classList.contains("hidden");
+  if (shouldOpen) {
+    searchBar.classList.remove("invisible", "opacity-0");
+    searchBar.classList.add("opacity-100");
+    setTimeout(() => input && input.focus(), 200);
+  } else {
+    searchBar.classList.add("invisible", "opacity-0");
+    searchBar.classList.remove("opacity-100");
+  }
+}
 
-      if (shouldOpen && searchBar && !searchBar.classList.contains("invisible")) {
-        toggleSearchBar(false);
-      }
+function toggleMobileMenu(forceState) {
+  const menu = document.getElementById("mobileMenu");
+  const searchBar = document.getElementById("searchBarContainer");
+  if (!menu) return;
 
-      menu.classList.toggle("hidden", !shouldOpen);
-    }
+  const shouldOpen = typeof forceState === "boolean" ? forceState : menu.classList.contains("hidden");
+
+  if (shouldOpen && searchBar && !searchBar.classList.contains("invisible")) {
+    toggleSearchBar(false);
+  }
+
+  if (!shouldOpen) {
+    resetMobileAccordion();
+  }
+
+  menu.classList.toggle("hidden", !shouldOpen);
+  updateSearchBarTop();
+}
+
 
     function showNotification(message, label = "Notice") {
       const container = document.getElementById("toast-container");
