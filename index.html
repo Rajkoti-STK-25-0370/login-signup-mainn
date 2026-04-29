@@ -1453,11 +1453,11 @@
           </div>
 
           <div class="nav-actions-group flex-shrink-0">
-            <button onclick="toggleCart()" class="relative flex items-center gap-1 border border-white/30 rounded-full px-2 md:px-4 py-1.5 text-white text-[10px] md:text-xs font-semibold hover:bg-white/10 transition" type="button">
-              <i class="fa-solid fa-cart-shopping"></i>
-              <span class="hidden sm:inline">Cart</span>
-              <span id="cartBadge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-            </button>
+          
+<button onclick="toggleCart()" class="relative w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-white rounded-full text-[#06224C] hover:bg-gray-100 transition shadow-sm flex-shrink-0" type="button" aria-label="Open cart">
+  <i class="fa-solid fa-cart-shopping text-xs md:text-sm"></i>
+  <span id="cartBadge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold border-2 border-white">0</span>
+</button>
 
             <button onclick="toggleWishlist()" class="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-white rounded-full text-red-500 hover:bg-gray-100 transition shadow-sm flex-shrink-0" type="button" aria-label="Open wishlist">
               <i class="fa-solid fa-heart text-xs md:text-sm"></i>
