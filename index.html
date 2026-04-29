@@ -942,7 +942,221 @@
     background: rgba(255,255,255,0.2);
     border-radius: 10px;
 }
+/* ============================================
+   FAQ SECTION - RESPONSIVE FIXES FOR 150%+ ZOOM
+   ============================================ */
 
+#faq-section {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* FAQ Container */
+#faq-section > div {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* FAQ Item Base Styles */
+.faq-item {
+  width: 100%;
+  position: relative;
+}
+
+/* FAQ Button - Ensure proper layout */
+.faq-item button {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 1rem !important;
+  width: 100% !important;
+  padding: 1.25rem !important;
+}
+
+/* FAQ Icon - Keep it visible and properly sized */
+.faq-item button i {
+  flex-shrink: 0 !important;
+  min-width: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-top: 0.25rem;
+  font-size: 16px !important;
+}
+
+/* FAQ Title - Proper wrapping */
+.faq-item h3 {
+  flex: 1;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.4;
+  max-width: calc(100% - 40px);
+}
+
+/* FAQ Answer */
+.faq-answer {
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.faq-answer > div {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Mobile & Tablet (up to 1024px) */
+@media (max-width: 1024px) {
+  #faq-section > div {
+    padding: 1.5rem !important;
+    gap: 2rem !important;
+  }
+  
+  .faq-item {
+    margin-bottom: 0.75rem;
+  }
+  
+  .faq-item button {
+    padding: 1rem !important;
+  }
+  
+  .faq-item h3 {
+    font-size: 0.9rem !important;
+  }
+  
+  .faq-answer > div {
+    font-size: 0.85rem !important;
+    padding: 1rem !important;
+  }
+}
+
+/* High Zoom - 150% (equivalent to ~768px viewport) */
+@media (max-width: 768px) {
+  #faq-section {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  #faq-section > div {
+    flex-direction: column !important;
+    padding: 1.25rem !important;
+    gap: 1.5rem !important;
+    border-left-width: 3px !important;
+  }
+  
+  /* Image container */
+  #faq-section .lg\\:w-2\\/5,
+  #faq-section .lg\\:w-3\\/5 {
+    width: 100% !important;
+  }
+  
+  /* Hide image on high zoom to save space */
+  #faq-section .lg\\:w-2\\/5 {
+    display: none;
+  }
+  
+  .faq-item {
+    margin-bottom: 0.5rem;
+  }
+  
+  .faq-item button {
+    padding: 0.875rem !important;
+    gap: 0.75rem !important;
+  }
+  
+  .faq-item button i {
+    min-width: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    font-size: 14px !important;
+  }
+  
+  .faq-item h3 {
+    font-size: 0.875rem !important;
+    line-height: 1.3;
+    padding-right: 0 !important;
+  }
+  
+  .faq-answer > div {
+    padding: 0.875rem !important;
+    padding-top: 0 !important;
+    font-size: 0.8125rem !important;
+    line-height: 1.5;
+  }
+}
+
+/* Extra High Zoom - 200% (equivalent to ~480px viewport) */
+@media (max-width: 480px) {
+  #faq-section {
+    margin-top: 3rem !important;
+    margin-bottom: 3rem !important;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  #faq-section h2 {
+    font-size: 0.625rem !important;
+    margin-bottom: 1.5rem !important;
+    padding-left: 0.5rem !important;
+  }
+  
+  #faq-section > div {
+    padding: 1rem !important;
+    gap: 1rem !important;
+    border-radius: 1.5rem !important;
+    border-left-width: 2px !important;
+  }
+  
+  .faq-item {
+    border-radius: 1rem !important;
+    margin-bottom: 0.5rem;
+  }
+  
+  .faq-item button {
+    padding: 0.75rem !important;
+    gap: 0.5rem !important;
+  }
+  
+  .faq-item button i {
+    min-width: 16px !important;
+    width: 16px !important;
+    height: 16px !important;
+    font-size: 12px !important;
+    margin-top: 0.125rem;
+  }
+  
+  .faq-item h3 {
+    font-size: 0.75rem !important;
+    line-height: 1.25;
+    font-weight: 700 !important;
+  }
+  
+  .faq-answer > div {
+    padding: 0.75rem !important;
+    padding-top: 0 !important;
+    font-size: 0.75rem !important;
+    line-height: 1.4;
+  }
+}
+
+/* Ensure proper icon rotation animation */
+.faq-item button i {
+  transition: transform 0.3s ease !important;
+}
+
+/* Prevent text from pushing icon off screen */
+.faq-item button {
+  min-height: 44px; /* Touch target size */
+}
+
+/* Force visibility of icon at all times */
+.faq-item button i.fa-plus,
+.faq-item button i.fa-minus {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+}
 
   </style>
 </head>
