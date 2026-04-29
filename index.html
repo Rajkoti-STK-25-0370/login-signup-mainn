@@ -1024,14 +1024,61 @@
       border-left-width: 3px !important;
     }
 
-    #faq-section .lg\:w-2\/5,
-    #faq-section .lg\:w-3\/5 {
-      width: 100% !important;
-    }
+    #faq-section {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
 
-    #faq-section .lg\:w-2\/5 {
-      display: none;
-    }
+  #faq-section > div {
+    flex-direction: column !important;
+    padding: 1.25rem !important;
+    gap: 1.5rem !important;
+    border-left-width: 3px !important;
+  }
+
+  #faq-section .lg\:w-2\/5,
+  #faq-section .lg\:w-3\/5 {
+    width: 100% !important;
+  }
+
+  #faq-section .lg\:w-2\/5 {
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  #faq-section .lg\:w-2\/5 img {
+    max-width: 220px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    margin-bottom: 0.5rem;
+  }
+
+  .faq-item button {
+    padding: 0.875rem !important;
+    gap: 0.75rem !important;
+  }
+
+  .faq-item button i {
+    min-width: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    font-size: 14px !important;
+  }
+
+  .faq-item h3 {
+    font-size: 0.875rem !important;
+    line-height: 1.3;
+    padding-right: 0 !important;
+  }
+
+  .faq-answer > div {
+    padding: 0.875rem !important;
+    padding-top: 0 !important;
+    font-size: 0.8125rem !important;
+    line-height: 1.5;
+  }
 
     .faq-item {
       margin-bottom: 0.5rem;
@@ -2878,160 +2925,91 @@
   </button>
 
   <script>
-    function toggleProfileMenu(event) {
-  event.stopPropagation();
+  function toggleProfileMenu(event) {
+    event.stopPropagation();
 
-  const menu = document.getElementById('profile-menu');
-  const isHidden = menu.classList.contains('hidden');
+    const menu = document.getElementById("profile-menu");
+    if (!menu) return;
 
-  toggleSearchBar(false);
-
-  if (isHidden) {
-    menu.classList.remove('hidden');
-  } else {
-    menu.classList.add('hidden');
+    toggleSearchBar(false);
+    menu.classList.toggle("hidden");
   }
-}
 
-window.addEventListener('click', function(e) {
-  const menu = document.getElementById('profile-menu');
-  const btn = document.getElementById('profile-dropdown-btn');
+  window.addEventListener("click", function (e) {
+    const menu = document.getElementById("profile-menu");
+    const btn = document.getElementById("profile-dropdown-btn");
 
-  if (menu && !menu.contains(e.target) && !btn.contains(e.target)) {
-    menu.classList.add('hidden');
-  }
-});
+    if (!menu || !btn) return;
 
-function resetMobileAccordion() {
-  document.querySelectorAll('[data-mobile-section-panel]').forEach((el) => {
-    el.classList.add('hidden');
-  });
-
-  document.querySelectorAll('[data-mobile-sub-panel]').forEach((el) => {
-    el.classList.add('hidden');
-  });
-
-  document.querySelectorAll('[data-mobile-section-icon]').forEach((el) => {
-    el.classList.remove('fa-minus');
-    el.classList.add('fa-plus');
-  });
-
-  document.querySelectorAll('[data-mobile-sub-icon]').forEach((el) => {
-    el.classList.remove('fa-minus');
-    el.classList.add('fa-plus');
-  });
-}
-
-function toggleMobileSection(id) {
-  const panel = document.getElementById(id);
-  const icon = document.getElementById('icon-' + id);
-  if (!panel) return;
-
-  const isOpen = !panel.classList.contains('hidden');
-
-  resetMobileAccordion();
-
-  if (!isOpen) {
-    panel.classList.remove('hidden');
-    if (icon) {
-      icon.classList.remove('fa-plus');
-      icon.classList.add('fa-minus');
-    }
-  }
-}
-
-function toggleMobileSub(id) {
-  const subMenu = document.getElementById(id);
-  const icon = document.getElementById('icon-' + id);
-  if (!subMenu) return;
-
-  const isOpen = !subMenu.classList.contains('hidden');
-
-  document.querySelectorAll('[data-mobile-sub-panel]').forEach((el) => {
-    el.classList.add('hidden');
-  });
-
-  document.querySelectorAll('[data-mobile-sub-icon]').forEach((el) => {
-    el.classList.remove('fa-minus');
-    el.classList.add('fa-plus');
-  });
-
-  if (!isOpen) {
-    subMenu.classList.remove('hidden');
-    if (icon) {
-      icon.classList.remove('fa-plus');
-      icon.classList.add('fa-minus');
-    }
-  }
-}
-
-function setActiveFeature(button) {
-  const item = button.closest(".feature-accordion-item");
-  const accordion = document.getElementById("featureAccordion");
-  const image = document.getElementById("featureShowcaseImage");
-  const quote = document.getElementById("featureShowcaseQuote");
-  if (!item || !accordion || !image || !quote) return;
-
-  accordion.querySelectorAll(".feature-accordion-item").forEach((featureItem) => {
-    const content = featureItem.querySelector(".feature-content");
-    featureItem.classList.remove("active");
-    if (content) {
-      content.style.maxHeight = "0px";
-      content.style.opacity = "0";
+    if (!menu.contains(e.target) && !btn.contains(e.target)) {
+      menu.classList.add("hidden");
     }
   });
 
-  item.classList.add("active");
-  const activeContent = item.querySelector(".feature-content");
-  if (activeContent) {
-    activeContent.style.maxHeight = activeContent.scrollHeight + "px";
-    activeContent.style.opacity = "1";
-  }
-
-  image.src = item.dataset.featureImage || "public/showcase.webp";
-  quote.textContent = '"' + (item.dataset.featureQuote || "") + '"';
-}
-
-function initializeFeatureAccordion() {
-  const activeButton = document.querySelector("#featureAccordion .feature-accordion-item.active .feature-toggle");
-  if (activeButton) {
-    setActiveFeature(activeButton);
-  }
-}
-
-// Close the profile menu if the user clicks anywhere else on the page
-window.addEventListener('click', function(e) {
-    const menu = document.getElementById('profile-menu');
-    const btn = document.getElementById('profile-dropdown-btn');
-    
-    if (menu && !menu.contains(e.target) && !btn.contains(e.target)) {
-        menu.classList.add('hidden');
-    }
-});
-    function toggleMobileSub(id) {
-    const subMenu = document.getElementById(id);
-    const icon = document.getElementById('icon-' + id);
-    
-    // Check if it's already open
-    const isOpen = !subMenu.classList.contains('hidden');
-    
-    // Close ALL mobile sub-menus and reset icons (Accordion behavior)
-    document.querySelectorAll('[id^="mob-"]').forEach(el => el.classList.add('hidden'));
-    document.querySelectorAll('[id^="icon-mob-"]').forEach(el => {
-        el.classList.remove('fa-minus');
-        el.classList.add('fa-plus');
+  function resetMobileAccordion() {
+    document.querySelectorAll("[data-mobile-section-panel]").forEach((el) => {
+      el.classList.add("hidden");
     });
 
-    // If the clicked one wasn't open, open it now
+    document.querySelectorAll("[data-mobile-sub-panel]").forEach((el) => {
+      el.classList.add("hidden");
+    });
+
+    document.querySelectorAll("[data-mobile-section-icon]").forEach((el) => {
+      el.classList.remove("fa-minus");
+      el.classList.add("fa-plus");
+    });
+
+    document.querySelectorAll("[data-mobile-sub-icon]").forEach((el) => {
+      el.classList.remove("fa-minus");
+      el.classList.add("fa-plus");
+    });
+  }
+
+  function toggleMobileSection(id) {
+    const panel = document.getElementById(id);
+    const icon = document.getElementById("icon-" + id);
+    if (!panel) return;
+
+    const isOpen = !panel.classList.contains("hidden");
+
+    resetMobileAccordion();
+
     if (!isOpen) {
-        subMenu.classList.remove('hidden');
-        if (icon) {
-            icon.classList.remove('fa-plus');
-            icon.classList.add('fa-minus');
-        }
+      panel.classList.remove("hidden");
+      if (icon) {
+        icon.classList.remove("fa-plus");
+        icon.classList.add("fa-minus");
+      }
     }
-}
-    function setActiveFeature(button) {
+  }
+
+  function toggleMobileSub(id) {
+    const subMenu = document.getElementById(id);
+    const icon = document.getElementById("icon-" + id);
+    if (!subMenu) return;
+
+    const isOpen = !subMenu.classList.contains("hidden");
+
+    document.querySelectorAll("[data-mobile-sub-panel]").forEach((el) => {
+      el.classList.add("hidden");
+    });
+
+    document.querySelectorAll("[data-mobile-sub-icon]").forEach((el) => {
+      el.classList.remove("fa-minus");
+      el.classList.add("fa-plus");
+    });
+
+    if (!isOpen) {
+      subMenu.classList.remove("hidden");
+      if (icon) {
+        icon.classList.remove("fa-plus");
+        icon.classList.add("fa-minus");
+      }
+    }
+  }
+
+  function setActiveFeature(button) {
     const item = button.closest(".feature-accordion-item");
     const accordion = document.getElementById("featureAccordion");
     const image = document.getElementById("featureShowcaseImage");
@@ -3064,770 +3042,827 @@ window.addEventListener('click', function(e) {
       setActiveFeature(activeButton);
     }
   }
-    let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    let wishlistItems = JSON.parse(localStorage.getItem("wishlistItems")) || [];
-    let cartCount = parseInt(localStorage.getItem("cartCount"), 10) || 0;
 
-    const defaultRatings = {
-      ShopNest: 4.5,
-      TurboCart: 3.5,
-      SampleStore: 4.5,
-      MegaBasket: 5.0,
-      BuySphere: 4.0,
-      NexaStore: 4.5
-    };
+  let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+  let wishlistItems = JSON.parse(localStorage.getItem("wishlistItems")) || [];
+  let cartCount = parseInt(localStorage.getItem("cartCount"), 10) || 0;
 
-    function handleSearch(event) {
-      if (event) event.preventDefault();
+  const defaultRatings = {
+    ShopNest: 4.5,
+    TurboCart: 3.5,
+    SampleStore: 4.5,
+    MegaBasket: 5.0,
+    BuySphere: 4.0,
+    NexaStore: 4.5
+  };
 
-      const input = document.getElementById("searchInput");
-      const query = input.value.trim().toLowerCase();
-      if (!query) return;
+  function handleSearch(event) {
+    if (event) event.preventDefault();
 
-      const searchableElements = document.querySelectorAll("h2, h3, h4, .category-card h3");
-      let found = false;
+    const input = document.getElementById("searchInput");
+    const query = input.value.trim().toLowerCase();
+    if (!query) return;
 
-      for (let i = 0; i < searchableElements.length; i += 1) {
-        const element = searchableElements[i];
-        if (element.innerText.toLowerCase().includes(query)) {
-          element.scrollIntoView({ behavior: "smooth", block: "center" });
-          element.style.backgroundColor = "#fbef88";
-          setTimeout(() => {
-            element.style.backgroundColor = "transparent";
-          }, 2000);
-          found = true;
-          break;
-        }
+    const searchableElements = document.querySelectorAll("h2, h3, h4, .category-card h3");
+    let found = false;
+
+    for (let i = 0; i < searchableElements.length; i += 1) {
+      const element = searchableElements[i];
+      if (element.innerText.toLowerCase().includes(query)) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+        element.style.backgroundColor = "#fbef88";
+        setTimeout(() => {
+          element.style.backgroundColor = "transparent";
+        }, 2000);
+        found = true;
+        break;
       }
-
-      if (!found) {
-        location.hash = "404";
-      }
-
-      toggleSearchBar(false);
-      input.value = "";
-      input.blur();
     }
 
-    function showPage(page) {
-      ["home","about", "signup", "login", "error", "forgot", "verifyEmail", "verifyMobile", "verified", "createNewPassword", "notFound"].forEach((key) => {
-        const el = document.getElementById(key + "Page");
-        if (el) el.classList.add("hidden");
-      });
-
-      const active = document.getElementById(page + "Page");
-      if (active) active.classList.remove("hidden");
-
-      const isAuth = page === "login" || page === "signup";
-      document.body.style.overflow = isAuth && window.innerWidth >= 1024 ? "hidden" : "auto";
+    if (!found) {
+      location.hash = "404";
     }
 
-   function router() {
-    // Get the current hash and remove the '#'
+    toggleSearchBar(false);
+    input.value = "";
+    input.blur();
+  }
+
+  function showPage(page) {
+    ["home", "about", "signup", "login", "error", "forgot", "verifyEmail", "verifyMobile", "verified", "createNewPassword", "notFound"].forEach((key) => {
+      const el = document.getElementById(key + "Page");
+      if (el) el.classList.add("hidden");
+    });
+
+    const active = document.getElementById(page + "Page");
+    if (active) active.classList.remove("hidden");
+
+    const isAuth = page === "login" || page === "signup";
+    document.body.style.overflow = isAuth && window.innerWidth >= 1024 ? "hidden" : "auto";
+  }
+
+  function router() {
     const hash = window.location.hash.replace("#", "") || "home";
 
     if (hash === "about") {
-        showPage("about");
+      showPage("about");
     } else if (hash === "404") {
-        showPage("notFound");
+      showPage("notFound");
     } else if (hash === "signup") {
-        showPage("signup");
+      showPage("signup");
     } else if (hash === "login") {
-        showPage("login");
+      showPage("login");
     } else if (hash === "forgot") {
-        showPage("forgot");
+      showPage("forgot");
     } else if (hash === "home") {
-        showPage("home");
-        // Optional: Scroll to top when going home
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+      showPage("home");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-        // Fallback for any unknown hash
-        showPage("home");
+      showPage("home");
     }
-}
-
-    function updateSearchBarTop() {
-  const nav = document.querySelector("nav.sticky");
-  const searchBar = document.getElementById("searchBarContainer");
-  const mobileMenu = document.getElementById("mobileMenu");
-  if (!nav) return;
-
-  const navHeight = nav.getBoundingClientRect().height;
-
-  if (searchBar) searchBar.style.top = navHeight + "px";
-
-  if (mobileMenu) {
-    mobileMenu.style.top = navHeight + "px";
-    mobileMenu.style.maxHeight = Math.max(window.innerHeight - navHeight, 0) + "px";
-  }
-}
-
-function toggleSearchBar(forceState) {
-  const searchBar = document.getElementById("searchBarContainer");
-  const mobileMenu = document.getElementById("mobileMenu");
-  const input = document.getElementById("searchInput");
-
-  if (!searchBar) return;
-
-  const shouldOpen = typeof forceState === "boolean" ? forceState : searchBar.classList.contains("invisible");
-
-  if (shouldOpen && mobileMenu && !mobileMenu.classList.contains("hidden")) {
-    toggleMobileMenu(false);
   }
 
-  if (shouldOpen) {
-    searchBar.classList.remove("invisible", "opacity-0");
-    searchBar.classList.add("opacity-100");
-    setTimeout(() => input && input.focus(), 200);
-  } else {
-    searchBar.classList.add("invisible", "opacity-0");
-    searchBar.classList.remove("opacity-100");
-  }
-}
+  function updateSearchBarTop() {
+    const nav = document.querySelector("nav.sticky");
+    const searchBar = document.getElementById("searchBarContainer");
+    const mobileMenu = document.getElementById("mobileMenu");
+    if (!nav) return;
 
-function toggleMobileMenu(forceState) {
-  const menu = document.getElementById("mobileMenu");
-  const searchBar = document.getElementById("searchBarContainer");
-  if (!menu) return;
+    const navHeight = nav.getBoundingClientRect().height;
 
-  const shouldOpen = typeof forceState === "boolean" ? forceState : menu.classList.contains("hidden");
+    if (searchBar) searchBar.style.top = navHeight + "px";
 
-  if (shouldOpen && searchBar && !searchBar.classList.contains("invisible")) {
-    toggleSearchBar(false);
+    if (mobileMenu) {
+      mobileMenu.style.top = navHeight + "px";
+      mobileMenu.style.maxHeight = Math.max(window.innerHeight - navHeight, 0) + "px";
+    }
   }
 
-  if (!shouldOpen) {
-    resetMobileAccordion();
+  function toggleSearchBar(forceState) {
+    const searchBar = document.getElementById("searchBarContainer");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const input = document.getElementById("searchInput");
+
+    if (!searchBar) return;
+
+    const shouldOpen = typeof forceState === "boolean" ? forceState : searchBar.classList.contains("invisible");
+
+    if (shouldOpen && mobileMenu && !mobileMenu.classList.contains("hidden")) {
+      toggleMobileMenu(false);
+    }
+
+    if (shouldOpen) {
+      searchBar.classList.remove("invisible", "opacity-0");
+      searchBar.classList.add("opacity-100");
+      setTimeout(() => {
+        if (input) input.focus();
+      }, 200);
+    } else {
+      searchBar.classList.add("invisible", "opacity-0");
+      searchBar.classList.remove("opacity-100");
+    }
   }
 
-  menu.classList.toggle("hidden", !shouldOpen);
-  updateSearchBarTop();
-}
+  function toggleMobileMenu(forceState) {
+    const menu = document.getElementById("mobileMenu");
+    const searchBar = document.getElementById("searchBarContainer");
+    if (!menu) return;
 
+    const shouldOpen = typeof forceState === "boolean" ? forceState : menu.classList.contains("hidden");
 
-    function showNotification(message, label = "Notice") {
-      const container = document.getElementById("toast-container");
-      const toast = document.createElement("div");
-      toast.className = "toast-slide-in bg-[#06224C] text-white border-l-4 border-blue-500 px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 min-w-[300px]";
-      toast.innerHTML = `
-        <div class="bg-blue-500/20 p-2 rounded-lg">
-          <i class="fa-solid fa-circle-check text-blue-400"></i>
-        </div>
-        <div>
-          <p class="text-[10px] font-bold uppercase tracking-widest text-blue-300">${label}</p>
-          <p class="text-sm font-black uppercase tracking-tight">${message}</p>
+    if (shouldOpen && searchBar && !searchBar.classList.contains("invisible")) {
+      toggleSearchBar(false);
+    }
+
+    if (!shouldOpen) {
+      resetMobileAccordion();
+    }
+
+    menu.classList.toggle("hidden", !shouldOpen);
+    updateSearchBarTop();
+  }
+
+  function showNotification(message, label = "Notice") {
+    const container = document.getElementById("toast-container");
+    if (!container) return;
+
+    const toast = document.createElement("div");
+    toast.className = "toast-slide-in bg-[#06224C] text-white border-l-4 border-blue-500 px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 min-w-[300px]";
+    toast.innerHTML = `
+      <div class="bg-blue-500/20 p-2 rounded-lg">
+        <i class="fa-solid fa-circle-check text-blue-400"></i>
+      </div>
+      <div>
+        <p class="text-[10px] font-bold uppercase tracking-widest text-blue-300">${label}</p>
+        <p class="text-sm font-black uppercase tracking-tight">${message}</p>
+      </div>
+    `;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+      toast.classList.replace("toast-slide-in", "toast-slide-out");
+      setTimeout(() => toast.remove(), 500);
+    }, 2600);
+  }
+
+  function updateCartBadge() {
+    const badge = document.getElementById("cartBadge");
+    if (!badge) return;
+
+    if (cartCount > 0) {
+      badge.innerText = cartCount;
+      badge.classList.remove("hidden");
+    } else {
+      badge.classList.add("hidden");
+    }
+  }
+
+  function persistCart() {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    cartCount = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+    localStorage.setItem("cartCount", String(cartCount));
+    updateCartBadge();
+  }
+
+  function persistWishlist() {
+    localStorage.setItem("wishlistItems", JSON.stringify(wishlistItems));
+    syncWishlistIcons();
+  }
+
+  function syncWishlistIcons() {
+    document.querySelectorAll(".wishlist-btn").forEach((button) => {
+      const onclickValue = button.getAttribute("onclick") || "";
+      const match = onclickValue.match(/toggleHeart\(this,\s*'([^']+)'/);
+      if (!match) return;
+
+      const exists = wishlistItems.some((item) => item.name === match[1]);
+      const icon = button.querySelector("i");
+
+      button.classList.toggle("active", exists);
+      button.classList.toggle("text-red-500", exists);
+
+      if (icon) {
+        icon.classList.toggle("fa-solid", exists);
+        icon.classList.toggle("fa-regular", !exists);
+      }
+    });
+  }
+
+  function toggleHeart(element, name, price, image) {
+    const index = wishlistItems.findIndex((item) => item.name === name);
+    const icon = element.querySelector("i");
+
+    if (index === -1) {
+      wishlistItems.push({ name, price, image });
+      element.classList.add("heart-active", "active", "text-red-500");
+      if (icon) icon.classList.replace("fa-regular", "fa-solid");
+      showNotification(name + " added to wishlist!", "Wishlist");
+    } else {
+      wishlistItems.splice(index, 1);
+      element.classList.remove("heart-active", "active", "text-red-500");
+      if (icon) icon.classList.replace("fa-solid", "fa-regular");
+      showNotification(name + " removed from wishlist.", "Wishlist");
+    }
+
+    persistWishlist();
+    renderWishlist();
+  }
+
+  function renderWishlist() {
+    const list = document.getElementById("wishlistItemsList");
+    if (!list) return;
+
+    if (wishlistItems.length === 0) {
+      list.innerHTML = `
+        <div class="text-center py-20">
+          <i class="fa-regular fa-heart text-5xl text-gray-100 mb-4"></i>
+          <p class="text-gray-400 font-bold uppercase text-xs tracking-widest">Wishlist is empty</p>
         </div>
       `;
-      container.appendChild(toast);
-
-      setTimeout(() => {
-        toast.classList.replace("toast-slide-in", "toast-slide-out");
-        setTimeout(() => toast.remove(), 500);
-      }, 2600);
+      return;
     }
 
-    function updateCartBadge() {
-      const badge = document.getElementById("cartBadge");
-      if (!badge) return;
+    list.innerHTML = wishlistItems.map((item, index) => `
+      <div class="flex gap-4 items-center border-b border-gray-100 pb-4 group">
+        <img src="${item.image}" class="w-20 h-16 object-cover rounded-xl shadow-sm" alt="${item.name}">
+        <div class="flex-grow">
+          <h4 class="text-xs font-black text-[#06224C] uppercase">${item.name}</h4>
+          <p class="text-blue-600 font-bold text-xs">$${item.price}</p>
+          <button onclick="moveToCart(${index})" class="mt-2 text-[10px] font-black text-blue-500 uppercase underline hover:text-[#06224C]" type="button">Move to Cart</button>
+        </div>
+        <button onclick="removeFromWishlist(${index})" class="text-gray-300 hover:text-red-500 transition-colors" type="button" aria-label="Remove ${item.name} from wishlist">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      </div>
+    `).join("");
+  }
 
-      if (cartCount > 0) {
-        badge.innerText = cartCount;
-        badge.classList.remove("hidden");
-      } else {
-        badge.classList.add("hidden");
-      }
+  function removeFromWishlist(index) {
+    const removed = wishlistItems[index];
+    wishlistItems.splice(index, 1);
+    persistWishlist();
+    renderWishlist();
+    if (removed) showNotification(removed.name + " removed from wishlist.", "Wishlist");
+  }
+
+  function moveToCart(index) {
+    const item = wishlistItems[index];
+    if (!item) return;
+
+    addToCart(item.name, item.price, item.image);
+    wishlistItems.splice(index, 1);
+    persistWishlist();
+    renderWishlist();
+  }
+
+  function renderCart() {
+    const list = document.getElementById("cartItemsList");
+    const totalEl = document.getElementById("cartTotal");
+    if (!list || !totalEl) return;
+
+    let total = 0;
+
+    if (cartItems.length === 0) {
+      list.innerHTML = `<div class="text-center py-20"><p class="text-gray-400 font-bold uppercase text-xs tracking-widest">Cart is empty</p></div>`;
+      totalEl.innerText = "$0.00";
+      return;
     }
 
-    function persistCart() {
-      localStorage.setItem("cartItems", JSON.stringify(cartItems));
-      cartCount = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
-      localStorage.setItem("cartCount", String(cartCount));
-      updateCartBadge();
-    }
+    list.innerHTML = cartItems.map((item, index) => {
+      const qty = item.quantity || 1;
+      const price = item.price || 0;
+      total += price * qty;
 
-    function persistWishlist() {
-      localStorage.setItem("wishlistItems", JSON.stringify(wishlistItems));
-      syncWishlistIcons();
-    }
-
-    function syncWishlistIcons() {
-      document.querySelectorAll(".wishlist-btn").forEach((button) => {
-        const onclickValue = button.getAttribute("onclick") || "";
-        const match = onclickValue.match(/toggleHeart\(this,\s*'([^']+)'/);
-        if (!match) return;
-
-        const exists = wishlistItems.some((item) => item.name === match[1]);
-        const icon = button.querySelector("i");
-
-        button.classList.toggle("active", exists);
-        button.classList.toggle("text-red-500", exists);
-        if (icon) {
-          icon.classList.toggle("fa-solid", exists);
-          icon.classList.toggle("fa-regular", !exists);
-        }
-      });
-    }
-
-    function toggleHeart(element, name, price, image) {
-      const index = wishlistItems.findIndex((item) => item.name === name);
-      const icon = element.querySelector("i");
-
-      if (index === -1) {
-        wishlistItems.push({ name, price, image });
-        element.classList.add("heart-active", "active", "text-red-500");
-        if (icon) {
-          icon.classList.replace("fa-regular", "fa-solid");
-        }
-        showNotification(name + " added to wishlist!", "Wishlist");
-      } else {
-        wishlistItems.splice(index, 1);
-        element.classList.remove("heart-active", "active", "text-red-500");
-        if (icon) {
-          icon.classList.replace("fa-solid", "fa-regular");
-        }
-        showNotification(name + " removed from wishlist.", "Wishlist");
-      }
-
-      persistWishlist();
-      renderWishlist();
-    }
-
-    function renderWishlist() {
-      const list = document.getElementById("wishlistItemsList");
-      if (!list) return;
-
-      if (wishlistItems.length === 0) {
-        list.innerHTML = `
-          <div class="text-center py-20">
-            <i class="fa-regular fa-heart text-5xl text-gray-100 mb-4"></i>
-            <p class="text-gray-400 font-bold uppercase text-xs tracking-widest">Wishlist is empty</p>
-          </div>
-        `;
-        return;
-      }
-
-      list.innerHTML = wishlistItems.map((item, index) => `
-        <div class="flex gap-4 items-center border-b border-gray-100 pb-4 group">
-          <img src="${item.image}" class="w-20 h-16 object-cover rounded-xl shadow-sm" alt="${item.name}">
+      return `
+        <div class="flex gap-4 items-center border-b border-gray-100 pb-4">
+          <img src="${item.image}" class="w-16 h-12 object-cover rounded-lg" alt="${item.name}">
           <div class="flex-grow">
-            <h4 class="text-xs font-black text-[#06224C] uppercase">${item.name}</h4>
-            <p class="text-blue-600 font-bold text-xs">$${item.price}</p>
-            <button onclick="moveToCart(${index})" class="mt-2 text-[10px] font-black text-blue-500 uppercase underline hover:text-[#06224C]" type="button">Move to Cart</button>
+            <h4 class="text-[11px] font-black text-[#06224C] uppercase">${item.name}</h4>
+            <p class="text-blue-600 font-bold text-xs">$${price} x ${qty}</p>
+            <div class="flex items-center gap-2 mt-2">
+              <button onclick="decreaseQuantity(${index})" class="w-6 h-6 bg-gray-100 rounded flex items-center justify-center hover:bg-gray-200 transition" type="button">
+                <i class="fa-solid fa-minus text-xs"></i>
+              </button>
+              <span class="text-xs font-bold w-8 text-center">${qty}</span>
+              <button onclick="increaseQuantity(${index})" class="w-6 h-6 bg-gray-100 rounded flex items-center justify-center hover:bg-gray-200 transition" type="button">
+                <i class="fa-solid fa-plus text-xs"></i>
+              </button>
+            </div>
           </div>
-          <button onclick="removeFromWishlist(${index})" class="text-gray-300 hover:text-red-500 transition-colors" type="button" aria-label="Remove ${item.name} from wishlist">
-            <i class="fa-solid fa-trash-can"></i>
+          <button onclick="deleteFromCart(${index})" class="text-gray-300 hover:text-red-500" type="button" aria-label="Delete ${item.name} from cart">
+            <i class="fa-solid fa-trash"></i>
           </button>
         </div>
-      `).join("");
+      `;
+    }).join("");
+
+    totalEl.innerText = "$" + total.toFixed(2);
+  }
+
+  function addToCart(name, price, image) {
+    const numericPrice = parseFloat(price);
+    const existingItem = cartItems.find((item) => item.name === name);
+
+    if (existingItem) {
+      existingItem.quantity = (existingItem.quantity || 1) + 1;
+    } else {
+      cartItems.push({ name, price: numericPrice, image, quantity: 1 });
     }
 
-    function removeFromWishlist(index) {
-      const removed = wishlistItems[index];
-      wishlistItems.splice(index, 1);
-      persistWishlist();
-      renderWishlist();
-      if (removed) showNotification(removed.name + " removed from wishlist.", "Wishlist");
+    persistCart();
+    renderCart();
+    showNotification(name, "Added to Cart");
+  }
+
+  function decreaseQuantity(index) {
+    const item = cartItems[index];
+    if (!item) return;
+
+    if ((item.quantity || 1) > 1) {
+      item.quantity -= 1;
+    } else {
+      cartItems.splice(index, 1);
     }
 
-    function moveToCart(index) {
-      const item = wishlistItems[index];
-      if (!item) return;
-      addToCart(item.name, item.price, item.image);
-      wishlistItems.splice(index, 1);
-      persistWishlist();
-      renderWishlist();
+    persistCart();
+    renderCart();
+  }
+
+  function increaseQuantity(index) {
+    if (!cartItems[index]) return;
+    cartItems[index].quantity = (cartItems[index].quantity || 1) + 1;
+    persistCart();
+    renderCart();
+  }
+
+  function deleteFromCart(index) {
+    cartItems.splice(index, 1);
+    persistCart();
+    renderCart();
+  }
+
+  function openPanel(panelId) {
+    const panel = document.getElementById(panelId);
+    const backdrop = document.getElementById("cartBackdrop");
+    const cartSidebar = document.getElementById("cartSidebar");
+    const wishlistSidebar = document.getElementById("wishlistSidebar");
+
+    if (!panel || !backdrop || !cartSidebar || !wishlistSidebar) return;
+
+    cartSidebar.classList.add("translate-x-full");
+    wishlistSidebar.classList.add("translate-x-full");
+    panel.classList.remove("translate-x-full");
+    backdrop.classList.remove("opacity-0", "invisible");
+  }
+
+  function closePanels() {
+    const cartSidebar = document.getElementById("cartSidebar");
+    const wishlistSidebar = document.getElementById("wishlistSidebar");
+    const backdrop = document.getElementById("cartBackdrop");
+
+    if (cartSidebar) cartSidebar.classList.add("translate-x-full");
+    if (wishlistSidebar) wishlistSidebar.classList.add("translate-x-full");
+    if (backdrop) backdrop.classList.add("opacity-0", "invisible");
+  }
+
+  function toggleCart() {
+    const cart = document.getElementById("cartSidebar");
+    if (!cart) return;
+
+    if (cart.classList.contains("translate-x-full")) {
+      openPanel("cartSidebar");
+    } else {
+      closePanels();
     }
 
-    function renderCart() {
-      const list = document.getElementById("cartItemsList");
-      const totalEl = document.getElementById("cartTotal");
-      if (!list || !totalEl) return;
+    renderCart();
+  }
 
-      let total = 0;
+  function toggleWishlist() {
+    const wishlist = document.getElementById("wishlistSidebar");
+    if (!wishlist) return;
 
-      if (cartItems.length === 0) {
-        list.innerHTML = `<div class="text-center py-20"><p class="text-gray-400 font-bold uppercase text-xs tracking-widest">Cart is empty</p></div>`;
-        totalEl.innerText = "$0.00";
+    if (wishlist.classList.contains("translate-x-full")) {
+      openPanel("wishlistSidebar");
+    } else {
+      closePanels();
+    }
+
+    renderWishlist();
+  }
+
+  function submitRating(productId, rating, isInitialLoad = false) {
+    const container = document.getElementById("rating-container-" + productId);
+    if (!container) return;
+
+    const stars = container.querySelectorAll("i");
+    const ratingText = document.getElementById("user-rating-val-" + productId);
+    const liveRegion = document.getElementById("rating-live-region");
+
+    stars.forEach((star, index) => {
+      const starLevel = index + 1;
+      star.classList.remove("fa-solid", "fa-regular", "fa-star-half-stroke");
+
+      if (rating >= starLevel) {
+        star.classList.add("fa-solid", "fa-star");
+      } else if (rating > index && rating < starLevel) {
+        star.classList.add("fa-solid", "fa-star-half-stroke");
+      } else {
+        star.classList.add("fa-regular", "fa-star");
+      }
+    });
+
+    container.setAttribute("aria-label", "Rating: " + parseFloat(rating).toFixed(1) + " out of 5 stars");
+
+    if (ratingText) {
+      ratingText.innerText = "(" + parseFloat(rating).toFixed(1) + ")";
+      ratingText.classList.replace("text-gray-400", "text-blue-600");
+    }
+
+    if (!isInitialLoad) {
+      localStorage.setItem("rating-" + productId, String(rating));
+      if (liveRegion) liveRegion.textContent = productId + " rated " + parseFloat(rating).toFixed(1) + " stars";
+      showNotification("You rated " + productId + " " + parseFloat(rating).toFixed(1) + " stars!", "Rating");
+    }
+  }
+
+  function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function isMobile(value) {
+    return /^[0-9]{10}$/.test(value.trim());
+  }
+
+  function filterTemplates(category, btn) {
+    document.querySelectorAll(".filter-tab").forEach((tab) => {
+      tab.classList.remove("active", "border-blue-600", "text-blue-600");
+    });
+
+    if (btn) btn.classList.add("active", "border-blue-600", "text-blue-600");
+
+    const cards = document.querySelectorAll(".template-category-card");
+    cards.forEach((card) => {
+      const cardCategory = card.getAttribute("data-cat");
+
+      if (category === "all") {
+        card.style.display = "block";
+      } else if (cardCategory === category) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  }
+
+  function openPortfolioModal() {
+    const modal = document.getElementById("portfolioModal");
+    if (!modal) return;
+
+    modal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closePortfolioModal() {
+    const modal = document.getElementById("portfolioModal");
+    if (!modal) return;
+
+    modal.classList.add("hidden");
+    document.body.style.overflow = "auto";
+  }
+
+  function openTemplatePreview(name, image) {
+    const modal = document.getElementById("templatePreviewModal");
+    const title = document.getElementById("previewTitle");
+    const img = document.getElementById("previewImage");
+    if (!modal || !title || !img) return;
+
+    title.innerText = name + " - Template Preview";
+    img.src = image;
+    modal.classList.remove("hidden");
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeTemplatePreview() {
+    const modal = document.getElementById("templatePreviewModal");
+    if (!modal) return;
+
+    modal.classList.add("hidden");
+    modal.style.display = "none";
+    document.body.style.overflow = "auto";
+  }
+
+  function openContactModal() {
+    const modal = document.getElementById("contactModal");
+    if (!modal) return;
+
+    modal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeContactModal() {
+    const modal = document.getElementById("contactModal");
+    if (!modal) return;
+
+    modal.classList.add("hidden");
+    document.body.style.overflow = "auto";
+  }
+
+  function toggleFAQ(button) {
+    const faqItem = button.parentElement;
+    const answer = faqItem.querySelector(".faq-answer");
+    const icon = button.querySelector("i");
+    const isOpen = answer.style.maxHeight && answer.style.maxHeight !== "0px";
+
+    document.querySelectorAll(".faq-answer").forEach((item) => {
+      item.style.maxHeight = "0px";
+    });
+
+    document.querySelectorAll(".faq-item i").forEach((item) => {
+      item.classList.remove("fa-minus", "rotate-180");
+      item.classList.add("fa-plus");
+    });
+
+    if (!isOpen) {
+      answer.style.maxHeight = answer.scrollHeight + "px";
+      icon.classList.remove("fa-plus");
+      icon.classList.add("fa-minus", "rotate-180");
+    }
+  }
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function revealOnScroll() {
+    document.querySelectorAll(".reveal").forEach((element) => {
+      const windowHeight = window.innerHeight;
+      const elementTop = element.getBoundingClientRect().top;
+
+      if (elementTop < windowHeight - 100) {
+        element.classList.add("active");
+      }
+    });
+  }
+
+  function scrollToTemplate(category) {
+    const categoryBtn = document.getElementById("category-dropdown-btn");
+    const categoryMenu = document.getElementById("category-menu");
+
+    if (categoryMenu && categoryBtn) {
+      categoryMenu.classList.remove("opacity-100", "visible", "translate-y-0");
+      categoryBtn.setAttribute("aria-expanded", "false");
+    }
+
+    const section = document.getElementById("all-templates-wrapper");
+    if (!section) return;
+
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    setTimeout(() => {
+      if (category === "all") {
+        const allButton = document.querySelector(".filter-tab");
+        if (allButton) allButton.click();
         return;
       }
 
-      list.innerHTML = cartItems.map((item, index) => {
-        const qty = item.quantity || 1;
-        const price = item.price || 0;
-        total += price * qty;
+      document.querySelectorAll(".filter-tab").forEach((button) => {
+        const text = button.innerText.toLowerCase();
 
-        return `
-          <div class="flex gap-4 items-center border-b border-gray-100 pb-4">
-            <img src="${item.image}" class="w-16 h-12 object-cover rounded-lg" alt="${item.name}">
-            <div class="flex-grow">
-              <h4 class="text-[11px] font-black text-[#06224C] uppercase">${item.name}</h4>
-              <p class="text-blue-600 font-bold text-xs">$${price} x ${qty}</p>
-              <div class="flex items-center gap-2 mt-2">
-                <button onclick="decreaseQuantity(${index})" class="w-6 h-6 bg-gray-100 rounded flex items-center justify-center hover:bg-gray-200 transition" type="button">
-                  <i class="fa-solid fa-minus text-xs"></i>
-                </button>
-                <span class="text-xs font-bold w-8 text-center">${qty}</span>
-                <button onclick="increaseQuantity(${index})" class="w-6 h-6 bg-gray-100 rounded flex items-center justify-center hover:bg-gray-200 transition" type="button">
-                  <i class="fa-solid fa-plus text-xs"></i>
-                </button>
-              </div>
-            </div>
-            <button onclick="deleteFromCart(${index})" class="text-gray-300 hover:text-red-500" type="button" aria-label="Delete ${item.name} from cart">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>
-        `;
-      }).join("");
+        if (
+          (category === "portfolio" && text.includes("portfolio")) ||
+          (category === "ecommerce" && text.includes("e-commerce")) ||
+          (category === "business" && text.includes("business"))
+        ) {
+          button.click();
+        }
+      });
+    }, 800);
+  }
 
-      totalEl.innerText = "$" + total.toFixed(2);
-    }
+  function setupDropdowns() {
+    const productsBtn = document.getElementById("products-dropdown-btn");
+    const productsMenu = document.getElementById("products-menu");
+    const categoryBtn = document.getElementById("category-dropdown-btn");
+    const categoryMenu = document.getElementById("category-menu");
 
-    function addToCart(name, price, image) {
-      const numericPrice = parseFloat(price);
-      const existingItem = cartItems.find((item) => item.name === name);
+    if (!productsBtn || !productsMenu || !categoryBtn || !categoryMenu) return;
 
-      if (existingItem) {
-        existingItem.quantity = (existingItem.quantity || 1) + 1;
+    const openMenu = (menu, btn) => {
+      menu.classList.add("opacity-100", "visible", "translate-y-0");
+      btn.setAttribute("aria-expanded", "true");
+    };
+
+    const closeMenu = (menu, btn) => {
+      menu.classList.remove("opacity-100", "visible", "translate-y-0");
+      btn.setAttribute("aria-expanded", "false");
+    };
+
+    const closeAllMenus = () => {
+      closeMenu(productsMenu, productsBtn);
+      closeMenu(categoryMenu, categoryBtn);
+    };
+
+    const isMenuOpen = (menu) => menu.classList.contains("opacity-100");
+
+    productsBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      if (isMenuOpen(productsMenu)) {
+        closeMenu(productsMenu, productsBtn);
       } else {
-        cartItems.push({ name, price: numericPrice, image, quantity: 1 });
+        closeMenu(categoryMenu, categoryBtn);
+        openMenu(productsMenu, productsBtn);
       }
-
-      persistCart();
-      renderCart();
-      showNotification(name, "Added to Cart");
-    }
-
-    function decreaseQuantity(index) {
-      const item = cartItems[index];
-      if (!item) return;
-
-      if ((item.quantity || 1) > 1) item.quantity -= 1;
-      else cartItems.splice(index, 1);
-
-      persistCart();
-      renderCart();
-    }
-
-    function increaseQuantity(index) {
-      if (!cartItems[index]) return;
-      cartItems[index].quantity = (cartItems[index].quantity || 1) + 1;
-      persistCart();
-      renderCart();
-    }
-
-    function deleteFromCart(index) {
-      cartItems.splice(index, 1);
-      persistCart();
-      renderCart();
-    }
-
-    function openPanel(panelId) {
-      const panel = document.getElementById(panelId);
-      const backdrop = document.getElementById("cartBackdrop");
-      if (!panel || !backdrop) return;
-
-      document.getElementById("cartSidebar").classList.add("translate-x-full");
-      document.getElementById("wishlistSidebar").classList.add("translate-x-full");
-      panel.classList.remove("translate-x-full");
-      backdrop.classList.remove("opacity-0", "invisible");
-    }
-
-    function closePanels() {
-      document.getElementById("cartSidebar").classList.add("translate-x-full");
-      document.getElementById("wishlistSidebar").classList.add("translate-x-full");
-      document.getElementById("cartBackdrop").classList.add("opacity-0", "invisible");
-    }
-
-    function toggleCart() {
-      const cart = document.getElementById("cartSidebar");
-      if (cart.classList.contains("translate-x-full")) openPanel("cartSidebar");
-      else closePanels();
-      renderCart();
-    }
-
-    function toggleWishlist() {
-      const wishlist = document.getElementById("wishlistSidebar");
-      if (wishlist.classList.contains("translate-x-full")) openPanel("wishlistSidebar");
-      else closePanels();
-      renderWishlist();
-    }
-
-    function submitRating(productId, rating, isInitialLoad = false) {
-      const container = document.getElementById("rating-container-" + productId);
-      if (!container) return;
-
-      const stars = container.querySelectorAll("i");
-      const ratingText = document.getElementById("user-rating-val-" + productId);
-      const liveRegion = document.getElementById("rating-live-region");
-
-      stars.forEach((star, index) => {
-        const starLevel = index + 1;
-        star.classList.remove("fa-solid", "fa-regular", "fa-star-half-stroke");
-
-        if (rating >= starLevel) {
-          star.classList.add("fa-solid", "fa-star");
-        } else if (rating > index && rating < starLevel) {
-          star.classList.add("fa-solid", "fa-star-half-stroke");
-        } else {
-          star.classList.add("fa-regular", "fa-star");
-        }
-      });
-
-      container.setAttribute("aria-label", "Rating: " + parseFloat(rating).toFixed(1) + " out of 5 stars");
-
-      if (ratingText) {
-        ratingText.innerText = "(" + parseFloat(rating).toFixed(1) + ")";
-        ratingText.classList.replace("text-gray-400", "text-blue-600");
-      }
-
-      if (!isInitialLoad) {
-        localStorage.setItem("rating-" + productId, String(rating));
-        if (liveRegion) liveRegion.textContent = productId + " rated " + parseFloat(rating).toFixed(1) + " stars";
-        showNotification("You rated " + productId + " " + parseFloat(rating).toFixed(1) + " stars!", "Rating");
-      }
-    }
-
-    function validateEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    function isMobile(value) {
-      return /^[0-9]{10}$/.test(value.trim());
-    }
-
-  function filterTemplates(category, btn) {
-    // 1. Update tab UI colors
-    document.querySelectorAll(".filter-tab").forEach((tab) => {
-        tab.classList.remove("active", "border-blue-600", "text-blue-600");
     });
-    if (btn) btn.classList.add("active", "border-blue-600", "text-blue-600");
 
-    // 2. Filter logic
-    const cards = document.querySelectorAll(".template-category-card");
-    cards.forEach((card) => {
-        const cardCategory = card.getAttribute("data-cat");
-        
-        if (category === "all") {
-            // SHOW EVERYTHING when 'All Templates' is clicked
-            card.style.display = "block"; 
-        } else if (cardCategory === category) {
-            // Show only matched category
-            card.style.display = "block";
-        } else {
-            // Hide others
-            card.style.display = "none";
-        }
+    categoryBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      if (isMenuOpen(categoryMenu)) {
+        closeMenu(categoryMenu, categoryBtn);
+      } else {
+        closeMenu(productsMenu, productsBtn);
+        openMenu(categoryMenu, categoryBtn);
+      }
     });
-}
 
-    function openPortfolioModal() {
-      document.getElementById("portfolioModal").classList.remove("hidden");
-      document.body.style.overflow = "hidden";
-    }
+    [productsBtn, categoryBtn].forEach((button) => {
+      button.addEventListener("keydown", (e) => {
+        const targetMenu = button === productsBtn ? productsMenu : categoryMenu;
 
-    function closePortfolioModal() {
-      document.getElementById("portfolioModal").classList.add("hidden");
-      document.body.style.overflow = "auto";
-    }
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          if (!isMenuOpen(targetMenu)) openMenu(targetMenu, button);
+          const firstItem = targetMenu.querySelector('[role="menuitem"]');
+          if (firstItem) firstItem.focus();
+        }
 
-    function openTemplatePreview(name, image) {
-      const modal = document.getElementById("templatePreviewModal");
-      const title = document.getElementById("previewTitle");
-      const img = document.getElementById("previewImage");
-      if (!modal || !title || !img) return;
-
-      title.innerText = name + " - Template Preview";
-      img.src = image;
-      modal.classList.remove("hidden");
-      modal.style.display = "flex";
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeTemplatePreview() {
-      const modal = document.getElementById("templatePreviewModal");
-      if (!modal) return;
-      modal.classList.add("hidden");
-      modal.style.display = "none";
-      document.body.style.overflow = "auto";
-    }
-
-    function openContactModal() {
-      document.getElementById("contactModal").classList.remove("hidden");
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeContactModal() {
-      document.getElementById("contactModal").classList.add("hidden");
-      document.body.style.overflow = "auto";
-    }
-
-    function toggleFAQ(button) {
-      const faqItem = button.parentElement;
-      const answer = faqItem.querySelector(".faq-answer");
-      const icon = button.querySelector("i");
-      const isOpen = answer.style.maxHeight && answer.style.maxHeight !== "0px";
-
-      document.querySelectorAll(".faq-answer").forEach((item) => {
-        item.style.maxHeight = "0px";
+        if (e.key === "Escape") closeAllMenus();
       });
-      document.querySelectorAll(".faq-item i").forEach((item) => {
-        item.classList.remove("fa-minus", "rotate-180");
-        item.classList.add("fa-plus");
-      });
+    });
 
-      if (!isOpen) {
-        answer.style.maxHeight = answer.scrollHeight + "px";
-        icon.classList.remove("fa-plus");
-        icon.classList.add("fa-minus", "rotate-180");
+    [productsMenu, categoryMenu].forEach((menu) => {
+      menu.addEventListener("keydown", (e) => {
+        const items = Array.from(menu.querySelectorAll('[role="menuitem"]'));
+        const currentIndex = items.indexOf(document.activeElement);
+
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          (items[currentIndex + 1] || items[0]).focus();
+        }
+
+        if (e.key === "ArrowUp") {
+          e.preventDefault();
+          (items[currentIndex - 1] || items[items.length - 1]).focus();
+        }
+
+        if (e.key === "Escape") {
+          closeAllMenus();
+          if (menu === productsMenu) productsBtn.focus();
+          if (menu === categoryMenu) categoryBtn.focus();
+        }
+
+        if (e.key === "Tab") closeAllMenus();
+      });
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!productsBtn.contains(e.target) && !productsMenu.contains(e.target)) {
+        closeMenu(productsMenu, productsBtn);
       }
-    }
 
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+      if (!categoryBtn.contains(e.target) && !categoryMenu.contains(e.target)) {
+        closeMenu(categoryMenu, categoryBtn);
+      }
+    }, { passive: true });
+  }
 
-    function revealOnScroll() {
-      document.querySelectorAll(".reveal").forEach((element) => {
-        const windowHeight = window.innerHeight;
-        const elementTop = element.getBoundingClientRect().top;
-        if (elementTop < windowHeight - 100) {
-          element.classList.add("active");
+  function initializePage() {
+    router();
+    updateCartBadge();
+    updateSearchBarTop();
+    renderCart();
+    renderWishlist();
+    syncWishlistIcons();
+    revealOnScroll();
+    setupDropdowns();
+    initializeFeatureAccordion();
+
+    document.querySelectorAll("#popular-searches button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const searchInput = document.getElementById("searchInput");
+        if (searchInput) {
+          searchInput.value = btn.innerText.trim();
+          handleSearch();
         }
       });
-    }
+    });
 
-    function scrollToTemplate(category) {
-      const categoryBtn = document.getElementById("category-dropdown-btn");
-      const categoryMenu = document.getElementById("category-menu");
-      if (categoryMenu && categoryBtn) {
-        categoryMenu.classList.remove("opacity-100", "visible", "translate-y-0");
-        categoryBtn.setAttribute("aria-expanded", "false");
-      }
+    Object.keys(defaultRatings).forEach((productId) => {
+      const savedRating = localStorage.getItem("rating-" + productId);
+      submitRating(productId, savedRating ? parseFloat(savedRating) : defaultRatings[productId], true);
+    });
 
-      const section = document.getElementById("all-templates-wrapper");
-      if (!section) return;
+    const footerForm = document.querySelector("footer form");
+    if (footerForm) {
+      footerForm.addEventListener("submit", function (event) {
+        event.preventDefault();
 
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
-      setTimeout(() => {
-        if (category === "all") {
-          const allButton = document.querySelector(".filter-tab");
-          if (allButton) allButton.click();
+        const emailInput = document.getElementById("footerEmailInput");
+        const emailValue = emailInput.value.trim();
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailValue) {
+          showNotification("Please enter an email address.", "Error");
           return;
         }
 
-        document.querySelectorAll(".filter-tab").forEach((button) => {
-          const text = button.innerText.toLowerCase();
-          if (
-            (category === "portfolio" && text.includes("portfolio")) ||
-            (category === "ecommerce" && text.includes("e-commerce")) ||
-            (category === "business" && text.includes("business"))
-          ) {
-            button.click();
-          }
-        });
-      }, 800);
+        if (!emailPattern.test(emailValue)) {
+          showNotification("Please enter a valid email (e.g., test@gmail.com).", "Invalid Email");
+          return;
+        }
+
+        showNotification("Subscribed successfully!", "Success");
+        emailInput.value = "";
+      });
     }
 
-    function setupDropdowns() {
-      const productsBtn = document.getElementById("products-dropdown-btn");
-      const productsMenu = document.getElementById("products-menu");
-      const categoryBtn = document.getElementById("category-dropdown-btn");
-      const categoryMenu = document.getElementById("category-menu");
-
-      if (!productsBtn || !productsMenu || !categoryBtn || !categoryMenu) return;
-
-      const openMenu = (menu, btn) => {
-        menu.classList.add("opacity-100", "visible", "translate-y-0");
-        btn.setAttribute("aria-expanded", "true");
-      };
-
-      const closeMenu = (menu, btn) => {
-        menu.classList.remove("opacity-100", "visible", "translate-y-0");
-        btn.setAttribute("aria-expanded", "false");
-      };
-
-      const closeAllMenus = () => {
-        closeMenu(productsMenu, productsBtn);
-        closeMenu(categoryMenu, categoryBtn);
-      };
-
-      const isMenuOpen = (menu) => menu.classList.contains("opacity-100");
-
-      productsBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        if (isMenuOpen(productsMenu)) closeMenu(productsMenu, productsBtn);
-        else {
-          closeMenu(categoryMenu, categoryBtn);
-          openMenu(productsMenu, productsBtn);
-        }
+    const footerLogo = document.getElementById("footerLogo");
+    if (footerLogo) {
+      footerLogo.addEventListener("click", function () {
+        showPage("home");
+        window.scrollTo(0, 0);
       });
-
-      categoryBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        if (isMenuOpen(categoryMenu)) closeMenu(categoryMenu, categoryBtn);
-        else {
-          closeMenu(productsMenu, productsBtn);
-          openMenu(categoryMenu, categoryBtn);
-        }
-      });
-
-      [productsBtn, categoryBtn].forEach((button) => {
-        button.addEventListener("keydown", (e) => {
-          const targetMenu = button === productsBtn ? productsMenu : categoryMenu;
-          if (e.key === "ArrowDown") {
-            e.preventDefault();
-            if (!isMenuOpen(targetMenu)) openMenu(targetMenu, button);
-            const firstItem = targetMenu.querySelector('[role="menuitem"]');
-            if (firstItem) firstItem.focus();
-          }
-          if (e.key === "Escape") closeAllMenus();
-        });
-      });
-
-      [productsMenu, categoryMenu].forEach((menu) => {
-        menu.addEventListener("keydown", (e) => {
-          const items = Array.from(menu.querySelectorAll('[role="menuitem"]'));
-          const currentIndex = items.indexOf(document.activeElement);
-
-          if (e.key === "ArrowDown") {
-            e.preventDefault();
-            (items[currentIndex + 1] || items[0]).focus();
-          }
-          if (e.key === "ArrowUp") {
-            e.preventDefault();
-            (items[currentIndex - 1] || items[items.length - 1]).focus();
-          }
-          if (e.key === "Escape") {
-            closeAllMenus();
-            if (menu === productsMenu) productsBtn.focus();
-            if (menu === categoryMenu) categoryBtn.focus();
-          }
-          if (e.key === "Tab") closeAllMenus();
-        });
-      });
-
-      document.addEventListener("click", (e) => {
-        if (!productsBtn.contains(e.target) && !productsMenu.contains(e.target)) {
-          closeMenu(productsMenu, productsBtn);
-        }
-        if (!categoryBtn.contains(e.target) && !categoryMenu.contains(e.target)) {
-          closeMenu(categoryMenu, categoryBtn);
-        }
-      }, { passive: true });
     }
 
-    function initializePage() {
-      router();
-      updateCartBadge();
-      updateSearchBarTop();
-      renderCart();
-      renderWishlist();
-      syncWishlistIcons();
-      revealOnScroll();
-      setupDropdowns();
-      initializeFeatureAccordion();
+    const contactSendButton = document.querySelector('#contactModal button[onclick*="showNotification"]');
+    if (contactSendButton) {
+      contactSendButton.onclick = function () {
+        const emailInput = document.getElementById("contactEmailInput");
+        const emailValue = emailInput.value.trim();
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-      document.querySelectorAll("#popular-searches button").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          document.getElementById("searchInput").value = btn.innerText.trim();
-          handleSearch();
-        });
-      });
+        if (!emailValue) {
+          showNotification("Please enter your email.", "Error");
+          return;
+        }
 
-      Object.keys(defaultRatings).forEach((productId) => {
-        const savedRating = localStorage.getItem("rating-" + productId);
-        submitRating(productId, savedRating ? parseFloat(savedRating) : defaultRatings[productId], true);
-      });
+        if (!emailPattern.test(emailValue)) {
+          showNotification("Please enter a valid email address (e.g. name@gmail.com).", "Invalid Format");
+          return;
+        }
 
-      setTimeout(updateSearchBarTop, 300);
+        showNotification("Message sent successfully.", "Contact");
+        emailInput.value = "";
+        closeContactModal();
+      };
     }
 
-    window.addEventListener("hashchange", router, { passive: true });
-    window.addEventListener("resize", updateSearchBarTop, { passive: true });
-   let scrollTicking = false;
+    setTimeout(updateSearchBarTop, 300);
+  }
 
-function handleWindowScroll() {
-  const backToTop = document.getElementById("backToTop");
-  if (window.pageYOffset > 300) backToTop.classList.add("show");
-  else backToTop.classList.remove("show");
-  revealOnScroll();
-}
+  window.addEventListener("hashchange", router, { passive: true });
+  window.addEventListener("resize", updateSearchBarTop, { passive: true });
 
-window.addEventListener("scroll", () => {
-  if (scrollTicking) return;
+  let scrollTicking = false;
 
-  scrollTicking = true;
-  requestAnimationFrame(() => {
-    handleWindowScroll();
-    scrollTicking = false;
-  });
-}, { passive: true });
+  function handleWindowScroll() {
+    const backToTop = document.getElementById("backToTop");
+    if (backToTop) {
+      if (window.pageYOffset > 300) {
+        backToTop.classList.add("show");
+      } else {
+        backToTop.classList.remove("show");
+      }
+    }
 
+    revealOnScroll();
+  }
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key !== "Escape") return;
-      closePortfolioModal();
-      closeTemplatePreview();
-      closeContactModal();
-      closePanels();
-      toggleSearchBar(false);
-      toggleMobileMenu(false);
+  window.addEventListener("scroll", () => {
+    if (scrollTicking) return;
+
+    scrollTicking = true;
+    requestAnimationFrame(() => {
+      handleWindowScroll();
+      scrollTicking = false;
     });
+  }, { passive: true });
 
-    document.addEventListener("DOMContentLoaded", initializePage);
-   
-document.querySelector('footer form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const emailInput = document.getElementById('footerEmailInput');
-    const emailValue = emailInput.value.trim();
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
 
-    // Regex for strict email validation (requires .extension)
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailValue) {
-        showNotification("Please enter an email address.", "Error");
-        return;
-    }
-
-    if (!emailPattern.test(emailValue)) {
-        showNotification("Please enter a valid email (e.g., test@gmail.com).", "Invalid Email");
-        return;
-    }
-
-    // If valid
-    showNotification("Subscribed successfully!", "Success");
-    emailInput.value = ""; // Clear the field
-});
-// Add this at the bottom of your script
-document.getElementById('footerLogo').addEventListener('click', function(e) {
-    // Force the home page to show
-    showPage('home');
-    // Ensure we are at the top
-    window.scrollTo(0, 0);
-});
-// Logic for Contact Modal Validation
-document.querySelector('#contactModal button[onclick*="showNotification"]').onclick = function() {
-    const emailInput = document.getElementById('contactEmailInput');
-    const emailValue = emailInput.value.trim();
-    
-    // Strict Regex: requires @ and a dot followed by a domain extension
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-    if (!emailValue) {
-        showNotification("Please enter your email.", "Error");
-        return;
-    }
-
-    if (!emailPattern.test(emailValue)) {
-        showNotification("Please enter a valid email address (e.g. name@gmail.com).", "Invalid Format");
-        return;
-    }
-
-    // If valid, run your original success logic
-    showNotification('Message sent successfully.', 'Contact');
-    emailInput.value = ""; // Clear field
+    closePortfolioModal();
+    closeTemplatePreview();
     closeContactModal();
-};
-  </script>
+    closePanels();
+    toggleSearchBar(false);
+    toggleMobileMenu(false);
+  });
+
+  document.addEventListener("DOMContentLoaded", initializePage);
+</script>
 </body>
 </html>
