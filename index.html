@@ -19,6 +19,20 @@
 <link rel="preload" as="image" href="public/landinmble3.webp">
 
   <style>
+    /* High-visibility focus indicator for all buttons and tabs */
+button:focus-visible, 
+.filter-tab:focus-visible {
+  outline: 3px solid #2563eb !important; /* Bright Blue */
+  outline-offset: 2px;
+  position:relative;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.8); /* White buffer ring */
+  z-index: 9999 !important; /* Ensure ring is above neighboring tabs */
+}
+
+/* Specific fix for Portfolio and other category tabs */
+.filter-tab {
+  position: relative; /* Allows z-index to work on focus */
+}
   /* ABOUT PAGE ANIMATIONS */
   #aboutPage {
     font-family: 'Arial Black', sans-serif;
@@ -1315,7 +1329,7 @@
     <div class="w-[200px] py-2">
         
         <div class="submenu-parent group/item">
-            <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+            <a href="#404" role="menuitem" tabindex="-1" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
                 <span class="flex items-center gap-2"><i class="fa-solid fa-pager opacity-50"></i> LANDING PAGE</span>
                 <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
             </a>
@@ -1335,7 +1349,7 @@
         </div>
 
         <div class="submenu-parent group/item">
-            <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+            <a href="#404" role="menuitem" tabindex="-1" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
                 <span class="flex items-center gap-2"><i class="fa-solid fa-chart-line opacity-50"></i> DASHBOARD</span>
                 <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
             </a>
@@ -1351,7 +1365,7 @@
         </div>
 
         <div class="submenu-parent group/item">
-            <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+            <a href="#404" role="menuitem" tabindex="-1" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
                 <span class="flex items-center gap-2"><i class="fa-solid fa-briefcase opacity-50"></i> PORTFOLIO</span>
                 <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
             </a>
@@ -1367,7 +1381,7 @@
             </div>
         </div>
         <div class="submenu-parent group/item">
-    <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+    <a href="#404" role="menuitem" tabindex="-1" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
         <span class="flex items-center gap-2"><i class="fa-solid fa-utensils opacity-50 w-4"></i> FOOD</span>
         <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
     </a>
@@ -1382,7 +1396,7 @@
 </div>
 
 <div class="submenu-parent group/item">
-    <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+    <a href="#404" role="menuitem" tabindex="-1" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
         <span class="flex items-center gap-2"><i class="fa-solid fa-plane opacity-50 w-4"></i> TRAVEL</span>
         <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
     </a>
@@ -1400,7 +1414,7 @@
 </div>
 
 <div class="submenu-parent group/item">
-    <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+    <a href="#404" role="menuitem" tabindex="-1" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
         <span class="flex items-center gap-2"><i class="fa-solid fa-house-chimney opacity-50 w-4"></i> REAL ESTATE</span>
         <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
     </a>
@@ -1418,7 +1432,7 @@
 </div>
 
 <div class="submenu-parent group/item">
-    <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+    <a href="#404" role="menuitem" tabindex="-1" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
         <span class="flex items-center gap-2"><i class="fa-solid fa-bed opacity-50 w-4"></i> HOTEL</span>
         <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
     </a>
@@ -1435,7 +1449,7 @@
 </div>
 
 <div class="submenu-parent group/item">
-    <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+    <a href="#404" role="menuitem" tabindex="-1" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
         <span class="flex items-center gap-2"><i class="fa-solid fa-pen-nib opacity-50 w-4"></i> BLOG</span>
         <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
     </a>
@@ -1454,7 +1468,7 @@
 </div>
 
 <div class="submenu-parent group/item">
-    <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+    <a href="#404" role="menuitem" tabindex="-1" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
         <span class="flex items-center gap-2"><i class="fa-solid fa-graduation-cap opacity-50 w-4"></i> EDUCATION</span>
         <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
     </a>
@@ -1470,7 +1484,7 @@
 </div>
 
 <div class="submenu-parent group/item">
-    <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+    <a href="#404" role="menuitem" tabindex="-1" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
         <span class="flex items-center gap-2"><i class="fa-solid fa-newspaper opacity-50 w-4"></i> NEWSPAPER</span>
         <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
     </a>
@@ -1488,7 +1502,7 @@
 </div>
 
 <div class="submenu-parent group/item">
-    <a href="#404" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
+    <a href="#404" role="menuitem" tabindex="-1" class="flex items-center justify-between px-5 py-2.5 text-gray-900 text-[11px] font-black hover:bg-blue-50 border-b border-gray-50 transition-colors">
         <span class="flex items-center gap-2"><i class="fa-solid fa-camera opacity-50 w-4"></i> PHOTOGRAPHY</span>
         <i class="fa-solid fa-chevron-right text-[8px] opacity-30 group-hover/item:opacity-100"></i>
     </a>
@@ -2141,26 +2155,27 @@
         <section id="all-templates-wrapper" class="mt-16 md:mt-24 px-4 max-w-7xl mx-auto reveal">
           <h2 class="text-xs font-black text-[#0A2357] mb-10 uppercase tracking-[0.3em] border-l-4 border-blue-600 pl-3">All Templates</h2>
 
-          <div class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-sm border border-gray-100">
-            <div class="flex flex-wrap gap-3 md:gap-4 mb-16 justify-center">
-              <button onclick="filterTemplates('all', this)" class="filter-tab active px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-2" type="button">
-                All Templates <i class="fa-solid fa-chevron-down text-[10px]"></i>
-              </button>
-              <button onclick="filterTemplates('portfolio', this)" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm" type="button">
-                Portfolio <i class="fa-solid fa-chevron-down text-[10px]"></i>
-              </button>
-              <button onclick="filterTemplates('blog', this)" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm" type="button">
-                Blog <i class="fa-solid fa-chevron-down text-[10px]"></i>
-              </button>
-              <button onclick="filterTemplates('ecommerce', this)" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm" type="button">
-                E-commerce <i class="fa-solid fa-chevron-down text-[10px]"></i>
-              </button>
-              <button onclick="filterTemplates('business', this)" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-2" type="button">
-                Business <i class="fa-solid fa-chevron-down text-[10px]"></i>
-              </button>
-            </div>
+          <div class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-sm border border-gray-100" style="isolation: isolate;">
+            <div class="flex flex-wrap gap-3 md:gap-4 mb-16 justify-center" role="tablist" aria-label="Template categories">
+  <button onclick="filterTemplates('all', this)" role="tab" aria-selected="true" class="filter-tab active px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-2" type="button">
+    All Templates <i class="fa-solid fa-chevron-down text-[10px]"></i>
+  </button>
+  <button onclick="filterTemplates('portfolio', this)" role="tab" aria-selected="false" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm" type="button">
+    Portfolio <i class="fa-solid fa-chevron-down text-[10px]"></i>
+  </button>
+  <button onclick="filterTemplates('blog', this)" role="tab" aria-selected="false" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm" type="button">
+    Blog <i class="fa-solid fa-chevron-down text-[10px]"></i>
+  </button>
+  <button onclick="filterTemplates('ecommerce', this)" role="tab" aria-selected="false" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm" type="button">
+    E-commerce <i class="fa-solid fa-chevron-down text-[10px]"></i>
+  </button>
+  <button onclick="filterTemplates('business', this)" role="tab" aria-selected="false" class="filter-tab px-8 py-2.5 rounded-xl text-sm font-semibold shadow-sm flex items-center gap-2" type="button">
+    Business <i class="fa-solid fa-chevron-down text-[10px]"></i>
+  </button>
+</div>
 
-            <div id="template-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16"><div class="template-category-card group block" data-cat="portfolio" >
+            <div id="template-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
+              <div class="template-category-card group block" data-cat="portfolio" style="display: none;" inert>
     <div class="rounded-2xl overflow-hidden shadow-md mb-4 aspect-[4/3] bg-gray-50 relative">
         <img src="public/port.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         <div class="absolute top-4 left-4">
@@ -2177,7 +2192,7 @@
     </div>
 </div>
 
-<div class="template-category-card group block" data-cat="portfolio" style="display: none;">
+<div class="template-category-card group block" data-cat="portfolio" style="display: none;" inert>
     <div class="rounded-2xl overflow-hidden shadow-md mb-4 aspect-[4/3] bg-gray-50 relative">
         <img src="public/portfolio03.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         <div class="absolute top-4 left-4">
@@ -2191,13 +2206,13 @@
         </div>
         <p class="text-xs text-gray-500 mt-2">A high-end showcase for design and tech teams.</p>
         <div class="flex gap-3 mt-4">
-            <button onclick="openTemplatePreview('Agency Pro', 'public/portfolio03.webp')" class="flex-1 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold py-2.5 hover:bg-blue-50 transition">View</button>
+            <button onclick="openTemplatePreview('Agency Pro', 'public/portfolio03.webp')" class="flex-1 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold py-2.5 hover:bg-blue-50 transition">PreView</button>
             <button onclick="location.hash='404'" class="flex-1 bg-[#06224C] text-white rounded-xl text-sm font-bold py-2.5 hover:bg-blue-900 transition">Buy</button>
         </div>
     </div>
 </div>
 
-<div class="template-category-card group block" data-cat="portfolio" style="display: none;">
+<div class="template-category-card group block" data-cat="portfolio" style="display: none;" inert>
     <div class="rounded-2xl overflow-hidden shadow-md mb-4 aspect-[4/3] bg-gray-50 relative">
         <img src="public/portfolio04.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         <div class="absolute top-4 left-4">
@@ -2213,7 +2228,7 @@
         </div>
     </div>
 </div>
-<div class="template-category-card group block" data-cat="blog" style="display: none;">
+<div class="template-category-card group block" data-cat="blog" style="display: none;" inert>
     <div class="rounded-2xl overflow-hidden shadow-md mb-4 aspect-[4/3] bg-gray-50 relative">
         <img src="public/blog1.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Personal Blog">
         <div class="absolute top-4 left-4">
@@ -2231,13 +2246,13 @@
         Clean layout for storytellers and daily journals.
     </p>
     <div class="flex gap-3">
-        <a href="#404" class="flex-1 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold py-3 hover:bg-blue-50 transition text-center">Preview</a>
+        <a href="#404" class="flex-1 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold py-3 hover:bg-blue-50 transition text-center">View</a>
         <a href="#404" class="flex-1 bg-[#06224C] text-white rounded-xl text-sm font-bold py-3 hover:bg-blue-900 transition text-center">Edit</a>
     </div>
 </div>
 </div>
 
-<div class="template-category-card group block" data-cat="blog" style="display: none;">
+<div class="template-category-card group block" data-cat="blog" style="display: none;" inert>
     <div class="rounded-2xl overflow-hidden shadow-md mb-4 aspect-[4/3] bg-gray-50 relative">
         <img src="public/blog2.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Tech Blog">
         <div class="absolute top-4 left-4">
@@ -2261,7 +2276,7 @@
 </div>
 </div>
 
-<div class="template-category-card group block" data-cat="portfolio" style="display: none;">
+<div class="template-category-card group block" data-cat="portfolio" style="display: none;" inert>
     <div class="rounded-2xl overflow-hidden shadow-md mb-4 aspect-[4/3] bg-gray-50 relative">
         <img src="public/business09.webp" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         <div class="absolute top-4 left-4">
@@ -2275,7 +2290,7 @@
         </div>
         <p class="text-xs text-gray-500 mt-2">Dark mode portfolio for executives and founders.</p>
         <div class="flex gap-3 mt-4">
-            <button onclick="openTemplatePreview('Executive Plus', 'public/business09.webp')" class="flex-1 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold py-2.5 hover:bg-blue-50 transition">View</button>
+            <button onclick="openTemplatePreview('Executive Plus', 'public/business09.webp')" class="flex-1 border-2 border-dashed border-blue-400 rounded-xl text-blue-500 text-sm font-bold py-2.5 hover:bg-blue-50 transition">Preview</button>
             <button onclick="location.hash='404'" class="flex-1 bg-[#06224C] text-white rounded-xl text-sm font-bold py-2.5 hover:bg-blue-900 transition">Buy</button>
         </div>
     </div>
@@ -3514,27 +3529,64 @@
     return /^[0-9]{10}$/.test(value.trim());
   }
 
-  function filterTemplates(category, btn) {
-    document.querySelectorAll(".filter-tab").forEach((tab) => {
-      tab.classList.remove("active", "border-blue-600", "text-blue-600");
-    });
+ function filterTemplates(category, btn) {
+  // Update tab styling and aria-selected
+  document.querySelectorAll(".filter-tab").forEach((tab) => {
+    tab.classList.remove("active", "border-blue-600", "text-blue-600");
+    tab.setAttribute("aria-selected", "false");
+    tab.setAttribute("tabindex", "-1");
+  });
 
-    if (btn) btn.classList.add("active", "border-blue-600", "text-blue-600");
-
-    const cards = document.querySelectorAll(".template-category-card");
-    cards.forEach((card) => {
-      const cardCategory = card.getAttribute("data-cat");
-
-      if (category === "all") {
-        card.style.display = "block";
-      } else if (cardCategory === category) {
-        card.style.display = "block";
-      } else {
-        card.style.display = "none";
-      }
-    });
+  if (btn) {
+    btn.classList.add("active", "border-blue-600", "text-blue-600");
+    btn.setAttribute("aria-selected", "true");
+    btn.setAttribute("tabindex", "0");
   }
 
+  // Show/hide cards with inert
+  const cards = document.querySelectorAll(".template-category-card");
+  cards.forEach((card) => {
+    const cardCategory = card.getAttribute("data-cat");
+    const visible = category === "all" || cardCategory === category;
+    card.style.display = visible ? "block" : "none";
+    card.inert = !visible;
+  });
+}
+function setupFilterTabKeyboard() {
+  const tabList = document.querySelector('[role="tablist"]');
+  if (!tabList) return;
+
+  tabList.addEventListener("keydown", function (e) {
+    const tabs = Array.from(tabList.querySelectorAll('[role="tab"]'));
+    const currentIndex = tabs.indexOf(document.activeElement);
+    if (currentIndex === -1) return;
+
+    let newIndex = currentIndex;
+
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      newIndex = (currentIndex + 1) % tabs.length;
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      e.preventDefault();
+      newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      newIndex = 0;
+    } else if (e.key === "End") {
+      e.preventDefault();
+      newIndex = tabs.length - 1;
+    } else if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      tabs[currentIndex].click();
+      return;
+    } else {
+      return;
+    }
+
+    tabs[newIndex].focus();
+    tabs[newIndex].click(); // activate the tab on arrow key move
+  });
+}
   function openPortfolioModal() {
     const modal = document.getElementById("portfolioModal");
     if (!modal) return;
@@ -3708,45 +3760,132 @@
       }
     });
 
-    [productsBtn, categoryBtn].forEach((button) => {
-      button.addEventListener("keydown", (e) => {
-        const targetMenu = button === productsBtn ? productsMenu : categoryMenu;
+   [productsBtn, categoryBtn].forEach((button) => {
+  button.addEventListener("keydown", (e) => {
+    const targetMenu = button === productsBtn ? productsMenu : categoryMenu;
 
-        if (e.key === "ArrowDown") {
-          e.preventDefault();
-          if (!isMenuOpen(targetMenu)) openMenu(targetMenu, button);
-          const firstItem = targetMenu.querySelector('[role="menuitem"]');
-          if (firstItem) firstItem.focus();
-        }
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (!isMenuOpen(targetMenu)) openMenu(targetMenu, button);
+      const firstItem = targetMenu.querySelector("a[role='menuitem']");
+      if (firstItem) firstItem.focus();
+    }
 
-        if (e.key === "Escape") closeAllMenus();
-      });
-    });
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (!isMenuOpen(targetMenu)) openMenu(targetMenu, button);
+      const allItems = targetMenu.querySelectorAll("a[role='menuitem']");
+      const lastItem = allItems[allItems.length - 1];
+      if (lastItem) lastItem.focus();
+    }
+
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (!isMenuOpen(targetMenu)) {
+        closeAllMenus();
+        openMenu(targetMenu, button);
+        const firstItem = targetMenu.querySelector("a[role='menuitem']");
+        if (firstItem) firstItem.focus();
+      } else {
+        closeMenu(targetMenu, button);
+      }
+    }
+
+    if (e.key === "Escape") {
+      e.preventDefault();
+      closeAllMenus();
+    }
+
+    if (e.key === "Tab") {
+      // Close menu silently and let Tab move naturally to next nav item
+      closeAllMenus();
+    }
+  });
+});
 
     [productsMenu, categoryMenu].forEach((menu) => {
-      menu.addEventListener("keydown", (e) => {
-        const items = Array.from(menu.querySelectorAll('[role="menuitem"]'));
-        const currentIndex = items.indexOf(document.activeElement);
+  menu.addEventListener("keydown", (e) => {
+    const active = document.activeElement;
+    const isInFlyout = active.closest && active.closest(".flyout-menu");
+    if (isInFlyout) return;
 
-        if (e.key === "ArrowDown") {
-          e.preventDefault();
-          (items[currentIndex + 1] || items[0]).focus();
-        }
+    const items = Array.from(menu.querySelectorAll("a[role='menuitem']"));
+    const currentIndex = items.indexOf(active);
 
-        if (e.key === "ArrowUp") {
-          e.preventDefault();
-          (items[currentIndex - 1] || items[items.length - 1]).focus();
-        }
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      const next = items[currentIndex + 1] || items[0];
+      if (next) next.focus();
+    }
 
-        if (e.key === "Escape") {
-          closeAllMenus();
-          if (menu === productsMenu) productsBtn.focus();
-          if (menu === categoryMenu) categoryBtn.focus();
-        }
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      const prev = items[currentIndex - 1] || items[items.length - 1];
+      if (prev) prev.focus();
+    }
 
-        if (e.key === "Tab") closeAllMenus();
-      });
-    });
+    if (e.key === "Escape") {
+      e.preventDefault();
+      closeAllMenus();
+      if (menu === productsMenu) productsBtn.focus();
+      if (menu === categoryMenu) categoryBtn.focus();
+    }
+
+    if (e.key === "Tab") {
+      // Close menu and let Tab move naturally — do NOT preventDefault
+      closeAllMenus();
+    }
+  });
+});
+    // Enable keyboard access for flyout submenus
+document.querySelectorAll(".submenu-parent > a").forEach((parentLink) => {
+  parentLink.addEventListener("focus", function () {
+    // Close any open flyout first
+    document.querySelectorAll(".flyout-menu").forEach(fm => fm.style.display = "");
+  });
+
+  parentLink.addEventListener("keydown", function (e) {
+    const flyout = this.closest(".submenu-parent").querySelector(".flyout-menu");
+    if (!flyout) return;
+
+    if (e.key === "ArrowRight" || e.key === "Enter") {
+      e.preventDefault();
+      flyout.style.display = "block";
+      const firstItem = flyout.querySelector(".flyout-item");
+      if (firstItem) firstItem.focus();
+    }
+  });
+});
+
+document.querySelectorAll(".flyout-menu").forEach((flyout) => {
+  flyout.addEventListener("keydown", function (e) {
+    const items = Array.from(flyout.querySelectorAll(".flyout-item"));
+    const currentIndex = items.indexOf(document.activeElement);
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      const next = items[currentIndex + 1] || items[0];
+      next.focus();
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      const prev = items[currentIndex - 1] || items[items.length - 1];
+      prev.focus();
+    } else if (e.key === "ArrowLeft" || e.key === "Escape") {
+      e.preventDefault();
+      flyout.style.display = "";
+      // Return focus to the parent link
+      const parentLink = flyout.closest(".submenu-parent").querySelector("a");
+      if (parentLink) parentLink.focus();
+    }
+  });
+
+  // Close flyout when focus leaves it entirely
+  flyout.addEventListener("focusout", function (e) {
+    if (!flyout.contains(e.relatedTarget)) {
+      flyout.style.display = "";
+    }
+  });
+});
 
     document.addEventListener("click", (e) => {
       if (!productsBtn.contains(e.target) && !productsMenu.contains(e.target)) {
@@ -3768,6 +3907,11 @@
     syncWishlistIcons();
     revealOnScroll();
     setupDropdowns();
+    setupFilterTabKeyboard();
+    // Set roving tabindex: only the active tab is in tab order initially
+document.querySelectorAll(".filter-tab").forEach((tab) => {
+  tab.setAttribute("tabindex", tab.classList.contains("active") ? "0" : "-1");
+});
     initializeFeatureAccordion();
 
     document.querySelectorAll("#popular-searches button").forEach((btn) => {
@@ -3779,6 +3923,11 @@
         }
       });
     });
+    document.querySelectorAll(".template-category-card").forEach((card) => {
+  if (card.style.display === "none") {
+    card.inert = true;
+  }
+});
 
     Object.keys(defaultRatings).forEach((productId) => {
       const savedRating = localStorage.getItem("rating-" + productId);
