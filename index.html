@@ -2718,8 +2718,8 @@ button:focus-visible,
         <h4 class="text-white font-black text-sm mb-4 uppercase tracking-wider">Company</h4>
         <ul class="space-y-2 text-sm text-white/70 font-medium">
           <li><a href="#about" class="hover:text-white transition">About</a></li>
-          <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
-          <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+          <li><button onclick="openLegalModal('privacy')" class="hover:text-white transition text-left" type="button">Privacy Policy</button></li>
+          <li><button onclick="openLegalModal('terms')" class="hover:text-white transition text-left" type="button">Terms of Service</button></li>
           <li><a href="javascript:void(0)" onclick="openContactModal()" class="hover:text-white transition">Contact</a></li>
         </ul>
       </div>
@@ -2765,8 +2765,8 @@ button:focus-visible,
 
         <!-- Links Group: Will now sit to the right of icons on desktop -->
         <div class="flex flex-wrap justify-center items-center gap-6 text-[10px] font-bold text-white/50 uppercase tracking-widest">
-            <a href="#" class="hover:text-white transition">Terms of Use</a>
-            <a href="#" class="hover:text-white transition">Privacy Policy</a>
+            <button onclick="openLegalModal('terms')" class="hover:text-white transition text-left" type="button">Terms of Use</button>
+            <button onclick="openLegalModal('privacy')" class="hover:text-white transition text-left" type="button">Privacy Policy</button>
             <span class="whitespace-nowrap">© 2018-2026 TheStackly.com INC</span>
         </div>
     </div>
@@ -2967,6 +2967,36 @@ button:focus-visible,
   <button id="backToTop" onclick="scrollToTop()" aria-label="Back to top" type="button">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
+  <!-- Privacy Policy Sidebar -->
+<div id="privacySidebar" class="fixed top-0 right-0 h-full w-full sm:w-[500px] bg-white shadow-2xl z-[10001] transform translate-x-full flex flex-col transition-transform duration-300">
+  <div class="p-6 border-b flex justify-between items-center bg-[#0A1E3D] text-white">
+    <h2 class="text-lg font-black uppercase tracking-widest">Privacy Policy</h2>
+    <button onclick="closePanels()" class="hover:rotate-90 transition-transform duration-200" aria-label="Close">
+      <i class="fa-solid fa-xmark text-2xl"></i>
+    </button>
+  </div>
+  <div class="flex-grow overflow-y-auto p-8 text-gray-600 text-sm leading-relaxed space-y-4">
+    <p class="font-bold text-[#06224C]">Last Updated: May 2026</p>
+    <p>At Stackly, we prioritize your privacy. This policy outlines how we handle your personal data...</p>
+    <h3 class="font-black text-[#06224C] uppercase text-xs pt-4">1. Data Collection</h3>
+    <p>We collect information you provide directly to us when you create an account or make a purchase.</p>
+  </div>
+</div>
+
+<!-- Terms of Use Sidebar -->
+<div id="termsSidebar" class="fixed top-0 right-0 h-full w-full sm:w-[500px] bg-white shadow-2xl z-[10001] transform translate-x-full flex flex-col transition-transform duration-300">
+  <div class="p-6 border-b flex justify-between items-center bg-[#0A1E3D] text-white">
+    <h2 class="text-lg font-black uppercase tracking-widest">Terms of Use</h2>
+    <button onclick="closePanels()" class="hover:rotate-90 transition-transform duration-200" aria-label="Close">
+      <i class="fa-solid fa-xmark text-2xl"></i>
+    </button>
+  </div>
+  <div class="flex-grow overflow-y-auto p-8 text-gray-600 text-sm leading-relaxed space-y-4">
+    <p>By accessing Stackly, you agree to follow these terms...</p>
+    <h3 class="font-black text-[#06224C] uppercase text-xs pt-4">User Conduct</h3>
+    <p>Users must not upload malicious code or attempt to compromise the infrastructure powered by AWS.</p>
+  </div>
+</div>
 
   <script>
   function toggleProfileMenu(event) {
@@ -3897,6 +3927,94 @@ document.querySelectorAll(".flyout-menu").forEach((flyout) => {
       }
     }, { passive: true });
   }
+  const legalContent = {
+  terms: {
+    title: "Terms of Use",
+    body: `
+      <p><strong class="text-[#06224C]">Last updated: May 2026</strong></p>
+
+      <p>Welcome to Stackly. By accessing or using our platform, you agree to be bound by these Terms of Use. Please read them carefully before proceeding.</p>
+
+      <h4 class="font-black text-[#06224C] uppercase tracking-wide text-xs mt-4">1. Acceptance of Terms</h4>
+      <p>By using Stackly's services, you confirm that you are at least 18 years old and have the legal capacity to enter into a binding agreement. If you are using our services on behalf of an organization, you represent that you have the authority to bind that organization to these terms.</p>
+
+      <h4 class="font-black text-[#06224C] uppercase tracking-wide text-xs mt-4">2. Use of Services</h4>
+      <p>You may use Stackly solely for lawful purposes. You agree not to misuse, reverse-engineer, or attempt to gain unauthorized access to any part of our platform. You are responsible for all activity that occurs under your account.</p>
+
+      <h4 class="font-black text-[#06224C] uppercase tracking-wide text-xs mt-4">3. Intellectual Property</h4>
+      <p>All templates, assets, designs, and content available on Stackly are protected by copyright law. Purchasing a template grants you a non-exclusive license to use it for personal or commercial projects. You may not resell, redistribute, or claim ownership of our templates.</p>
+
+      <h4 class="font-black text-[#06224C] uppercase tracking-wide text-xs mt-4">4. Payments & Refunds</h4>
+      <p>All purchases are final unless the product is found to be defective or materially different from its description. Refund requests must be submitted within 7 days of purchase. Stackly reserves the right to decline refund requests that do not meet these criteria.</p>
+
+      <h4 class="font-black text-[#06224C] uppercase tracking-wide text-xs mt-4">5. Limitation of Liability</h4>
+      <p>Stackly is not liable for any indirect, incidental, or consequential damages arising from your use of our platform or templates. Our total liability to you shall not exceed the amount paid for the specific product or service in question.</p>
+
+      <h4 class="font-black text-[#06224C] uppercase tracking-wide text-xs mt-4">6. Changes to Terms</h4>
+      <p>We may update these terms from time to time. Continued use of our services after changes are posted constitutes your acceptance of the revised terms.</p>
+
+      <h4 class="font-black text-[#06224C] uppercase tracking-wide text-xs mt-4">7. Contact</h4>
+      <p>For any questions about these Terms, please contact us at <span class="text-blue-600 font-bold">legal@thestackly.com</span>.</p>
+    `
+  },
+  privacy: {
+    title: "Privacy Policy",
+    body: `
+      <p><strong class="text-[#06224C]">Last updated: May 2026</strong></p>
+
+      <p>Your privacy is important to us. This Privacy Policy explains how Stackly collects, uses, and protects your personal information when you use our platform.</p>
+
+      <h4 class="font-black text-[#06224C] uppercase tracking-wide text-xs mt-4">1. Information We Collect</h4>
+      <p>We collect information you provide directly, such as your name, email address, and payment details when you register or make a purchase. We also automatically collect usage data including your IP address, browser type, pages visited, and time spent on our platform.</p>
+
+      <h4 class="font-black text-[#06224C] uppercase tracking-wide text-xs mt-4">2. How We Use Your Information</h4>
+      <p>We use your data to provide and improve our services, process transactions, send account-related communications, and personalize your experience. We do not sell your personal information to third parties.</p>
+
+      <h4 class="font-black text-[#06224C] uppercase tracking-wide text-xs mt-4">3. Cookies</h4>
+      <p>Stackly uses cookies and similar tracking technologies to enhance your browsing experience, analyze usage patterns, and remember your preferences. You can manage cookie preferences through your browser settings.</p>
+
+      <h4 class="font-black text-[#06224C] uppercase tracking-wide text-xs mt-4">4. Data Sharing</h4>
+      <p>We may share your data with trusted service providers (e.g., payment processors, cloud hosting) who assist in operating our platform. These parties are obligated to keep your information confidential and use it only for the purposes we specify.</p>
+
+      <h4 class="font-black text-[#06224C] uppercase tracking-wide text-xs mt-4">5. Data Security</h4>
+      <p>We implement industry-standard security measures including SSL encryption and secure servers to protect your data. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</p>
+
+      <h4 class="font-black text-[#06224C] uppercase tracking-wide text-xs mt-4">6. Your Rights</h4>
+      <p>You have the right to access, correct, or delete your personal data at any time. To exercise these rights, contact us at <span class="text-blue-600 font-bold">privacy@thestackly.com</span>. We will respond within 30 days.</p>
+
+      <h4 class="font-black text-[#06224C] uppercase tracking-wide text-xs mt-4">7. Children's Privacy</h4>
+      <p>Stackly is not intended for users under 18 years of age. We do not knowingly collect personal information from minors. If you believe a minor has provided us with data, please contact us immediately.</p>
+
+      <h4 class="font-black text-[#06224C] uppercase tracking-wide text-xs mt-4">8. Changes to This Policy</h4>
+      <p>We may update this Privacy Policy periodically. We will notify you of significant changes via email or a prominent notice on our platform.</p>
+    `
+  }
+};
+
+function openLegalModal(type) {
+  const modal = document.getElementById("legalModal");
+  const title = document.getElementById("legalModalTitle");
+  const body = document.getElementById("legalModalBody");
+  const content = legalContent[type];
+  if (!modal || !content) return;
+
+  title.textContent = content.title;
+  body.innerHTML = content.body;
+  modal.classList.remove("hidden");
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden";
+
+  // Scroll to top of modal content
+  body.scrollTop = 0;
+}
+
+function closeLegalModal() {
+  const modal = document.getElementById("legalModal");
+  if (!modal) return;
+  modal.classList.add("hidden");
+  modal.style.display = "none";
+  document.body.style.overflow = "auto";
+}
 
   function initializePage() {
     router();
@@ -4026,6 +4144,7 @@ document.querySelectorAll(".filter-tab").forEach((tab) => {
     closePortfolioModal();
     closeTemplatePreview();
     closeContactModal();
+    closeLegalModal();
     closePanels();
     toggleSearchBar(false);
     toggleMobileMenu(false);
@@ -4033,5 +4152,26 @@ document.querySelectorAll(".filter-tab").forEach((tab) => {
 
   document.addEventListener("DOMContentLoaded", initializePage);
 </script>
+<div id="legalModal" class="fixed inset-0 z-[10000] hidden flex items-center justify-center p-4">
+  <div onclick="closeLegalModal()" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+  <div class="relative z-10 bg-white w-full max-w-2xl max-h-[85vh] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col">
+    
+    <div class="p-5 md:p-7 border-b flex items-center justify-between flex-shrink-0">
+      <h3 id="legalModalTitle" class="text-lg font-black text-[#06224C] uppercase tracking-widest"></h3>
+      <button onclick="closeLegalModal()" class="w-10 h-10 rounded-full bg-gray-100 hover:bg-red-500 hover:text-white transition-all flex items-center justify-center flex-shrink-0 ml-4" type="button" aria-label="Close modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div id="legalModalBody" class="overflow-y-auto p-5 md:p-8 text-sm text-gray-700 leading-relaxed space-y-5 flex-grow">
+    </div>
+
+    <div class="p-4 border-t bg-gray-50 text-center flex-shrink-0">
+      <button onclick="closeLegalModal()" class="bg-[#06224C] text-white px-8 py-2.5 rounded-full font-black uppercase text-xs tracking-widest hover:bg-blue-900 transition" type="button">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
