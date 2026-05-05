@@ -19,7 +19,22 @@
 <link rel="preload" as="image" href="public/landinmble3.webp">
 
   <style>
-  
+ /* Specifically targets the placeholder text to be smaller and handle overflow */
+#searchInput::placeholder {
+  font-size: 0.75rem; /* Equivalent to text-xs */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Specific fix for high zoom (200%) on small screens */
+@media (max-width: 480px) {
+  #searchInput {
+    font-size: 0.7rem; /* Even smaller font for mobile high zoom */
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
     /* High-visibility focus indicator for all buttons and tabs */
 button:focus-visible, 
 .filter-tab:focus-visible,
