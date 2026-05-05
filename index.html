@@ -617,6 +617,12 @@ button:focus-visible,
     transition: all 0.3s ease;
     cursor: pointer;
     font-size: 1.25rem;
+    background: transparent;
+    border: none;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .wishlist-btn .fa-heart {
@@ -1968,9 +1974,9 @@ button:focus-visible,
             <div class="px-2 flex-grow flex flex-col">
               <div class="flex justify-between items-start mb-1 gap-2">
                 <h4 class="product-card-title text-xl font-bold text-[#06224C]">ShopNest</h4>
-                <div onclick="toggleHeart(this, 'ShopNest', 29, 'public/shopnest.webp')" class="wishlist-btn p-1 cursor-pointer flex-shrink-0" role="button" aria-label="Add ShopNest to wishlist">
-                  <i class="fa-regular fa-heart text-2xl"></i>
-                </div>
+                <button type="button" onclick="toggleHeart(this, 'ShopNest', 29, 'public/shopnest.webp')" class="wishlist-btn p-1 cursor-pointer flex-shrink-0" aria-label="Add ShopNest to wishlist">
+    <i class="fa-regular fa-heart text-2xl"></i>
+</button>
               </div>
               <p class="text-xs italic text-gray-500 mb-4">E-commerce Website</p>
               <div class="price-rating-row mb-6 mt-auto">
@@ -2005,9 +2011,10 @@ button:focus-visible,
             <div class="px-2 flex-grow flex flex-col">
               <div class="flex justify-between items-start mb-1 gap-2">
                 <h4 class="product-card-title text-xl font-bold text-[#06224C]">BuySphere</h4>
-                <div onclick="toggleHeart(this, 'BuySphere', 10, 'public/buysphere.webp')" class="wishlist-btn p-1 cursor-pointer flex-shrink-0" role="button" aria-label="Add BuySphere to wishlist">
+                <button type="button" onclick="toggleHeart(this, 'BuySphere', 10, 'public/buysphere.webp')" class="wishlist-btn p-1 cursor-pointer flex-shrink-0" aria-label="Add BuySphere to wishlist">
                   <i class="fa-regular fa-heart text-2xl"></i>
-                </div>
+                </button>
+
               </div>
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
               <div class="price-rating-row mb-6 mt-auto">
@@ -2042,9 +2049,9 @@ button:focus-visible,
             <div class="px-2 flex-grow flex flex-col">
               <div class="flex justify-between items-start mb-1 gap-2">
                 <h4 class="product-card-title text-xl font-bold text-[#06224C]">TurboCart</h4>
-                <div onclick="toggleHeart(this, 'TurboCart', 35, 'public/turbocart.webp')" class="wishlist-btn p-1 cursor-pointer flex-shrink-0" role="button" aria-label="Add TurboCart to wishlist">
+                <button onclick="toggleHeart(this, 'TurboCart', 35, 'public/turbocart.webp')" class="wishlist-btn p-1 cursor-pointer flex-shrink-0" aria-label="Add TurboCart to wishlist">
                   <i class="fa-regular fa-heart text-2xl"></i>
-                </div>
+                </button>
               </div>
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
               <div class="price-rating-row mb-6 mt-auto">
@@ -2079,9 +2086,10 @@ button:focus-visible,
             <div class="px-2 flex-grow flex flex-col">
               <div class="flex justify-between items-start mb-1 gap-2">
                 <h4 class="product-card-title text-xl font-bold text-[#06224C]">MegaBasket</h4>
-                <div onclick="toggleHeart(this, 'MegaBasket', 29, 'public/megabasket.webp')" class="wishlist-btn p-1 cursor-pointer flex-shrink-0" role="button" aria-label="Add MegaBasket to wishlist">
+                <button type="button" onclick="toggleHeart(this, 'MegaBasket', 29, 'public/megabasket.webp')" class="wishlist-btn p-1 cursor-pointer flex-shrink-0" aria-label="Add MegaBasket to wishlist">
                   <i class="fa-regular fa-heart text-2xl"></i>
-                </div>
+                </button>
+
               </div>
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
               <div class="price-rating-row mb-6 mt-auto">
@@ -2116,9 +2124,10 @@ button:focus-visible,
             <div class="px-2 flex-grow flex flex-col">
               <div class="flex justify-between items-start mb-1 gap-2">
                 <h4 class="product-card-title text-xl font-bold text-[#06224C]">NexaStore</h4>
-                <div onclick="toggleHeart(this, 'NexaStore', 10, 'public/nexastore1.webp')" class="wishlist-btn p-1 cursor-pointer flex-shrink-0" role="button" aria-label="Add NexaStore to wishlist">
+                <button type="button" onclick="toggleHeart(this, 'NexaStore', 10, 'public/nexastore1.webp')" class="wishlist-btn p-1 cursor-pointer flex-shrink-0"  aria-label="Add NexaStore to wishlist">
                   <i class="fa-regular fa-heart text-2xl"></i>
-                </div>
+                </button>
+
               </div>
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
               <div class="price-rating-row mb-6 mt-auto">
@@ -2153,9 +2162,10 @@ button:focus-visible,
             <div class="px-2 flex-grow flex flex-col">
               <div class="flex justify-between items-start mb-1 gap-2">
                 <h4 class="product-card-title text-xl font-bold text-[#06224C]">SampleStore</h4>
-                <div onclick="toggleHeart(this, 'SampleStore', 35, 'public/samplestore.webp')" class="wishlist-btn p-1 cursor-pointer flex-shrink-0" role="button" aria-label="Add SampleStore to wishlist">
+                <button type="button" onclick="toggleHeart(this, 'SampleStore', 35, 'public/samplestore.webp')" class="wishlist-btn p-1 cursor-pointer flex-shrink-0"  aria-label="Add SampleStore to wishlist">
                   <i class="fa-regular fa-heart text-2xl"></i>
-                </div>
+                </button>
+
               </div>
               <p class="text-xs italic text-gray-500 mb-4">Template Website</p>
               <div class="price-rating-row mb-6 mt-auto">
