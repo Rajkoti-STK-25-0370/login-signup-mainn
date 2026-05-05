@@ -19,6 +19,24 @@
 <link rel="preload" as="image" href="public/landinmble3.webp">
 
   <style>
+    /* Ensures placeholder text behaves at high zoom levels */
+.truncate-placeholder::placeholder {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Further reduce padding at extreme zoom/small screens */
+@media (max-width: 480px) {
+  #searchBarContainer .max-w-7xl {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  #searchInput {
+    font-size: 16px; /* Prevents iOS auto-zoom on focus */
+  }
+}
     /* High-visibility focus indicator for all buttons and tabs */
 button:focus-visible, 
 .filter-tab:focus-visible,
