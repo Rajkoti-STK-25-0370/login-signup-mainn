@@ -20,19 +20,28 @@
 
   <style>
  /* Specifically targets the placeholder text to be smaller and handle overflow */
+/* Placeholder styling */
 #searchInput::placeholder {
-  font-size: 0.75rem; /* Equivalent to text-xs */
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+  color: #9ca3af;
+  opacity: 1;
 }
 
-/* Specific fix for high zoom (200%) on small screens */
-@media (max-width: 480px) {
+/* Specific fix for high zoom (200%) on mobile */
+@media (max-width: 400px) {
   #searchInput {
-    font-size: 0.7rem; /* Even smaller font for mobile high zoom */
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    /* Shrinking font slightly more allows the full sentence to fit */
+    font-size: 9px !important; 
+    letter-spacing: -0.02em; /* Tightens letters slightly to fit more text */
+  }
+  
+  #searchInput::placeholder {
+    font-size: 9px !important;
+  }
+
+  /* Reduce the size of the search button slightly to gain more space for text */
+  #searchBarContainer button {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 }
     /* High-visibility focus indicator for all buttons and tabs */
@@ -1803,11 +1812,11 @@ button:focus-visible,
     <div id="searchBarContainer" class="invisible opacity-0 fixed left-0 w-full">
       <div class="max-w-7xl mx-auto px-4 md:px-8 py-2">
         <form onsubmit="handleSearch(event)" class="flex items-center border border-gray-300 rounded-lg bg-gray-50 overflow-hidden">
-          <input 
+         <input 
   type="text" 
   id="searchInput" 
   placeholder="What are you looking for?" 
-  class="flex-grow min-w-0 px-3 md:px-5 py-3 bg-transparent outline-none text-gray-700 text-xs md:text-sm truncate-placeholder"
+  class="flex-grow min-w-0 pl-3 md:pl-5 pr-1 py-3 bg-transparent outline-none text-gray-700 text-[10px] md:text-sm"
 >
           <button type="submit" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 border-l border-gray-300 transition">
             <i class="fa-solid fa-magnifying-glass"></i>
