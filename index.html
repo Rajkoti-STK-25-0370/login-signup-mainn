@@ -1805,7 +1805,12 @@ button:focus-visible,
     <div id="searchBarContainer" class="invisible opacity-0 fixed left-0 w-full">
       <div class="max-w-7xl mx-auto px-4 md:px-8 py-2">
         <form onsubmit="handleSearch(event)" class="flex items-center border border-gray-300 rounded-lg bg-gray-50 overflow-hidden">
-          <input type="text" id="searchInput" placeholder="What are you looking for?" class="flex-grow px-2 md:px-4 py-2 bg-transparent outline-none text-gray-700 text-sm truncate-placeholder">
+          <input 
+  type="text" 
+  id="searchInput" 
+  placeholder="What are you looking for?" 
+  class="flex-grow min-w-0 px-3 md:px-5 py-3 bg-transparent outline-none text-gray-700 text-xs md:text-sm truncate-placeholder"
+>
           <button type="submit" class="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 border-l border-gray-300 transition">
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
