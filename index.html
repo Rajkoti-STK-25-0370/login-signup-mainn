@@ -781,6 +781,8 @@ button:focus-visible,
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.6s ease;
+    width: 100%; /* Force it to stay within bounds */
+    box-sizing: border-box;
   }
 
   .reveal.active {
