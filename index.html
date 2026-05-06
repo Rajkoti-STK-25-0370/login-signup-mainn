@@ -3258,25 +3258,29 @@ button:focus-visible,
     const mobileMenu = document.getElementById("mobileMenu");
     const input = document.getElementById("searchInput");
 
+    // NEW: Get dropdown elements to close them
+    const pBtn = document.getElementById("products-dropdown-btn");
+    const pMenu = document.getElementById("products-menu");
+    const cBtn = document.getElementById("category-dropdown-btn");
+    const cMenu = document.getElementById("category-menu");
+
     if (!searchBar) return;
 
     const shouldOpen = typeof forceState === "boolean" ? forceState : searchBar.classList.contains("invisible");
 
-    if (shouldOpen && mobileMenu && !mobileMenu.classList.contains("hidden")) {
-      toggleMobileMenu(false);
-    }
-
     if (shouldOpen) {
-      searchBar.classList.remove("invisible", "opacity-0");
-      searchBar.classList.add("opacity-100");
-      setTimeout(() => {
-        if (input) input.focus();
-      }, 200);
+        // CLOSE dropdowns if we are opening search
+        if(pMenu) pMenu.classList.remove("opacity-100", "visible", "translate-y-0");
+        if(cMenu) cMenu.classList.remove("opacity-100", "visible", "translate-y-0");
+        
+        searchBar.classList.remove("invisible", "opacity-0");
+        searchBar.classList.add("opacity-100");
+        setTimeout(() => { if (input) input.focus(); }, 200);
     } else {
-      searchBar.classList.add("invisible", "opacity-0");
-      searchBar.classList.remove("opacity-100");
+        searchBar.classList.add("invisible", "opacity-0");
+        searchBar.classList.remove("opacity-100");
     }
-  }
+}
 
   function toggleMobileMenu(forceState) {
     const menu = document.getElementById("mobileMenu");
@@ -3793,42 +3797,34 @@ function setupFilterButtonKeyboard() {
     if (!productsBtn || !productsMenu || !categoryBtn || !categoryMenu) return;
 
     const openMenu = (menu, btn) => {
-      menu.classList.add("opacity-100", "visible", "translate-y-0");
-      btn.setAttribute("aria-expanded", "true");
+        menu.classList.add("opacity-100", "visible", "translate-y-0");
+        btn.setAttribute("aria-expanded", "true");
     };
 
     const closeMenu = (menu, btn) => {
-      menu.classList.remove("opacity-100", "visible", "translate-y-0");
-      btn.setAttribute("aria-expanded", "false");
+        menu.classList.remove("opacity-100", "visible", "translate-y-0");
+        btn.setAttribute("aria-expanded", "false");
     };
 
-    const closeAllMenus = () => {
-      closeMenu(productsMenu, productsBtn);
-      closeMenu(categoryMenu, categoryBtn);
+    // New Helper: Closes everything including the search bar
+    const closeEverything = () => {
+        closeMenu(productsMenu, productsBtn);
+        closeMenu(categoryMenu, categoryBtn);
+        toggleSearchBar(false); // Force close search bar
     };
-
-    const isMenuOpen = (menu) => menu.classList.contains("opacity-100");
 
     productsBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-
-      if (isMenuOpen(productsMenu)) {
-        closeMenu(productsMenu, productsBtn);
-      } else {
-        closeMenu(categoryMenu, categoryBtn);
-        openMenu(productsMenu, productsBtn);
-      }
+        e.stopPropagation();
+        const isOpen = productsMenu.classList.contains("opacity-100");
+        closeEverything(); // Close others first
+        if (!isOpen) openMenu(productsMenu, productsBtn);
     });
 
     categoryBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-
-      if (isMenuOpen(categoryMenu)) {
-        closeMenu(categoryMenu, categoryBtn);
-      } else {
-        closeMenu(productsMenu, productsBtn);
-        openMenu(categoryMenu, categoryBtn);
-      }
+        e.stopPropagation();
+        const isOpen = categoryMenu.classList.contains("opacity-100");
+        closeEverything(); // Close others first
+        if (!isOpen) openMenu(categoryMenu, categoryBtn);
     });
 
    [productsBtn, categoryBtn].forEach((button) => {
