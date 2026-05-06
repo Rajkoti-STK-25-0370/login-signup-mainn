@@ -2714,25 +2714,30 @@ button:focus-visible,
     <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6 border-b border-white/10 pb-6">
       <div class="w-full md:w-1/2">
         <h3 class="text-white font-black text-sm mb-4 uppercase tracking-wider">Subscribe to our Updates</h3>
-        <form class="max-w-md flex items-center gap-2" aria-label="Subscribe to updates form">
-          <div class="flex-grow relative">
-            <label for="footerEmailInput" class="sr-only">Email address</label>
-            <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" aria-hidden="true"></i>
-            <input
-              type="email"
-              id="footerEmailInput"
-              name="email"
-              placeholder="Your email"
-              aria-label="Email address"
-              autocomplete="email"
-              required
-              class="w-full pl-11 pr-4 py-3 rounded-full bg-white text-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-            >
-          </div>
-          <button type="submit" aria-label="Subscribe with email" class="text-white hover:text-blue-300 transition group">
-            <i class="fa-solid fa-paper-plane text-xl transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" aria-hidden="true"></i>
-          </button>
-        </form>
+        <form class="w-full max-w-md flex items-center bg-white rounded-full p-1 shadow-md" aria-label="Subscribe to updates form">
+  <div class="flex-grow relative flex items-center">
+    <label for="footerEmailInput" class="sr-only">Email address</label>
+    <!-- Icon inside input area -->
+    <i class="fa-solid fa-envelope absolute left-4 text-gray-400 pointer-events-none" aria-hidden="true"></i>
+    <input
+      type="email"
+      id="footerEmailInput"
+      name="email"
+      placeholder="Your email"
+      required
+      class="w-full pl-11 pr-4 py-3 bg-transparent text-gray-800 text-sm focus:outline-none"
+    >
+  </div>
+
+  <!-- Button is now inside the white container -->
+  <button
+    type="submit"
+    aria-label="Subscribe with email"
+    class="bg-[#0A2357] text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-600 transition-all flex-shrink-0 mr-1 group"
+  >
+    <i class="fa-solid fa-paper-plane text-sm transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true"></i>
+  </button>
+</form>
       </div>
 
       <div class="w-full md:w-auto md:text-right">
