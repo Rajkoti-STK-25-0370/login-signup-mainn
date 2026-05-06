@@ -154,6 +154,8 @@ button:focus-visible,
     width: 100%;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+    position: relative;
   }
 
   body {
@@ -1247,12 +1249,25 @@ button:focus-visible,
 ::-webkit-scrollbar {
   width: 8px;
 }
+/* 1. Target the scrollbar track to remove shadows and backgrounds */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: transparent !important; /* Makes the track invisible */
+  box-shadow: none !important;        /* Removes any inset shadows */
+  border: none !important;            /* Removes any border lines */
 }
+
+/* 2. Target the scrollbar itself (the thumb) if needed */
 ::-webkit-scrollbar-thumb {
   background: #06224c; 
   border-radius: 10px;
+  /* Ensure the thumb itself doesn't have a shadow */
+  box-shadow: none !important; 
+}
+
+/* 3. For Firefox (Limited customization) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #06224c transparent;
 }
   
 </style>
