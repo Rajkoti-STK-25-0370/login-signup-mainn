@@ -2730,8 +2730,7 @@ button:focus-visible,
       </div>
     </div>
 
-    <!-- Middle: 4-column grid -->
-    <!-- FIX: On mobile use 2-col, on md use 4-col. Buttons get whitespace-nowrap to prevent word-break -->
+  
     <div class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8 mb-8">
 
       <div>
@@ -2768,13 +2767,13 @@ button:focus-visible,
           <li>
             <button onclick="openLegalModal('privacy')" class="hover:text-white transition text-left" type="button">
               <span class="hidden sm:inline">Privacy Policy</span>
-              <span class="sm:hidden">Privacy</span>
+              <span class="sm:hidden">Privacy Policy</span>
             </button>
           </li>
           <li>
             <button onclick="openLegalModal('terms')" class="hover:text-white transition text-left" type="button">
               <span class="hidden sm:inline">Terms of Service</span>
-              <span class="sm:hidden">Terms</span>
+              <span class="sm:hidden">Terms Of Service</span>
             </button>
           </li>
           <li><a href="javascript:void(0)" onclick="openContactModal()" class="hover:text-white transition whitespace-nowrap">Contact</a></li>
@@ -2797,33 +2796,33 @@ button:focus-visible,
     </div>
 
     <!-- Bottom: Social icons + Legal links -->
-    <div class="pt-6 border-t border-white/10">
+    <div class="pt-5 border-t border-white/10">
       <div class="flex flex-col items-center gap-6 lg:flex-row lg:justify-between">
 
         <!-- FIX: Force all 6 icons into a single row on mobile using fixed small size -->
-        <div class="flex items-center justify-center gap-2 flex-nowrap w-full lg:w-auto lg:justify-start">
+        <div class="flex items-center justify-center gap-2 flex-wrap w-full lg:w-auto lg:justify-start">
           <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Visit our Facebook page"
-             class="w-9 h-9 md:w-10 md:h-10 bg-white rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all duration-300 flex-shrink-0">
+             class="w-8 h-8 md:w-9 md:h-9 bg-white rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all duration-300 flex-shrink-0">
             <i class="fa-brands fa-facebook-f text-xs md:text-sm"></i>
           </a>
           <a href="https://youtube.com" target="_blank" rel="noreferrer" aria-label="Visit our YouTube channel"
-             class="w-9 h-9 md:w-10 md:h-10 bg-white rounded-full flex items-center justify-center hover:bg-red-600 hover:text-white transition-all duration-300 flex-shrink-0">
+             class="w-8 h-8 md:w-9 md:h-9 bg-white rounded-full flex items-center justify-center hover:bg-red-600 hover:text-white transition-all duration-300 flex-shrink-0">
             <i class="fa-brands fa-youtube text-xs md:text-sm"></i>
           </a>
           <a href="https://www.instagram.com/thestackly" target="_blank" rel="noreferrer" aria-label="Follow us on Instagram"
-             class="w-9 h-9 md:w-10 md:h-10 bg-white rounded-full flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all duration-300 flex-shrink-0">
+             class="w-8 h-8 md:w-9 md:h-9 bg-white rounded-full flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all duration-300 flex-shrink-0">
             <i class="fa-brands fa-instagram text-xs md:text-sm"></i>
           </a>
           <a href="https://pinterest.com" target="_blank" rel="noreferrer" aria-label="Follow us on Pinterest"
-             class="w-9 h-9 md:w-10 md:h-10 bg-white rounded-full flex items-center justify-center hover:bg-red-700 hover:text-white transition-all duration-300 flex-shrink-0">
+             class="w-8 h-8 md:w-9 md:h-9 bg-white rounded-full flex items-center justify-center hover:bg-red-700 hover:text-white transition-all duration-300 flex-shrink-0">
             <i class="fa-brands fa-pinterest text-xs md:text-sm"></i>
           </a>
           <a href="https://x.com/The_Stackly" target="_blank" rel="noreferrer" aria-label="Follow us on X (formerly Twitter)"
-             class="w-9 h-9 md:w-10 md:h-10 bg-white rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300 flex-shrink-0">
+             class="w-8 h-8 md:w-9 md:h-9 bg-white rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300 flex-shrink-0">
             <i class="fa-brands fa-x-twitter text-xs md:text-sm"></i>
           </a>
           <a href="https://in.linkedin.com/company/the-stackly.com" target="_blank" rel="noreferrer" aria-label="Visit our LinkedIn company page"
-             class="w-9 h-9 md:w-10 md:h-10 bg-white rounded-full flex items-center justify-center hover:bg-blue-700 hover:text-white transition-all duration-300 flex-shrink-0">
+             class="w-8 h-8 md:w-9 md:h-9 bg-white rounded-full flex items-center justify-center hover:bg-blue-700 hover:text-white transition-all duration-300 flex-shrink-0">
             <i class="fa-brands fa-linkedin-in text-xs md:text-sm"></i>
           </a>
         </div>
