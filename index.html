@@ -4237,30 +4237,33 @@ document.querySelectorAll(".flyout-menu").forEach((flyout) => {
     `
   },
   pricing: {
-    title: "Pricing Plans",
-    body: `
-      <div class="space-y-6">
-        <div class="flex flex-col gap-4">
-          <div class="p-5 border-2 border-blue-100 rounded-2xl bg-blue-50/30">
-            <div class="flex justify-between items-center mb-2">
-              <span class="font-black text-[#06224C] uppercase tracking-widest text-xs">Starter Plan</span>
-              <span class="text-lg font-black text-blue-600">Free</span>
-            </div>
-            <p class="text-xs text-gray-500">Perfect for personal projects and learning. Includes 3 projects and Stackly subdomain.</p>
+  title: "Pricing Plans",
+  body: `
+    <div class="space-y-6">
+      <div class="flex flex-col gap-4">
+        <!-- Starter Plan -->
+        <div class="p-5 border-2 border-blue-100 rounded-2xl bg-blue-50/30">
+          <div class="flex flex-col mb-3"> <!-- Changed to flex-col for 200% zoom safety -->
+            <span class="font-black text-[#06224C] uppercase tracking-widest text-xs mb-1">Starter Plan</span>
+            <span class="text-lg font-black text-blue-600">Free</span>
           </div>
-          <div class="p-5 border-2 border-blue-600 rounded-2xl bg-white shadow-lg relative overflow-hidden">
-             <div class="absolute top-0 right-0 bg-blue-600 text-white text-[8px] font-black px-3 py-1 uppercase">Popular</div>
-            <div class="flex justify-between items-center mb-2">
-              <span class="font-black text-[#06224C] uppercase tracking-widest text-xs">Professional</span>
-              <span class="text-lg font-black text-blue-600">$150<small class="text-[10px] text-gray-400">/mo</small></span>
-            </div>
-            <p class="text-xs text-gray-500">For serious creators and startups. Unlimited projects, custom domains, and AWS-powered priority hosting.</p>
-          </div>
+          <p class="text-xs text-gray-500">Perfect for personal projects and learning. Includes 3 projects and Stackly subdomain.</p>
         </div>
-        <p class="text-[10px] text-gray-400 italic">Enterprise custom solutions available upon request. All plans include 24/7 technical support and access to our API.</p>
+
+        <!-- Professional Plan -->
+        <div class="p-5 border-2 border-blue-600 rounded-2xl bg-white shadow-lg relative overflow-hidden">
+          <div class="absolute top-0 right-0 bg-blue-600 text-white text-[8px] font-black px-3 py-1 uppercase">Popular</div>
+          <div class="flex flex-col mb-3"> <!-- Changed to flex-col to fix overlapping -->
+            <span class="font-black text-[#06224C] uppercase tracking-widest text-xs mb-1">Professional</span>
+            <span class="text-lg font-black text-blue-600">$150<small class="text-[10px] text-gray-400">/mo</small></span>
+          </div>
+          <p class="text-xs text-gray-500">For serious creators and startups. Unlimited projects, custom domains, and AWS-powered priority hosting.</p>
+        </div>
       </div>
-    `
-  },
+      <p class="text-[10px] text-gray-400 italic">Enterprise custom solutions available upon request. All plans include 24/7 technical support and access to our API.</p>
+    </div>
+  `
+},
   changelog: {
     title: "Product Changelog",
     body: `
