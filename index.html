@@ -4387,28 +4387,34 @@ document.querySelectorAll(".filter-tab").forEach((tab) => {
     });
 
     const footerForm = document.querySelector("footer form");
-    if (footerForm) {
-      footerForm.addEventListener("submit", function (event) {
-        event.preventDefault();
+if (footerForm) {
+  footerForm.addEventListener("submit", function (event) {
+    event.preventDefault();
 
-        const emailInput = document.getElementById("footerEmailInput");
-        const emailValue = emailInput.value.trim();
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailInput = document.getElementById("footerEmailInput");
+    const emailValue = emailInput.value.trim();
+    
+    // STRICT REGEX: Ensures email has @ and at least a 2-character domain extension (e.g., .com, .in)
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
-        if (!emailValue) {
-          showNotification("Please enter an email address.", "Error");
-          return;
-        }
-
-        if (!emailPattern.test(emailValue)) {
-          showNotification("Please enter a valid email (e.g., test@gmail.com).", "Invalid Email");
-          return;
-        }
-
-        showNotification("Subscribed successfully!", "Success");
-        emailInput.value = "";
-      });
+    if (!emailValue) {
+      showNotification("Please enter an email address.", "Error");
+      emailInput.focus();
+      return;
     }
+
+    if (!emailPattern.test(emailValue)) {
+      
+      showNotification("Please enter a valid email (e.g., name@gmail.com).", "Invalid Email");
+      emailInput.focus();
+      return;
+    }
+
+    // If valid
+    showNotification("Subscribed successfully!", "Success");
+    emailInput.value = "";
+  });
+}
 
     const footerLogo = document.getElementById("footerLogo");
     if (footerLogo) {
