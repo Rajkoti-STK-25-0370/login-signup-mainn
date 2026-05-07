@@ -997,7 +997,15 @@ button:focus-visible,
   .faq-item {
     width: 100%;
     position: relative;
+    overflow: visible !important;
   }
+  .faq-item button:focus-visible {
+  outline: 3px solid #2563eb !important;
+  outline-offset: 2px;
+  border-radius: 1rem;
+  z-index: 10;
+  position: relative;
+}
 
   .faq-item button {
     display: flex !important;
@@ -2834,30 +2842,31 @@ button:focus-visible,
 
         <!-- FIX: Force all 6 icons into a single row on mobile using fixed small size -->
         <div class="flex items-center justify-center gap-2 flex-wrap w-full lg:w-auto lg:justify-start">
-          <a href="https://facebook.com" target="_blank" rel="noreferrer" aria-label="Visit our Facebook page"
+          <a href="https://www.facebook.com/thestackly/" target="_blank" rel="noreferrer" aria-label="Visit our Facebook page"
              class="w-7 h-7 md:w-8 md:h-8 bg-white rounded-full flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all duration-300 flex-shrink-0">
             <i class="fa-brands fa-facebook-f text-xs md:text-sm"></i>
           </a>
-          <a href="https://youtube.com" target="_blank" rel="noreferrer" aria-label="Visit our YouTube channel"
+          <a href="https://www.youtube.com/@TheStackly" target="_blank" rel="noreferrer" aria-label="Visit our YouTube channel"
              class="w-7 h-7 md:w-8 md:h-8 bg-white rounded-full flex items-center justify-center hover:bg-red-600 hover:text-white transition-all duration-300 flex-shrink-0">
             <i class="fa-brands fa-youtube text-xs md:text-sm"></i>
           </a>
-          <a href="https://www.instagram.com/thestackly" target="_blank" rel="noreferrer" aria-label="Follow us on Instagram"
+          <a href="https://www.instagram.com/the_stackly" target="_blank" rel="noreferrer" aria-label="Follow us on Instagram"
              class="w-7 h-7 md:w-8 md:h-8 bg-white rounded-full flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all duration-300 flex-shrink-0">
             <i class="fa-brands fa-instagram text-xs md:text-sm"></i>
           </a>
-          <a href="https://pinterest.com" target="_blank" rel="noreferrer" aria-label="Follow us on Pinterest"
-             class="w-7 h-7 md:w-8 md:h-8 bg-white rounded-full flex items-center justify-center hover:bg-red-700 hover:text-white transition-all duration-300 flex-shrink-0">
-            <i class="fa-brands fa-pinterest text-xs md:text-sm"></i>
-          </a>
+          
           <a href="https://x.com/The_Stackly" target="_blank" rel="noreferrer" aria-label="Follow us on X (formerly Twitter)"
              class="w-7 h-7 md:w-8 md:h-8 bg-white rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-all duration-300 flex-shrink-0">
             <i class="fa-brands fa-x-twitter text-xs md:text-sm"></i>
           </a>
-          <a href="https://in.linkedin.com/company/the-stackly.com" target="_blank" rel="noreferrer" aria-label="Visit our LinkedIn company page"
+          <a href="https://in.linkedin.com/company/the-stackly/" target="_blank" rel="noreferrer" aria-label="Visit our LinkedIn company page"
              class="w-7 h-7 md:w-8 md:h-8 bg-white rounded-full flex items-center justify-center hover:bg-blue-700 hover:text-white transition-all duration-300 flex-shrink-0">
             <i class="fa-brands fa-linkedin-in text-xs md:text-sm"></i>
           </a>
+          <a href="https://www.thestackly.com/" target="_blank" rel="noreferrer" aria-label="Visit Official Website"
+     class="w-7 h-7 md:w-8 md:h-8 bg-white rounded-full flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300 flex-shrink-0">
+    <i class="fa-solid fa-globe text-xs md:text-sm text-[#0A1E3D] hover:text-white"></i>
+  </a>
         </div>
 
         <!-- FIX: Terms/Privacy/Copyright stack neatly centered on mobile, right-aligned on desktop -->
@@ -4387,34 +4396,28 @@ document.querySelectorAll(".filter-tab").forEach((tab) => {
     });
 
     const footerForm = document.querySelector("footer form");
-if (footerForm) {
-  footerForm.addEventListener("submit", function (event) {
-    event.preventDefault();
+    if (footerForm) {
+      footerForm.addEventListener("submit", function (event) {
+        event.preventDefault();
 
-    const emailInput = document.getElementById("footerEmailInput");
-    const emailValue = emailInput.value.trim();
-    
-    // STRICT REGEX: Ensures email has @ and at least a 2-character domain extension (e.g., .com, .in)
-    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        const emailInput = document.getElementById("footerEmailInput");
+        const emailValue = emailInput.value.trim();
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailValue) {
-      showNotification("Please enter an email address.", "Error");
-      emailInput.focus();
-      return;
+        if (!emailValue) {
+          showNotification("Please enter an email address.", "Error");
+          return;
+        }
+
+        if (!emailPattern.test(emailValue)) {
+          showNotification("Please enter a valid email (e.g., test@gmail.com).", "Invalid Email");
+          return;
+        }
+
+        showNotification("Subscribed successfully!", "Success");
+        emailInput.value = "";
+      });
     }
-
-    if (!emailPattern.test(emailValue)) {
-      
-      showNotification("Please enter a valid email (e.g., name@gmail.com).", "Invalid Email");
-      emailInput.focus();
-      return;
-    }
-
-    // If valid
-    showNotification("Subscribed successfully!", "Success");
-    emailInput.value = "";
-  });
-}
 
     const footerLogo = document.getElementById("footerLogo");
     if (footerLogo) {
