@@ -160,9 +160,9 @@ button:focus-visible,
 
   body {
     font-family: Arial, Helvetica, sans-serif;
-    min-height: 100%;
+    min-height: auto;
     position: relative;
-    overflow-y: auto;
+    overflow-y: visible;
     overflow-x: hidden;
     width: 100%;
     margin: 0;
@@ -373,6 +373,7 @@ button:focus-visible,
     width: 100%;
     overflow-x: hidden;
     scroll-padding-top: 80px;
+    z-index: 1;
   }
 
   #homePage .w-full.max-w-7xl {
@@ -3016,9 +3017,9 @@ button:focus-visible,
     </div>
   </div>
 
-  <div id="templatePreviewModal" class="fixed inset-0 z-[10000] hidden flex items-center justify-center p-4">
+  <div id="templatePreviewModal" class="fixed inset-0 z-[10000] hidden flex items-center  justify-center p-4">
     <div onclick="closeTemplatePreview()" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
-    <div class="bg-white w-full max-w-5xl max-h-[90vh] rounded-3xl relative z-10 overflow-hidden shadow-2xl">
+    <div class="bg-white w-full  max-w-5xl max-h-[90vh] rounded-3xl relative z-10 overflow-y-auto shadow-2xl">
       <div class="p-6 border-b flex justify-between items-center bg-gray-50">
         <h3 id="previewTitle" class="text-xl font-black text-[#06224C]">Template Preview</h3>
         <button onclick="closeTemplatePreview()" class="w-10 h-10 rounded-full bg-white shadow flex items-center justify-center hover:bg-red-500 hover:text-white transition-all" type="button">
@@ -4386,7 +4387,9 @@ document.querySelectorAll(".filter-tab").forEach((tab) => {
     });
     document.querySelectorAll(".template-category-card").forEach((card) => {
   if (card.style.display === "none") {
-    card.inert = true;
+    card.setAttribute('inert', '');
+  } else {
+    card.removeAttribute('inert');
   }
 });
 
