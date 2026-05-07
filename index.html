@@ -19,6 +19,17 @@
 <link rel="preload" as="image" href="public/landinmble3.webp">
 
   <style>
+    /* Prevent words from breaking out of cards */
+h1, h2, h3, h4, p {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Specifically for the product titles in the cards */
+.product-card-title {
+  word-break: break-word; /* Force break if name is too long */
+}
  /* Specifically targets the placeholder text to be smaller and handle overflow */
 /* Placeholder styling */
 #searchInput::placeholder {
