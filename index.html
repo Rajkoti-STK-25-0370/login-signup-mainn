@@ -320,6 +320,19 @@ button:focus-visible,
     pointer-events: auto;
   }
 
+  body.search-overlay-open .dropdown-group:hover #category-menu,
+  body.search-overlay-open .dropdown-group:hover #products-menu,
+  body.search-overlay-open #category-dropdown-btn:focus + #category-menu,
+  body.search-overlay-open #products-dropdown-btn:focus + #products-menu,
+  body.search-overlay-open .dropdown-group:focus-within #category-menu,
+  body.search-overlay-open .dropdown-group:focus-within #products-menu {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(0.5rem) !important;
+    pointer-events: none !important;
+  }
+
  #mobileMenu {
   position: fixed;
   left: 0;
@@ -676,6 +689,13 @@ button:focus-visible,
   #wishlistSidebar,
   #cartSidebar {
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #cartSidebar.translate-x-full,
+  #wishlistSidebar.translate-x-full,
+  #privacySidebar.translate-x-full,
+  #termsSidebar.translate-x-full {
+    box-shadow: none !important;
   }
 
   #popular-searches .flex {
@@ -1273,36 +1293,31 @@ button:focus-visible,
     background: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
   }
-  /* Custom scrollbar styling to prevent gap lines */
-::-webkit-scrollbar {
-  width: 8px;
-}
- /* scrollbar tracs removing shadows */
-::-webkit-scrollbar-track {
-  background: transparent !important; 
-  box-shadow: none !important;        
-  border: none !important;            
-}
-
-/* Target the scrollbar itself (the thumb) if needed */
-::-webkit-scrollbar-thumb {
-  background: #06224c; 
-  border-radius: 10px;
-
-  box-shadow: none !important; 
-}
-#cartSidebar.translate-x-full,
-  #wishlistSidebar.translate-x-full,
-  #privacySidebar.translate-x-full,
-  #termsSidebar.translate-x-full {
-    box-shadow: none !important;
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
   }
 
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-track-piece,
+  ::-webkit-scrollbar-corner {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: 0 !important;
+  }
 
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #06224c transparent;
-}
+  ::-webkit-scrollbar-thumb {
+    background: #06224c;
+    border-radius: 10px;
+    box-shadow: none !important;
+    border: 0 !important;
+  }
+
+  html,
+  body {
+    scrollbar-width: thin;
+    scrollbar-color: #06224c transparent;
+  }
   
   @media (max-width: 480px) {
   footer form {
@@ -3458,11 +3473,15 @@ button:focus-visible,
         // CLOSE dropdowns if we are opening search
         if(pMenu) pMenu.classList.remove("opacity-100", "visible", "translate-y-0");
         if(cMenu) cMenu.classList.remove("opacity-100", "visible", "translate-y-0");
+        if(pBtn) pBtn.setAttribute("aria-expanded", "false");
+        if(cBtn) cBtn.setAttribute("aria-expanded", "false");
         
+        document.body.classList.add("search-overlay-open");
         searchBar.classList.remove("invisible", "opacity-0");
         searchBar.classList.add("opacity-100");
         setTimeout(() => { if (input) input.focus(); }, 200);
     } else {
+        document.body.classList.remove("search-overlay-open");
         searchBar.classList.add("invisible", "opacity-0");
         searchBar.classList.remove("opacity-100");
     }
@@ -4024,6 +4043,15 @@ function setupFilterButtonKeyboard() {
         closeMenu(categoryMenu, categoryBtn);
         toggleSearchBar(false); // Force close search bar
     };
+
+    document.querySelectorAll(".dropdown-group").forEach((group) => {
+      group.addEventListener("mouseenter", () => {
+        const searchBar = document.getElementById("searchBarContainer");
+        if (searchBar && !searchBar.classList.contains("invisible")) {
+          toggleSearchBar(false);
+        }
+      });
+    });
 
     productsBtn.addEventListener("click", (e) => {
         e.stopPropagation();
