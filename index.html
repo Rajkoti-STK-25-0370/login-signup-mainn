@@ -1323,6 +1323,38 @@ button:focus-visible,
     flex-shrink: 0 !important;
   }
 }
+@media (max-width: 768px) {
+  footer .w-full.md\:w-1\/2 form {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  footer form {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  #footerEmailInput {
+    font-size: 12px !important;
+    padding-left: 2rem !important;
+    padding-right: 0.25rem !important;
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  footer form .fa-envelope {
+    left: 0.5rem !important;
+    font-size: 10px !important;
+  }
+
+  footer form button[type="submit"] {
+    width: 2rem !important;
+    height: 2rem !important;
+    min-width: 2rem !important;
+    flex-shrink: 0 !important;
+    margin-right: 0 !important;
+  }
+}
 </style>
 
 </head>
@@ -2782,7 +2814,7 @@ button:focus-visible,
     <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-6 border-b border-white/10 pb-6">
       <div class="w-full md:w-1/2">
         <h3 class="text-white font-black text-sm mb-4 uppercase tracking-wider">Subscribe to our Updates</h3>
-        <form class="w-full flex items-center bg-white rounded-full p-1 shadow-md overflow-hidden" aria-label="Subscribe to updates form" novalidate style="max-width: min(100%, 28rem);">
+        <form class="w-full max-w-md md:max-w-md flex items-center bg-white rounded-full p-1 shadow-md overflow-hidden" aria-label="Subscribe to updates form" novalidate>
   <div class="flex-grow relative flex items-center">
     <label for="footerEmailInput" class="sr-only">Email address</label>
     <!-- Icon inside input area -->
